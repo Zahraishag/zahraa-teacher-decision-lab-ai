@@ -703,3 +703,25 @@ if (generatePlanButton) {
     }
   );
 }
+const showSessionsButton =
+  document.getElementById("show-sessions");
+
+if (showSessionsButton) {
+  showSessionsButton.addEventListener("click", () => {
+    const session = getSession();
+
+    if (!session || !session.sessionId) {
+      alert("لا توجد جلسات محفوظة حتى الآن.");
+      return;
+    }
+
+    const details = [
+      `المادة: ${session.subject || "غير محدد"}`,
+      `الصف: ${session.gradeLevel || "غير محدد"}`,
+      `الموضوع: ${session.lessonTopic || "غير محدد"}`,
+      `حالة الجلسة: ${session.sessionStatus || "غير محدد"}`
+    ].join("\\n");
+
+    alert(`آخر جلسة محفوظة:\\n\\n${details}`);
+  });
+}
