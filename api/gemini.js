@@ -1,100 +1,135 @@
 const MODEL_NAME = "gemini-2.5-flash";
 
-export default {
-  async fetch(request) {
-    if (request.method !== "POST") {
-      return Response.json(
-        { error: "يجب استخدام طلب POST." },
-        { status: 405 }
-      );
-    }
-
-    const apiKey = process.env.GEMINI_API_KEY;
-
-    if (!apiKey) {
-      return Response.json(
-        { error: "مفتاح Gemini غير مضاف إلى إعدادات Vercel." },
-        { status: 500 }
-      );
-    }
-
-    try {
-      const { task, session } = await request.json();
-
-      if (!task || !session) {
-        return Response.json(
-          { error: "بيانات المهمة والجلسة مطلوبة." },
-          { status: 400 }
-        );
-      }
-
-      const prompt = buildPrompt(task, session);
-
-      const geminiResponse = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "x-goog-api-key": apiKey
-          },
-          body: JSON.stringify({
-            contents: [
-              {
-                role: "user",
-                parts: [{ text: prompt }]
-              }
-            ],
-            generationConfig: {
-              temperature: 0.3,
-              maxOutputTokens: 4096
-            }
-          })
-        }
-      );
-
-      const data = await geminiResponse.json();
-
-      if (!geminiResponse.ok) {
-        console.error("Gemini API error:", data);
-
-        return Response.json(
-          {
-            error:
-              data?.error?.message ||
-              "حدث خطأ أثناء الاتصال بخدمة Gemini."
-          },
-          { status: geminiResponse.status }
-        );
-      }
-
-      const text = data?.candidates?.[0]?.content?.parts
-        ?.map((part) => part.text || "")
-        .join("")
-        .trim();
-
-      if (!text) {
-        return Response.json(
-          { error: "لم يُرجع Gemini استجابة نصية." },
-          { status: 502 }
-        );
-      }
-
-      return Response.json({ text });
-    } catch (error) {
-      console.error("Server error:", error);
-
-      return Response.json(
-        { error: "تعذر تشغيل محرك القرار. حاولي مرة أخرى." },
-        { status: 500 }
-      );
-    }
+export default async function handler(request, response) {
+  if (request.method !== "POST") {
+    return response.status(405).json({
+      error: "يجب استخدام طلب POST."
+    });
   }
-};
+
+  /*
+   * تنظيف مفتاح Gemini:
+   * - حذف GEMINI_API_KEY= إن لُصقت مع المفتاح.
+   * - حذف علامات الاقتباس.
+   * - حذف المسافات والأسطر والرموز الخفية.
+   */
+  const rawApiKey = String(
+    process.env.GEMINI_API_KEY || ""
+  );
+
+  const apiKey = rawApiKey
+    .replace(/^GEMINI_API_KEY\s*=\s*/i, "")
+    .replace(/^["']+|["']+$/g, "")
+    .replace(/[\u0000-\u001F\u007F-\u009F\s]/g, "")
+    .trim();
+
+  if (!apiKey) {
+    return response.status(500).json({
+      error:
+        "مفتاح Gemini غير موجود. أضيفي GEMINI_API_KEY في إعدادات Vercel ثم أعيدي النشر."
+    });
+  }
+
+  /*
+   * يمنع إرسال قيمة غير صالحة إلى Headers.append.
+   * مفاتيح API المعتادة تتكون من حروف وأرقام وشرطة وشرطة سفلية.
+   */
+  if (!/^[A-Za-z0-9_-]+$/.test(apiKey)) {
+    return response.status(500).json({
+      error:
+        "قيمة GEMINI_API_KEY تحتوي على رموز غير صالحة. انسخي المفتاح وحده دون علامات اقتباس أو اسم المتغير."
+    });
+  }
+
+  try {
+    const body =
+      typeof request.body === "string"
+        ? JSON.parse(request.body)
+        : request.body;
+
+    const { task, session } = body || {};
+
+    if (!task || !session) {
+      return response.status(400).json({
+        error: "بيانات المهمة والجلسة مطلوبة."
+      });
+    }
+
+    const prompt = buildPrompt(task, session);
+
+    const geminiResponse = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent`,
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+          "x-goog-api-key": apiKey
+        },
+
+        body: JSON.stringify({
+          contents: [
+            {
+              role: "user",
+              parts: [
+                {
+                  text: prompt
+                }
+              ]
+            }
+          ],
+
+          generationConfig: {
+            temperature: 0.25,
+            maxOutputTokens: 5000
+          }
+        })
+      }
+    );
+
+    const data = await geminiResponse.json();
+
+    if (!geminiResponse.ok) {
+      console.error(
+        "Gemini API error:",
+        JSON.stringify(data)
+      );
+
+      return response.status(geminiResponse.status).json({
+        error:
+          data?.error?.message ||
+          "حدث خطأ أثناء الاتصال بخدمة Gemini."
+      });
+    }
+
+    const text = data?.candidates?.[0]?.content?.parts
+      ?.map((part) => part.text || "")
+      .join("")
+      .trim();
+
+    if (!text) {
+      return response.status(502).json({
+        error: "لم يُرجع Gemini استجابة نصية."
+      });
+    }
+
+    return response.status(200).json({
+      text
+    });
+  } catch (error) {
+    console.error("Server error:", error);
+
+    return response.status(500).json({
+      error:
+        error?.message ||
+        "تعذر تشغيل محرك القرار. حاولي مرة أخرى."
+    });
+  }
+}
 
 function buildPrompt(task, session) {
   const rules = `
-أنت محرك الاستدلال التربوي في منصة:
+أنت محرك الاستدلال التربوي داخل منصة:
 ZAHRAA™ Teacher Decision Lab
 مختبر زهراء للقرار التربوي.
 
@@ -103,19 +138,28 @@ ZAHRAA™ Teacher Decision Lab
 - القرار النهائي دائمًا بيد المعلم.
 - لا تخترع أرقامًا أو نسبًا أو أزمنة غير موجودة في البيانات.
 - افصل بين دليل المعلم والقيد التنفيذي والتفضيل المهني واستنتاج النظام.
+- لا تستخدم خيارات ثنائية كاذبة.
 - استخدم لغة عربية واضحة ومهنية.
 - راجع الأخطاء اللغوية قبل إخراج النتيجة.
 `;
 
   const context = `
-بيانات الموقف:
-
 المادة: ${session.subject || "غير محدد"}
-الصف أو المرحلة: ${session.gradeLevel || "غير محدد"}
-موضوع الدرس: ${session.lessonTopic || "غير محدد"}
-مدة الحصة: ${session.lessonDuration || "غير محدد"}
-عدد الطلاب: ${session.studentCount || "غير محدد"}
-مستوى الطلاب: ${session.studentLevel || "غير محدد"}
+
+الصف أو المرحلة:
+${session.gradeLevel || "غير محدد"}
+
+موضوع الدرس:
+${session.lessonTopic || "غير محدد"}
+
+مدة الحصة:
+${session.lessonDuration || "غير محدد"}
+
+عدد الطلاب:
+${session.studentCount || "غير محدد"}
+
+مستوى الطلاب:
+${session.studentLevel || "غير محدد"}
 
 الهدف التعليمي:
 ${session.learningGoal || "غير محدد"}
@@ -136,34 +180,35 @@ ${session.adaptiveAnswer || "لا توجد إجابة بعد"}
   if (task === "adaptive_question") {
     return `
 ${rules}
+
 ${context}
 
 المطلوب:
 1. حلل الموقف دون إنشاء خطة.
 2. حدد معلومة واحدة ناقصة تؤثر فعلًا في القرار.
 3. اطرح سؤالًا واحدًا فقط.
-4. صنّف السؤال إلى:
-   - سؤال تشخيصي
-   - قيد تنفيذي
-   - تفضيل مهني
-5. اشرح في جملة قصيرة سبب تأثير الإجابة.
-6. تجنب الخيارات الثنائية الكاذبة.
-7. اسمح للمعلم بإجابة مفتوحة.
+4. صنف السؤال إلى:
+   - سؤال تشخيصي.
+   - قيد تنفيذي.
+   - تفضيل مهني.
+5. اشرح باختصار سبب تأثير الإجابة.
+6. اسمح بإجابة مفتوحة.
 
-اكتب النتيجة بهذا الشكل:
+اكتب النتيجة بهذه الصيغة بالضبط:
 
-نوع السؤال:
-السؤال:
-لماذا نسأل؟
+نوع السؤال: ...
+السؤال: ...
+لماذا نسأل؟: ...
 `;
   }
 
   if (task === "context_summary") {
     return `
 ${rules}
+
 ${context}
 
-أنشئ ملخصًا موجزًا وافصل بين:
+أنشئ ملخصًا موجزًا تحت العناوين التالية:
 
 1. الأدلة التي قدمها المعلم.
 2. القيود التنفيذية.
@@ -181,11 +226,13 @@ ${context}
   if (task === "alternatives") {
     return `
 ${rules}
+
 ${context}
 
 أنشئ ثلاثة بدائل تربوية مختلفة جوهريًا.
 
 يجب أن يختلف كل بديل عن الآخرين في متغيرين تربويين على الأقل من:
+
 - نقطة بداية التعلم.
 - تسلسل بناء المفهوم.
 - دور المعلم.
@@ -196,18 +243,21 @@ ${context}
 - المخرج الأساسي.
 
 لكل بديل اكتب:
+
 - اسم القرار.
 - الفجوة التي يعالجها.
 - منطق التدريس.
 - نقطة البداية.
+- تسلسل بناء المفهوم.
 - دور المعلم.
 - دور الطالب.
 - نوع التقويم.
+- نوع التمايز.
 - المخرج الأقوى.
-- ما قد لا يتحقق.
+- ما قد لا يتحقق بصورة كافية.
 - القيد الذي قد يمنع اختياره.
 
-لا تقارن ولا ترشح قرارًا ولا تنشئ خطة تنفيذ.
+لا تقارن، ولا ترشح، ولا تنشئ خطة تنفيذ.
 `;
   }
 
@@ -220,25 +270,30 @@ ${context}
 
     return `
 ${rules}
+
 ${context}
 
 القرار الذي وافق عليه المعلم:
-${session.approvedDecision || "المدخل المفاهيمي البصري"}
+${session.approvedDecision || "غير محدد"}
 
-أنشئ خطة تنفيذ تراعي مدة الحصة المدخلة، وتتضمن:
+أنشئ خطة تنفيذ تراعي مدة الحصة التي أدخلها المعلم.
 
-1. هدفًا قابلًا للقياس.
+يجب أن تتضمن:
+
+1. هدفًا تعليميًا قابلًا للقياس.
 2. معايير نجاح.
 3. توزيع زمن لا يتجاوز مدة الحصة.
 4. تمهيدًا.
 5. خطوات التنفيذ.
-6. دور المعلم والطالب.
-7. التمايز.
-8. التقويم التكويني.
-9. نقطة قرار أثناء التنفيذ.
-10. الإغلاق وبطاقة الخروج.
+6. دور المعلم.
+7. دور الطالب.
+8. التمايز.
+9. التقويم التكويني.
+10. نقطة قرار أثناء التنفيذ.
+11. الإغلاق وبطاقة الخروج.
 
-وضّح أن الخطة قابلة لتعديل المعلم.
+لا تضف زمنًا يتجاوز مدة الحصة.
+وضح أن الخطة قابلة لتعديل المعلم.
 `;
   }
 
