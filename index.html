@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>مختبر زهراء للقرار التربوي</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+<header class="site-header">
+  <div class="brand"><div class="brand-mark">Z</div><div><h1>مختبر زهراء للقرار التربوي</h1><p>ZAHRAA™ Teacher Decision Lab</p></div></div>
+  <span class="badge">نسخة أولية MVP</span>
+</header>
+<main class="container">
+  <section id="home" class="screen active">
+    <div class="hero card">
+      <span class="eyebrow">القرار قبل التوليد</span>
+      <h2>لا تبدأ بخطة الدرس… ابدأ بالقرار الصحيح.</h2>
+      <p>حلّل موقفك التعليمي، قارن بين ثلاثة قرارات تربوية مختلفة، ثم اختر القرار الأنسب قبل إنشاء خطة التنفيذ.</p>
+      <div class="actions"><button class="primary" data-go="context">ابدأ تحليل موقف تعليمي</button><button class="secondary" disabled>عرض جلساتي السابقة</button></div>
+      <p class="note">الذكاء الاصطناعي يقترح ويقارن، والمعلم يراجع ويقرر.</p>
+    </div>
+    <div class="steps">
+      <article><b>1</b><h3>صف الموقف</h3><p>أدخل معلومات الدرس والتحدي الحقيقي.</p></article>
+      <article><b>2</b><h3>أجب عن أسئلة مؤثرة</h3><p>سؤال واحد في كل مرة مع سبب طرحه.</p></article>
+      <article><b>3</b><h3>قارن البدائل</h3><p>قرارات مختلفة مع أدلة ودرجة ثقة.</p></article>
+      <article><b>4</b><h3>اتخذ القرار</h3><p>وافق أو عدّل ثم أنشئ خطة التنفيذ.</p></article>
+    </div>
+  </section>
+
+  <section id="context" class="screen">
+    <div class="heading"><div><span class="eyebrow">الخطوة 1 من 4</span><h2>أدخل سياق الموقف التعليمي</h2><p>لا تذكر أسماء الطلاب أو بياناتهم الشخصية.</p></div><button class="link" data-go="home">العودة</button></div>
+    <form id="contextForm" class="card form-card">
+      <div class="grid">
+        <label>المادة *<input id="subject" required placeholder="مثال: الرياضيات"></label>
+        <label>الصف أو المرحلة *<input id="gradeLevel" required placeholder="مثال: الصف السادس الابتدائي"></label>
+        <label>موضوع الدرس *<input id="lessonTopic" required placeholder="مثال: مقارنة الكسور"></label>
+        <label>مدة الحصة بالدقائق *<input id="lessonDuration" type="number" min="1" required placeholder="45"></label>
+        <label>عدد الطلاب<input id="studentCount" type="number" min="1" placeholder="28"></label>
+        <label>مستوى الطلاب<select id="studentLevel"><option value="">اختر</option><option>متعثر</option><option>متوسط</option><option>متقدم</option><option>متفاوت</option></select></label>
+      </div>
+      <label>الهدف التعليمي *<textarea id="learningGoal" required rows="3"></textarea></label>
+      <label>التحدي أو الموقف الذي يحتاج إلى قرار *<textarea id="classChallenge" required rows="5"></textarea></label>
+      <label>الموارد المتاحة<textarea id="availableResources" rows="2"></textarea></label>
+      <label>قيود أو تفضيلات إضافية<textarea id="additionalConstraints" rows="3"></textarea></label>
+      <div id="formMessage" class="message"></div>
+      <div class="actions"><button class="primary" type="submit">حلّل الموقف</button><button class="secondary" type="button" id="fillExample">استخدام المثال التجريبي</button></div>
+    </form>
+  </section>
+
+  <section id="adaptive" class="screen">
+    <div class="heading"><div><span class="eyebrow">الخطوة 2 من 4</span><h2>الأسئلة التكيفية</h2><p>الربط الفعلي مع Gemini سيكون في المرحلة التالية.</p></div><button class="link" data-go="context">تعديل السياق</button></div>
+    <div class="card form-card">
+      <span class="badge">سؤال تشخيصي</span>
+      <h3>ما مستوى امتلاك الطلاب السابق لمهارة إيجاد الكسور المتكافئة واستخدام التمثيل البصري؟</h3>
+      <p class="why"><strong>لماذا نسأل؟</strong> لأن الإجابة ستؤثر في نقطة بداية التعلم وتسلسل بناء المفهوم.</p>
+      <textarea id="adaptiveAnswer" rows="5" placeholder="اكتب وصفًا موجزًا لواقع الطلاب..."></textarea>
+      <div class="actions"><button class="primary" id="saveAnswer">إرسال الإجابة</button><button class="secondary" id="notSure">لست متأكدًا</button></div>
+    </div>
+    <div id="summary" class="card form-card hidden"><span class="eyebrow">ملخص أولي</span><h3>ما فهمه النظام حتى الآن</h3><div id="summaryContent"></div><div class="actions"><button class="primary" data-go="alternatives">صحيح، تابع</button><button class="secondary" data-go="context">تعديل البيانات</button></div></div>
+  </section>
+
+  <section id="alternatives" class="screen">
+    <div class="heading"><div><span class="eyebrow">الخطوة 3 من 4</span><h2>البدائل التربوية</h2><p>نموذج أولي لعرض ثلاثة قرارات مختلفة جوهريًا.</p></div></div>
+    <div class="alts">
+      <article class="card"><span class="badge">البديل الأول</span><h3>المدخل المفاهيمي البصري</h3><p><strong>نقطة البداية:</strong> نماذج بصرية جاهزة.</p><p><strong>المخرج الأقوى:</strong> فهم معنى البسط والمقام.</p></article>
+      <article class="card"><span class="badge">البديل الثاني</span><h3>التضارب المعرفي وتحليل الأخطاء</h3><p><strong>نقطة البداية:</strong> إجابة خاطئة شائعة.</p><p><strong>المخرج الأقوى:</strong> التبرير الرياضي.</p></article>
+      <article class="card"><span class="badge">البديل الثالث</span><h3>الجسر الإجرائي المفهومي</h3><p><strong>نقطة البداية:</strong> كسور متكافئة وتمثيل مزدوج.</p><p><strong>المخرج الأقوى:</strong> طلاقة إجرائية مع فهم.</p></article>
+    </div>
+    <div class="card form-card"><span class="eyebrow">التوصية المشروطة</span><h3>المدخل المفاهيمي البصري</h3><p>يُوصى به مبدئيًا لأنه يعالج الفجوة الأساسية ويتوافق مع أولوية المعلم.</p><div class="actions"><button class="primary" data-go="approval">مراجعة القرار</button><button class="secondary" data-go="adaptive">العودة للأسئلة</button></div></div>
+  </section>
+
+  <section id="approval" class="screen">
+    <div class="heading"><div><span class="eyebrow">الخطوة 4 من 4</span><h2>موافقة المعلم</h2><p>لن تُنشأ الخطة قبل موافقتك الصريحة.</p></div></div>
+    <div class="card form-card"><h3>القرار المقترح: المدخل المفاهيمي البصري</h3><label class="check"><input type="checkbox" id="teacherApproval"><span>راجعت القرار وأوافق على استخدامه أساسًا لخطة التنفيذ.</span></label><div id="approvalMessage" class="message"></div><div class="actions"><button class="primary" id="generatePlan">إنشاء خطة التنفيذ</button><button class="secondary" data-go="alternatives">اختيار بديل آخر</button></div></div>
+    <div id="planPreview" class="card form-card hidden"><span class="eyebrow">معاينة خطة التنفيذ</span><h3>سيتم توليد الخطة هنا بعد ربط Gemini API</h3><p>تم تفعيل حاجز الموافقة بنجاح.</p></div>
+  </section>
+</main>
+<footer>القرار النهائي دائمًا بيد المعلم.</footer>
+<script src="app.js"></script>
+</body>
+</html>
