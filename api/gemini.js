@@ -1,4 +1,4 @@
-const MODEL_NAME = "gemini-3.6-flash";
+const MODEL_NAME = "gemini-2.5-flash";
 
 export default {
   async fetch(request) {
