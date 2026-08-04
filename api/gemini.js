@@ -1,4 +1,4 @@
-const MODEL_NAME = "gemini-2.5-flash";
+const MODEL_NAME = "gemini-3.6-flash";
 
 export default async function handler(request, response) {
   if (request.method !== "POST") {
@@ -30,17 +30,17 @@ export default async function handler(request, response) {
     });
   }
 
-  /*
-   * يمنع إرسال قيمة غير صالحة إلى Headers.append.
-   * مفاتيح API المعتادة تتكون من حروف وأرقام وشرطة وشرطة سفلية.
-   */
-  if (!/^[A-Za-z0-9_-]+$/.test(apiKey)) {
-    return response.status(500).json({
-      error:
-        "قيمة GEMINI_API_KEY تحتوي على رموز غير صالحة. انسخي المفتاح وحده دون علامات اقتباس أو اسم المتغير."
-    });
-  }
-
+  /*/*
+ * التحقق الأساسي فقط:
+ * عملية التنظيف السابقة حذفت المسافات والأسطر وعلامات الاقتباس.
+ * لا نفترض صيغة ثابتة لبداية مفتاح Gemini.
+ */
+if (!apiKey || apiKey.length < 20) {
+  return response.status(500).json({
+    error:
+      "قيمة GEMINI_API_KEY غير موجودة أو غير مكتملة."
+  });
+}
   try {
     const body =
       typeof request.body === "string"
@@ -102,10 +102,23 @@ export default async function handler(request, response) {
       });
     }
 
-    const text = data?.candidates?.[0]?.content?.parts
-      ?.map((part) => part.text || "")
-      .join("")
-      .trim();
+    let text = data?.candidates?.[0]?.content?.parts
+  ?.map((part) => part.text || "")
+  .join("")
+  .trim();
+
+text = text
+  .replace(/#{1,6}\s*/g, "")          // إزالة ###
+  .replace(/\*\*/g, "")               // إزالة **
+  .replace(/\*/g, "")                 // إزالة *
+  .replace(/\$.*?\$/g, "")            // إزالة LaTeX
+  .replace(/\\rightarrow/g, "→")      // سهم عادي
+  .replace(/\\Rightarrow/g, "⇒")
+  .replace(/\\[a-zA-Z]+/g, "")
+  .trim();
+  return response.status(200).json({
+  text
+});
 
     if (!text) {
       return response.status(502).json({
