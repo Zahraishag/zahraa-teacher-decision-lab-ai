@@ -134,37 +134,54 @@
     margin:0 auto;
   }
 
-  /* ===== APPROVED DECISION STRIP ===== */
-  .approved-strip{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
+  /* ===== APPROVED DECISION CARD ===== */
+  .approved-decision-card{
     background:var(--card);
     border:1px solid var(--line);
-    border-radius:999px;
-    padding:10px 20px;
-    max-width:fit-content;
-    margin:24px auto 32px;
+    border-radius:var(--radius);
+    overflow:hidden;
     box-shadow:var(--shadow);
+    margin:0 0 24px;
   }
-  .approved-strip .label{
-    font-size:12px;
+  .approved-decision-card .adc-header{
+    display:flex;
+    align-items:center;
+    gap:9px;
+    background:#EEF6EF;
+    border-bottom:1px solid #C9E0CC;
+    padding:12px 26px;
+    font-size:13px;
     font-weight:700;
     color:var(--success);
-    background:#EEF6EF;
-    border:1px solid #C9E0CC;
-    padding:4px 12px;
-    border-radius:999px;
   }
-  .approved-strip .diamond{
-    color:var(--gold);
-    font-size:15px;
+  .approved-decision-card .status-dot{
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--success);
+    flex-shrink:0;
   }
-  .approved-strip .decision-name{
-    font-size:14px;
-    font-weight:700;
+  .approved-decision-card .adc-body{
+    padding:22px 26px 24px;
+  }
+  .approved-decision-card .adc-name{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:24px;
+    font-weight:800;
     color:var(--brown);
+    margin-bottom:10px;
+  }
+  .approved-decision-card .adc-name .diamond{
+    color:var(--gold);
+    font-size:19px;
+  }
+  .approved-decision-card .adc-rationale{
+    font-size:14px;
+    color:var(--text-muted);
+    line-height:1.9;
+    max-width:560px;
   }
 
   /* ===== CARD BASE ===== */
@@ -322,21 +339,12 @@
     margin-bottom:20px;
     direction:ltr;
   }
-  .trace-chain{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:10px;
-    direction:ltr;
-  }
   .trace-chain .chain-item{
     display:flex;
     align-items:center;
     gap:6px;
     background:var(--card);
     border:1px solid #EBD9A8;
-    border-radius:999px;
     padding:7px 14px;
     font-size:12.5px;
     font-weight:600;
@@ -346,14 +354,136 @@
     color:var(--success);
     font-weight:700;
   }
-  .trace-chain .arrow{
-    color:var(--gold-dark);
-    font-size:14px;
-  }
   .trace-chain .chain-final{
     background:var(--brown);
     color:#fff;
     border-color:var(--brown);
+  }
+  .trace-start{
+    width:11px;
+    height:11px;
+    border-radius:50%;
+    background:var(--gold);
+    margin:0 auto;
+    position:relative;
+  }
+  .trace-start::after{
+    content:"";
+    display:block;
+    width:2px;
+    height:16px;
+    background:var(--gold);
+    margin:6px auto 0;
+  }
+
+  /* ===== JUDGE VIEW ===== */
+  .judge-view{
+    direction:ltr;
+    text-align:left;
+    background:#FBF9F4;
+    border:1px dashed var(--line);
+    border-radius:12px;
+    padding:14px 18px;
+    max-width:620px;
+    margin:20px auto 28px;
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  }
+  .judge-view .jv-label{
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--gold-dark);
+    margin-bottom:6px;
+  }
+  .judge-view p{
+    margin:0;
+    font-size:13px;
+    line-height:1.65;
+    color:var(--text-muted);
+  }
+
+  /* ===== LESSON METADATA ===== */
+  .lesson-meta{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin:0 0 26px;
+  }
+  .meta-item{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 16px;
+    box-shadow:var(--shadow);
+  }
+  .meta-label{
+    font-size:11px;
+    font-weight:700;
+    color:var(--gold-dark);
+    margin-bottom:5px;
+  }
+  .meta-value{
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--brown);
+  }
+
+  /* ===== SVG ICONS ===== */
+  .section-icon svg{
+    width:21px;
+    height:21px;
+    stroke:var(--gold-dark);
+    stroke-width:1.7;
+    fill:none;
+    stroke-linecap:round;
+    stroke-linejoin:round;
+  }
+
+  /* ===== PROGRESSIVE REVEAL ===== */
+  .reveal{
+    opacity:0;
+    transform:translateY(14px);
+    animation:revealCard .55s ease forwards;
+  }
+  @keyframes revealCard{
+    to{opacity:1;transform:translateY(0);}
+  }
+
+  /* ===== RTL-SAFE DECISION TRACE ===== */
+  .trace-chain{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+    direction:rtl;
+    max-width:520px;
+    margin:0 auto;
+  }
+  .trace-chain .chain-item{
+    justify-content:flex-start;
+    border-radius:14px;
+    width:100%;
+  }
+  .trace-chain .arrow{
+    display:none;
+  }
+  .trace-chain .chain-item:not(:last-child)::after{
+    content:"";
+    display:block;
+    width:2px;
+    height:18px;
+    background:var(--gold);
+    margin:10px auto -2px;
+  }
+  .trace-chain .chain-final{
+    justify-content:center;
+  }
+
+  @media (max-width:700px){
+    .lesson-meta{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:460px){
+    .lesson-meta{grid-template-columns:1fr;}
   }
 
   /* ===== FOOTER SIGNATURE ===== */
@@ -377,7 +507,15 @@
   }
 
   @media (prefers-reduced-motion: reduce){
-    *{ transition:none !important; }
+    *,*::before,*::after{
+      scroll-behavior:auto !important;
+      transition:none !important;
+      animation:none !important;
+    }
+    .reveal{
+      opacity:1 !important;
+      transform:none !important;
+    }
   }
 
   @media (max-width:600px){
@@ -416,22 +554,50 @@
 
   <!-- HERO -->
   <div class="hero">
-    <div class="eyebrow">Implementation Plan</div>
+    <div class="eyebrow">خطة التنفيذ / Implementation Plan</div>
     <h1>خطة التنفيذ</h1>
     <p>تم إنشاء هذه الخطة بعد مراجعة القرار واعتماد المعلم.</p>
   </div>
 
-  <!-- APPROVED DECISION STRIP -->
-  <div class="approved-strip">
-    <span class="label">القرار المعتمد</span>
-    <span class="diamond">◆</span>
-    <span class="decision-name">المدخل المفاهيمي البصري</span>
+  <!-- JUDGE VIEW -->
+  <div class="judge-view reveal" style="animation-delay:.05s">
+    <div class="jv-label">Judge View</div>
+    <p>Generated only after the teacher reviewed and approved the decision below — not a direct prompt response.</p>
+  </div>
+
+  <!-- APPROVED DECISION CARD -->
+  <div class="approved-decision-card reveal" style="animation-delay:.12s">
+    <div class="adc-header"><span class="status-dot"></span>القرار الذي اعتمده المعلم</div>
+    <div class="adc-body">
+      <div class="adc-name"><span class="diamond">◆</span>المدخل المفاهيمي البصري</div>
+      <p class="adc-rationale">تم اختيار هذا القرار بعد تحليل الموقف ومقارنة البدائل ومراجعة المعلم قبل بدء إنشاء الخطة.</p>
+    </div>
+  </div>
+
+  <!-- LESSON CONTEXT -->
+  <div class="lesson-meta reveal" style="animation-delay:.18s">
+    <div class="meta-item">
+      <div class="meta-label">المادة</div>
+      <div class="meta-value" id="metaSubject">حسب سيناريو المستخدم</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">الصف</div>
+      <div class="meta-value">السادس الابتدائي</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">الزمن</div>
+      <div class="meta-value">40 من 45 دقيقة</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">البدائل التي تمت مراجعتها</div>
+      <div class="meta-value">3 بدائل</div>
+    </div>
   </div>
 
   <!-- هدف التعلم -->
-  <div class="card">
+  <div class="card reveal" style="animation-delay:.24s">
     <div class="plan-section">
-      <div class="section-icon">🎯</div>
+      <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 4v2M20 12h-2M12 20v-2M4 12h2"/></svg></div>
       <div class="section-body">
         <div class="section-title">هدف التعلم</div>
         <div class="section-title-en">Learning Objective</div>
@@ -441,9 +607,9 @@
   </div>
 
   <!-- معيار النجاح -->
-  <div class="card">
+  <div class="card reveal" style="animation-delay:.30s">
     <div class="plan-section">
-      <div class="section-icon">📏</div>
+      <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5"/><path d="m8 16 2 2M11 13l2 2M14 10l2 2"/><rect x="3" y="10" width="18" height="4" rx="1" transform="rotate(-45 12 12)"/></svg></div>
       <div class="section-body">
         <div class="section-title">معيار النجاح</div>
         <div class="section-title-en">Success Criteria</div>
@@ -453,9 +619,9 @@
   </div>
 
   <!-- التمهيد -->
-  <div class="card">
+  <div class="card reveal" style="animation-delay:.36s">
     <div class="plan-section">
-      <div class="section-icon">🌱</div>
+      <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21v-8"/><path d="M12 13c-5 0-7-3-7-7 4 0 7 2 7 7Z"/><path d="M12 13c5 0 7-3 7-7-4 0-7 2-7 7Z"/></svg></div>
       <div class="section-body">
         <div class="section-title">التمهيد</div>
         <div class="section-title-en">Warm-up</div>
@@ -465,9 +631,9 @@
   </div>
 
   <!-- خطوات التنفيذ -->
-  <div class="card">
+  <div class="card reveal" style="animation-delay:.42s">
     <div class="plan-section">
-      <div class="section-icon">🧭</div>
+      <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15 9-2 4-4 2 2-4 4-2Z"/></svg></div>
       <div class="section-body">
         <div class="section-title">خطوات التنفيذ</div>
         <div class="section-title-en">Lesson Steps</div>
@@ -483,9 +649,9 @@
   </div>
 
   <!-- التمايز -->
-  <div class="card">
+  <div class="card reveal" style="animation-delay:.48s">
     <div class="plan-section">
-      <div class="section-icon">🧩</div>
+      <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3h4a2 2 0 1 1 4 0h5v5a2 2 0 1 0 0 4v5h-5a2 2 0 1 1-4 0H8v-5a2 2 0 1 0 0-4V3Z"/></svg></div>
       <div class="section-body">
         <div class="section-title">التمايز</div>
         <div class="section-title-en">Differentiation</div>
@@ -499,9 +665,9 @@
   </div>
 
   <!-- التقويم -->
-  <div class="card">
+  <div class="card reveal" style="animation-delay:.54s">
     <div class="plan-section">
-      <div class="section-icon">✅</div>
+      <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></div>
       <div class="section-body">
         <div class="section-title">التقويم</div>
         <div class="section-title-en">Assessment</div>
@@ -511,9 +677,9 @@
   </div>
 
   <!-- بطاقة الخروج -->
-  <div class="card">
+  <div class="card reveal" style="animation-delay:.60s">
     <div class="plan-section">
-      <div class="section-icon">🚪</div>
+      <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21h14"/><path d="M7 21V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v17"/><path d="M11 12h.01"/></svg></div>
       <div class="section-body">
         <div class="section-title">بطاقة الخروج</div>
         <div class="section-title-en">Exit Card</div>
@@ -526,18 +692,19 @@
   </div>
 
   <!-- DECISION TRACE -->
-  <div class="trace-card">
+  <div class="trace-card reveal" style="animation-delay:.68s">
     <div class="trace-heading">Decision Trace</div>
+    <div class="trace-start"></div>
     <div class="trace-chain">
-      <span class="chain-item"><span class="check">✓</span>Context</span>
-      <span class="arrow">→</span>
-      <span class="chain-item"><span class="check">✓</span>Adaptive Question</span>
-      <span class="arrow">→</span>
-      <span class="chain-item"><span class="check">✓</span>Alternatives</span>
-      <span class="arrow">→</span>
-      <span class="chain-item"><span class="check">✓</span>Teacher Approval</span>
-      <span class="arrow">→</span>
-      <span class="chain-item chain-final">Implementation Plan</span>
+      <span class="chain-item"><span class="check">✓</span>السياق / Context</span>
+      
+      <span class="chain-item"><span class="check">✓</span>السؤال التكيفي / Adaptive Question</span>
+      
+      <span class="chain-item"><span class="check">✓</span>البدائل / Alternatives</span>
+      
+      <span class="chain-item"><span class="check">✓</span>موافقة المعلم / Teacher Approval</span>
+      
+      <span class="chain-item chain-final">خطة التنفيذ / Implementation Plan</span>
     </div>
   </div>
 
@@ -548,6 +715,19 @@
   </div>
 
 </div>
+
+<script>
+  // Integration point: replace with the actual subject from the live
+  // decision/plan data for this session. Falls back to a neutral label
+  // so the product never appears hard-coded to one subject (e.g. Math)
+  // in front of a judge or a teacher outside that domain.
+  const planContext = {
+    subject: null // e.g. "الرياضيات" — set this from real session data
+  };
+  if (planContext.subject) {
+    document.getElementById('metaSubject').textContent = planContext.subject;
+  }
+</script>
 
 </body>
 </html>

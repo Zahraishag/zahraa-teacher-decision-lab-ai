@@ -204,18 +204,23 @@
   .decision-card .decision-head{
     display:flex;
     align-items:flex-start;
-    gap:10px;
+    gap:12px;
     margin-bottom:18px;
+    background:linear-gradient(180deg, #FFFDF7, #FBF3DE);
+    border:1px solid #EBD9A8;
+    border-inline-start:4px solid var(--gold);
+    border-radius:12px;
+    padding:16px 18px;
   }
   .decision-card .diamond{
     color:var(--gold);
-    font-size:18px;
+    font-size:20px;
     line-height:1.4;
     flex-shrink:0;
   }
   .decision-card .decision-name{
-    font-size:17px;
-    font-weight:700;
+    font-size:19.5px;
+    font-weight:800;
     color:var(--brown);
     line-height:1.5;
   }
@@ -291,27 +296,6 @@
   }
 
   /* ===== CHARTER CARD ===== */
-  .charter-list{
-    margin:0 0 20px;
-    padding-inline-start:0;
-    list-style:none;
-  }
-  .charter-list li{
-    position:relative;
-    font-size:14.5px;
-    color:var(--text);
-    line-height:1.9;
-    padding-inline-start:20px;
-    margin-bottom:4px;
-  }
-  .charter-list li::before{
-    content:"•";
-    position:absolute;
-    inline-size:auto;
-    inset-inline-start:0;
-    color:var(--gold);
-    font-weight:700;
-  }
   .charter-intro{
     font-size:15px;
     font-weight:600;
@@ -319,21 +303,26 @@
     margin:0 0 10px;
   }
 
-  .checkbox-row{
+  .charter-checklist{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .charter-check-item{
     display:flex;
     align-items:flex-start;
     gap:12px;
     background:var(--ivory);
     border:1px solid var(--line);
     border-radius:12px;
-    padding:16px 18px;
-    cursor:pointer;
-    transition:border-color .15s ease, background .15s ease;
+    padding:14px 16px;
+    transition:border-color .15s ease, background .15s ease, opacity .15s ease;
   }
-  .checkbox-row:hover{
+  .charter-check-item:hover{
     border-color:var(--gold);
   }
-  .checkbox-row input[type="checkbox"]{
+  .charter-check-item input[type="checkbox"]{
     appearance:none;
     -webkit-appearance:none;
     width:22px;
@@ -348,7 +337,11 @@
     margin-top:2px;
     transition:border-color .15s ease, background .15s ease;
   }
-  .checkbox-row input[type="checkbox"]::before{
+  .charter-check-item input[type="checkbox"]:disabled{
+    cursor:not-allowed;
+    opacity:0.7;
+  }
+  .charter-check-item input[type="checkbox"]::before{
     content:"";
     width:12px;
     height:12px;
@@ -357,19 +350,100 @@
     box-shadow: inset 1em 1em var(--gold);
     clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
   }
-  .checkbox-row input[type="checkbox"]:checked{
+  .charter-check-item input[type="checkbox"]:checked{
     border-color:var(--gold);
     background:#FDF8ED;
   }
-  .checkbox-row input[type="checkbox"]:checked::before{
+  .charter-check-item input[type="checkbox"]:checked::before{
     transform:scale(1);
   }
-  .checkbox-row label{
+  .charter-check-item label{
     font-size:14.5px;
     font-weight:600;
     color:var(--brown);
     cursor:pointer;
     line-height:1.7;
+  }
+  .charter-check-item.item-disabled{
+    opacity:0.65;
+  }
+  .charter-check-item.item-disabled label{
+    cursor:not-allowed;
+  }
+
+  .btn-approve{
+    font-family:'Alexandria', sans-serif;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:14.5px;
+    font-weight:700;
+    color:#fff;
+    background:linear-gradient(180deg, #6E9C7E, var(--success));
+    border:none;
+    border-radius:12px;
+    padding:12px 22px;
+    cursor:pointer;
+    box-shadow:0 6px 16px rgba(62,122,86,0.28);
+    transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+  }
+  .btn-approve .btn-en{
+    font-size:11.5px;
+    font-weight:500;
+    direction:ltr;
+    opacity:0.9;
+  }
+  .btn-approve:not(:disabled):hover{
+    box-shadow:0 8px 20px rgba(62,122,86,0.38);
+    transform:scale(1.02);
+  }
+  .btn-approve:not(:disabled):active{
+    transform:scale(0.99);
+  }
+  .btn-approve:disabled{
+    background:#E5DCC8;
+    color:#B7AB9C;
+    box-shadow:none;
+    cursor:not-allowed;
+  }
+  .btn-approve.approved{
+    background:var(--success);
+    cursor:default;
+    box-shadow:none;
+  }
+
+  .approval-status{
+    margin-top:12px;
+    font-size:13.5px;
+    font-weight:700;
+    color:var(--success);
+    display:none;
+    align-items:center;
+    gap:6px;
+  }
+  .approval-status.visible{
+    display:flex;
+  }
+
+  .primary-note{
+    text-align:center;
+    margin:12px 0 0;
+    font-size:12.5px;
+    color:var(--text-muted);
+    line-height:1.7;
+  }
+  .primary-note .ar{
+    display:block;
+  }
+  .primary-note .en{
+    display:block;
+    direction:ltr;
+    font-size:11.5px;
+    margin-top:2px;
+  }
+  .primary-note.ready{
+    color:var(--success);
+    font-weight:600;
   }
 
   /* ===== OPTIONAL NOTE ===== */
@@ -502,6 +576,26 @@
   .loading-box.active{
     display:flex;
   }
+  .loading-stage{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+  }
+  .stage-check{
+    width:22px;
+    height:22px;
+    min-width:22px;
+    border-radius:50%;
+    background:var(--success);
+    color:#fff;
+    font-size:13px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+  }
   .spinner{
     width:22px;
     height:22px;
@@ -601,8 +695,8 @@
 
   <!-- DECISION REVIEW CARD -->
   <div class="card decision-card">
-    <div class="card-title">بطاقة مراجعة القرار</div>
-    <div class="card-title-en">Decision Review Card</div>
+    <div class="card-title">القرار الذي سيتم بناء الخطة عليه</div>
+    <div class="card-title-en">The Decision Behind the Plan</div>
 
     <div class="approved-badge">
       <span>القرار المعتمد</span>
@@ -656,16 +750,34 @@
     <div class="card-title-en">Professional Decision Charter</div>
 
     <p class="charter-intro">أؤكد أنني:</p>
-    <ul class="charter-list">
-      <li>راجعت القرار المقترح.</li>
-      <li>فهمت مبرراته وحدوده.</li>
-      <li>أوافق على استخدامه كأساس لإنشاء خطة التنفيذ.</li>
-      <li>أعلم أن بإمكاني تعديل الخطة لاحقاً.</li>
-    </ul>
 
-    <div class="checkbox-row" id="charterRow">
-      <input type="checkbox" id="charterCheckbox">
-      <label for="charterCheckbox">أوافق على هذا الميثاق قبل إنشاء خطة التنفيذ</label>
+    <div class="charter-checklist" id="charterChecklist">
+      <div class="charter-check-item" id="charterItem1">
+        <input type="checkbox" id="charterCheck1" class="charter-checkbox">
+        <label for="charterCheck1">راجعت القرار المقترح.</label>
+      </div>
+      <div class="charter-check-item" id="charterItem2">
+        <input type="checkbox" id="charterCheck2" class="charter-checkbox">
+        <label for="charterCheck2">فهمت مبرراته.</label>
+      </div>
+      <div class="charter-check-item" id="charterItem3">
+        <input type="checkbox" id="charterCheck3" class="charter-checkbox">
+        <label for="charterCheck3">اطّلعت على حدوده وما قد لا يتحقق.</label>
+      </div>
+      <div class="charter-check-item" id="charterItem4">
+        <input type="checkbox" id="charterCheck4" class="charter-checkbox">
+        <label for="charterCheck4">أوافق على استخدامه أساسًا لإنشاء خطة التنفيذ.</label>
+      </div>
+    </div>
+
+    <button class="btn-approve" id="approveBtn" disabled>
+      <span>اعتماد القرار</span>
+      <span class="btn-en">Approve Decision</span>
+    </button>
+
+    <div class="approval-status" id="approvalStatus" role="status" aria-live="polite">
+      <span>✓</span>
+      <span>تم اعتماد القرار — Decision approved</span>
     </div>
   </div>
 
@@ -691,16 +803,30 @@
 
   <!-- ACTIONS -->
   <div class="actions">
-    <button class="btn btn-secondary" id="backBtn">← مراجعة البدائل</button>
+    <button class="btn btn-secondary" id="backBtn">← العودة إلى البدائل</button>
     <button class="btn btn-primary" id="generateBtn" disabled>إنشاء خطة التنفيذ</button>
   </div>
 
+  <p class="primary-note" id="primaryNote" aria-live="polite">
+    <span class="ar">لن يتم إنشاء الخطة إلا بعد اعتماد القرار.</span>
+    <span class="en">The plan will not be generated until the decision is approved.</span>
+  </p>
+
   <!-- LOADING -->
-  <div class="loading-box" id="loadingBox">
-    <div class="spinner"></div>
-    <div class="loading-text">
-      <div class="ar">جارٍ إنشاء خطة التنفيذ...</div>
-      <div class="en">Building implementation plan...</div>
+  <div class="loading-box" id="loadingBox" role="status" aria-live="polite">
+    <div class="loading-stage" id="loadingStage1">
+      <span class="stage-check">✓</span>
+      <div class="loading-text">
+        <div class="ar">تم اعتماد القرار</div>
+        <div class="en">Decision approved</div>
+      </div>
+    </div>
+    <div class="loading-stage" id="loadingStage2" style="display:none;">
+      <div class="spinner"></div>
+      <div class="loading-text">
+        <div class="ar">جارٍ إنشاء خطة التنفيذ...</div>
+        <div class="en">Generating implementation plan...</div>
+      </div>
     </div>
   </div>
 
@@ -713,35 +839,92 @@
 </div>
 
 <script>
-  const checkbox = document.getElementById('charterCheckbox');
+  const charterCheckboxes = Array.from(document.querySelectorAll('.charter-checkbox'));
+  const charterItems = [
+    document.getElementById('charterItem1'),
+    document.getElementById('charterItem2'),
+    document.getElementById('charterItem3'),
+    document.getElementById('charterItem4')
+  ];
+  const approveBtn = document.getElementById('approveBtn');
+  const approvalStatus = document.getElementById('approvalStatus');
   const generateBtn = document.getElementById('generateBtn');
+  const primaryNote = document.getElementById('primaryNote');
   const loadingBox = document.getElementById('loadingBox');
+  const loadingStage1 = document.getElementById('loadingStage1');
+  const loadingStage2 = document.getElementById('loadingStage2');
   const backBtn = document.getElementById('backBtn');
 
-  checkbox.addEventListener('change', () => {
-    generateBtn.disabled = !checkbox.checked;
+  let isApproved = false;
+
+  function allChecked(){
+    return charterCheckboxes.every(cb => cb.checked);
+  }
+
+  charterCheckboxes.forEach(cb => {
+    cb.addEventListener('change', () => {
+      approveBtn.disabled = !allChecked();
+    });
+  });
+
+  approveBtn.addEventListener('click', () => {
+    if (approveBtn.disabled || isApproved) return;
+    if (!allChecked()) return; // safeguard: all four items are required
+
+    isApproved = true;
+
+    // Lock the checklist and the approval control.
+    charterCheckboxes.forEach(cb => { cb.disabled = true; });
+    charterItems.forEach(item => item.classList.add('item-disabled'));
+    approveBtn.disabled = true;
+    approveBtn.classList.add('approved');
+    approveBtn.querySelector('span').textContent = 'تم الاعتماد';
+    approveBtn.querySelector('.btn-en').textContent = 'Approved';
+
+    // Show a clear success state.
+    approvalStatus.classList.add('visible');
+
+    // Enable plan generation only now that the decision is approved.
+    generateBtn.disabled = false;
+
+    // Update the readiness note.
+    primaryNote.classList.add('ready');
+    primaryNote.querySelector('.ar').textContent = 'تم اعتماد القرار. يمكنك الآن إنشاء خطة التنفيذ.';
+    primaryNote.querySelector('.en').textContent = 'Decision approved. You may now generate the plan.';
   });
 
   generateBtn.addEventListener('click', () => {
-    if (generateBtn.disabled) return;
+    if (generateBtn.disabled || !isApproved) return;
+
     generateBtn.disabled = true;
     generateBtn.style.opacity = '0.7';
+
+    // Stage 1: confirm the decision was approved.
+    loadingStage1.style.display = 'flex';
+    loadingStage2.style.display = 'none';
     loadingBox.classList.add('active');
     loadingBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 
-    // Navigate to the final "خطة التنفيذ" (Implementation Plan) screen
-    // once the plan-generation step completes.
+    // Stage 2: move into the actual generation feedback, then navigate to
+    // the final "خطة التنفيذ" (Implementation Plan) screen.
     setTimeout(() => {
-      window.location.href = "implementation-plan.html";
+      loadingStage1.style.display = 'none';
+      loadingStage2.style.display = 'flex';
 
-      // Safeguard: if navigation doesn't happen (e.g. missing file during
-      // development), don't leave the UI stuck in a loading state.
       setTimeout(() => {
-        loadingBox.classList.remove('active');
-        generateBtn.disabled = false;
-        generateBtn.style.opacity = '1';
-      }, 3000);
-    }, 1600);
+        window.location.href = "implementation-plan.html";
+
+        // Safeguard: if navigation doesn't happen (e.g. missing file during
+        // development), don't leave the UI stuck in a loading state.
+        setTimeout(() => {
+          loadingBox.classList.remove('active');
+          loadingStage1.style.display = 'flex';
+          loadingStage2.style.display = 'none';
+          generateBtn.disabled = false;
+          generateBtn.style.opacity = '1';
+        }, 3000);
+      }, 1400);
+    }, 900);
   });
 
   backBtn.addEventListener('click', () => {
