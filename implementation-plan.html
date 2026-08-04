@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>خطة التنفيذ — ZAHRAA™ Teacher Decision Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#FAF7F0;
+    --card:#FFFFFF;
+    --brown:#5A3E2B;
+    --brown-soft:#8A6A52;
+    --gold:#C9A24B;
+    --gold-dark:#B08A3A;
+    --line:#EAE2D3;
+    --text:#4A4038;
+    --text-muted:#8B7F72;
+    --success:#3E7A56;
+    --shadow: 0 2px 10px rgba(90,62,43,0.06);
+    --shadow-lg: 0 8px 28px rgba(90,62,43,0.10);
+    --radius: 16px;
+  }
+
+  *{box-sizing:border-box;}
+
+  body{
+    margin:0;
+    background:var(--ivory);
+    font-family:'Alexandria', sans-serif;
+    color:var(--text);
+    padding:32px 16px 80px;
+  }
+
+  .page{
+    max-width:820px;
+    margin:0 auto;
+  }
+
+  /* ===== BRAND BAR ===== */
+  .brand-bar{
+    text-align:center;
+    margin-bottom:28px;
+    padding-bottom:18px;
+    border-bottom:1px solid var(--line);
+  }
+  .brand-bar .brand-name{
+    font-size:14px;
+    font-weight:700;
+    color:var(--brown);
+    letter-spacing:0.01em;
+  }
+  .brand-bar .brand-tagline{
+    font-size:11.5px;
+    color:var(--gold-dark);
+    font-style:italic;
+    direction:ltr;
+    margin-top:3px;
+  }
+
+  /* ===== PROGRESS ===== */
+  .progress{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:36px;
+  }
+  .progress-step{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:13px;
+    color:var(--text-muted);
+    padding:6px 12px;
+    border-radius:999px;
+  }
+  .progress-step .dot{
+    width:18px;height:18px;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;
+    flex-shrink:0;
+  }
+  .progress-step.done .dot{
+    background:var(--success);
+    color:#fff;
+  }
+  .progress-step.done{ color:var(--brown-soft); }
+  .progress-step.current{
+    background:var(--card);
+    box-shadow:var(--shadow);
+    color:var(--brown);
+    font-weight:600;
+  }
+  .progress-step.current .dot{
+    background:var(--gold);
+    color:#fff;
+  }
+  .progress-sep{
+    color:var(--line);
+    font-size:12px;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    text-align:center;
+    margin-bottom:16px;
+  }
+  .hero .eyebrow{
+    font-size:12px;
+    font-weight:700;
+    color:var(--text-muted);
+    direction:ltr;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    margin-bottom:8px;
+  }
+  .hero h1{
+    color:var(--brown);
+    font-size:30px;
+    font-weight:700;
+    margin:0 0 12px;
+    line-height:1.4;
+  }
+  .hero p{
+    color:var(--text-muted);
+    font-size:15px;
+    line-height:1.9;
+    max-width:520px;
+    margin:0 auto;
+  }
+
+  /* ===== APPROVED DECISION STRIP ===== */
+  .approved-strip{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:999px;
+    padding:10px 20px;
+    max-width:fit-content;
+    margin:24px auto 32px;
+    box-shadow:var(--shadow);
+  }
+  .approved-strip .label{
+    font-size:12px;
+    font-weight:700;
+    color:var(--success);
+    background:#EEF6EF;
+    border:1px solid #C9E0CC;
+    padding:4px 12px;
+    border-radius:999px;
+  }
+  .approved-strip .diamond{
+    color:var(--gold);
+    font-size:15px;
+  }
+  .approved-strip .decision-name{
+    font-size:14px;
+    font-weight:700;
+    color:var(--brown);
+  }
+
+  /* ===== CARD BASE ===== */
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
+    padding:26px 28px;
+    margin-bottom:20px;
+    border:1px solid var(--line);
+  }
+  .card-title{
+    color:var(--brown);
+    font-size:18px;
+    font-weight:700;
+    margin:0 0 4px;
+  }
+  .card-title-en{
+    color:var(--text-muted);
+    font-size:12px;
+    font-weight:500;
+    direction:ltr;
+    text-align:right;
+    margin:0 0 18px;
+  }
+
+  /* ===== PLAN SECTIONS ===== */
+  .plan-section{
+    display:flex;
+    gap:18px;
+    align-items:flex-start;
+  }
+  .plan-section .section-icon{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    background:var(--ivory);
+    border:1px solid var(--line);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    font-size:18px;
+    color:var(--gold-dark);
+  }
+  .plan-section .section-body{
+    flex:1;
+    min-width:0;
+  }
+  .plan-section .section-title{
+    font-size:16px;
+    font-weight:700;
+    color:var(--brown);
+    margin-bottom:3px;
+  }
+  .plan-section .section-title-en{
+    font-size:11.5px;
+    color:var(--text-muted);
+    direction:ltr;
+    text-align:right;
+    margin-bottom:10px;
+  }
+  .plan-section .section-text{
+    font-size:14.5px;
+    color:var(--text);
+    line-height:1.9;
+  }
+  .plan-section .step-list{
+    list-style:none;
+    margin:0;
+    padding:0;
+    counter-reset:step;
+  }
+  .plan-section .step-list li{
+    counter-increment:step;
+    position:relative;
+    padding-inline-start:34px;
+    padding-block:8px;
+    font-size:14.5px;
+    line-height:1.8;
+    border-bottom:1px solid var(--line);
+  }
+  .plan-section .step-list li:last-child{
+    border-bottom:none;
+  }
+  .plan-section .step-list li::before{
+    content:counter(step);
+    position:absolute;
+    inset-inline-start:0;
+    top:8px;
+    width:22px;
+    height:22px;
+    border-radius:7px;
+    background:var(--gold);
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .plan-section .step-list li .step-time{
+    display:inline-block;
+    font-size:12px;
+    color:var(--gold-dark);
+    font-weight:700;
+    margin-inline-start:8px;
+  }
+  .tag-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .tag{
+    background:var(--ivory);
+    border:1px solid var(--line);
+    color:var(--brown);
+    font-size:13px;
+    font-weight:600;
+    padding:6px 14px;
+    border-radius:999px;
+  }
+  .exit-card-box{
+    background:var(--ivory);
+    border:1px dashed var(--line);
+    border-radius:12px;
+    padding:16px 18px;
+  }
+  .exit-card-box .exit-q{
+    font-size:14.5px;
+    font-weight:600;
+    color:var(--brown);
+    margin-bottom:6px;
+  }
+  .exit-card-box .exit-hint{
+    font-size:13px;
+    color:var(--text-muted);
+  }
+
+  /* ===== DECISION TRACE (closing card) ===== */
+  .trace-card{
+    background:linear-gradient(180deg, #FBF6E9, #F7EEDA);
+    border:1px solid #EBD9A8;
+    border-radius:var(--radius);
+    padding:28px 30px;
+    margin-top:32px;
+    text-align:center;
+  }
+  .trace-card .trace-heading{
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--gold-dark);
+    margin-bottom:20px;
+    direction:ltr;
+  }
+  .trace-chain{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:10px;
+    direction:ltr;
+  }
+  .trace-chain .chain-item{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:var(--card);
+    border:1px solid #EBD9A8;
+    border-radius:999px;
+    padding:7px 14px;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--brown);
+  }
+  .trace-chain .chain-item .check{
+    color:var(--success);
+    font-weight:700;
+  }
+  .trace-chain .arrow{
+    color:var(--gold-dark);
+    font-size:14px;
+  }
+  .trace-chain .chain-final{
+    background:var(--brown);
+    color:#fff;
+    border-color:var(--brown);
+  }
+
+  /* ===== FOOTER SIGNATURE ===== */
+  .footer-signature{
+    text-align:center;
+    margin-top:40px;
+    opacity:0.6;
+  }
+  .footer-signature .sig-title{
+    font-size:12px;
+    font-weight:700;
+    color:var(--brown-soft);
+    letter-spacing:0.02em;
+  }
+  .footer-signature .sig-sub{
+    font-size:11.5px;
+    color:var(--text-muted);
+    font-style:italic;
+    direction:ltr;
+    margin-top:2px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; }
+  }
+
+  @media (max-width:600px){
+    .card{ padding:20px 18px; }
+    .hero h1{ font-size:23px; }
+    .plan-section{ gap:12px; }
+    .trace-chain{ direction:rtl; }
+    .approved-strip{ flex-wrap:wrap; justify-content:center; text-align:center; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- BRAND BAR -->
+  <div class="brand-bar">
+    <div class="brand-name">ZAHRAA™ Teacher Decision Lab</div>
+    <div class="brand-tagline">Decision Before Generation™</div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div class="progress">
+    <div class="progress-step done"><span class="dot">✓</span>تحليل</div>
+    <span class="progress-sep">—</span>
+    <div class="progress-step done"><span class="dot">✓</span>سؤال تكيفي</div>
+    <span class="progress-sep">—</span>
+    <div class="progress-step done"><span class="dot">✓</span>ملخص</div>
+    <span class="progress-sep">—</span>
+    <div class="progress-step done"><span class="dot">✓</span>بدائل</div>
+    <span class="progress-sep">—</span>
+    <div class="progress-step done"><span class="dot">✓</span>اعتماد القرار</div>
+    <span class="progress-sep">—</span>
+    <div class="progress-step current"><span class="dot">●</span>خطة التنفيذ</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="eyebrow">Implementation Plan</div>
+    <h1>خطة التنفيذ</h1>
+    <p>تم إنشاء هذه الخطة بعد مراجعة القرار واعتماد المعلم.</p>
+  </div>
+
+  <!-- APPROVED DECISION STRIP -->
+  <div class="approved-strip">
+    <span class="label">القرار المعتمد</span>
+    <span class="diamond">◆</span>
+    <span class="decision-name">المدخل المفاهيمي البصري</span>
+  </div>
+
+  <!-- هدف التعلم -->
+  <div class="card">
+    <div class="plan-section">
+      <div class="section-icon">🎯</div>
+      <div class="section-body">
+        <div class="section-title">هدف التعلم</div>
+        <div class="section-title-en">Learning Objective</div>
+        <p class="section-text">يفسّر الطالب معنى التكافؤ بين طرفي المعادلة باستخدام تمثيل بصري، ويربط بين الرسم والعبارة الرمزية قبل الانتقال إلى الحل الإجرائي.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- معيار النجاح -->
+  <div class="card">
+    <div class="plan-section">
+      <div class="section-icon">📏</div>
+      <div class="section-body">
+        <div class="section-title">معيار النجاح</div>
+        <div class="section-title-en">Success Criteria</div>
+        <p class="section-text">يستطيع الطالب أن يوضّح بلغته الخاصة سبب تساوي طرفي المعادلة، مستعينًا برسم أو نموذج بصري، دون الاعتماد على حفظ خطوات الحل فقط.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- التمهيد -->
+  <div class="card">
+    <div class="plan-section">
+      <div class="section-icon">🌱</div>
+      <div class="section-body">
+        <div class="section-title">التمهيد</div>
+        <div class="section-title-en">Warm-up</div>
+        <p class="section-text">تُعرض على الطلاب صورة ميزان يحمل أشكالًا مختلفة على كفتيه، ويُطرح سؤال: "متى يبقى الميزان متزنًا؟" لتنشيط فكرة التكافؤ قبل ربطها بالرموز الرياضية.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- خطوات التنفيذ -->
+  <div class="card">
+    <div class="plan-section">
+      <div class="section-icon">🧭</div>
+      <div class="section-body">
+        <div class="section-title">خطوات التنفيذ</div>
+        <div class="section-title-en">Lesson Steps</div>
+        <ul class="step-list">
+          <li>تقديم نموذج الميزان البصري وربطه بفكرة "طرفين متساويين".<span class="step-time">5 د</span></li>
+          <li>تحويل نموذج الميزان إلى معادلة رمزية بسيطة أمام الطلاب.<span class="step-time">7 د</span></li>
+          <li>عمل جماعي: كل مجموعة ترسم ميزانها الخاص وتكتب المعادلة المقابلة له.<span class="step-time">12 د</span></li>
+          <li>مناقشة صفية لعرض نماذج المجموعات وتصحيح المفاهيم الخاطئة أولًا بأول.<span class="step-time">10 د</span></li>
+          <li>تدريب فردي قصير على تفسير معادلات جديدة دون حلها إجرائيًا.<span class="step-time">6 د</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- التمايز -->
+  <div class="card">
+    <div class="plan-section">
+      <div class="section-icon">🧩</div>
+      <div class="section-body">
+        <div class="section-title">التمايز</div>
+        <div class="section-title-en">Differentiation</div>
+        <div class="tag-list">
+          <span class="tag">دعم: نماذج ميزان جاهزة بالألوان</span>
+          <span class="tag">تمكين: معادلات بمجهولين على الطرفين</span>
+          <span class="tag">لغوي: بطاقات مفردات "تكافؤ / طرف / يساوي"</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- التقويم -->
+  <div class="card">
+    <div class="plan-section">
+      <div class="section-icon">✅</div>
+      <div class="section-body">
+        <div class="section-title">التقويم</div>
+        <div class="section-title-en">Assessment</div>
+        <p class="section-text">ملاحظة مباشرة أثناء العمل الجماعي على قدرة كل مجموعة على تفسير التوازن بصريًا، إضافة إلى مراجعة سريعة لتفسيرات الطلاب الفردية في نهاية الحصة.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- بطاقة الخروج -->
+  <div class="card">
+    <div class="plan-section">
+      <div class="section-icon">🚪</div>
+      <div class="section-body">
+        <div class="section-title">بطاقة الخروج</div>
+        <div class="section-title-en">Exit Card</div>
+        <div class="exit-card-box">
+          <div class="exit-q">"ارسم ميزانًا يمثّل المعادلة: ٣ + ٢ = ٤ + ١، ثم اشرح لماذا يبقى متزنًا."</div>
+          <div class="exit-hint">يُجيب كل طالب بشكل فردي في آخر دقيقتين من الحصة.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DECISION TRACE -->
+  <div class="trace-card">
+    <div class="trace-heading">Decision Trace</div>
+    <div class="trace-chain">
+      <span class="chain-item"><span class="check">✓</span>Context</span>
+      <span class="arrow">→</span>
+      <span class="chain-item"><span class="check">✓</span>Adaptive Question</span>
+      <span class="arrow">→</span>
+      <span class="chain-item"><span class="check">✓</span>Alternatives</span>
+      <span class="arrow">→</span>
+      <span class="chain-item"><span class="check">✓</span>Teacher Approval</span>
+      <span class="arrow">→</span>
+      <span class="chain-item chain-final">Implementation Plan</span>
+    </div>
+  </div>
+
+  <!-- FOOTER SIGNATURE -->
+  <div class="footer-signature">
+    <div class="sig-title">ZAHRAA™ Teacher Decision Lab</div>
+    <div class="sig-sub">AI suggests. Teachers decide.</div>
+  </div>
+
+</div>
+
+</body>
+</html>
