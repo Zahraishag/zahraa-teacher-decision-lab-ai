@@ -6,36 +6,44 @@
 <title>ZAHRAA™ Teacher Decision Lab — القرار قبل التوليد</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#1c2541;
-    --ink-soft:#3a3f4b;
-    --paper:#efeae0;
-    --paper-raised:#f7f4ec;
-    --gold:#b98900;
-    --gold-deep:#8f6a00;
-    --sage:#5c7a6b;
-    --line:#d8d2c4;
-    --white:#fffdf8;
-    --amber-line:#c9a13b;
+    --ink:#5A3E2B;
+    --ink-soft:#8B7F72;
+    --paper:#FAF7F0;
+    --paper-raised:#FFFFFF;
+    --gold:#C9A24B;
+    --gold-deep:#B08A3A;
+    --line:#EAE2D3;
+    --white:#FFFFFF;
+    --amber-line:#EBD9A8;
+    --success:#3E7A56;
+    --danger:#B4574A;
+    --shadow-sm: 0 2px 10px rgba(90,62,43,.06);
+    --shadow-md: 0 10px 30px rgba(90,62,43,.10);
+    --shadow-lg: 0 24px 60px rgba(90,62,43,.16);
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 22px;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
     background:var(--paper);
     color:var(--ink);
-    font-family:'IBM Plex Sans Arabic', sans-serif;
+    font-family:'Alexandria', sans-serif;
     line-height:1.7;
     -webkit-font-smoothing:antialiased;
   }
   .eyebrow{
-    font-family:'IBM Plex Mono', monospace;
+    font-family:'Alexandria', sans-serif;
     font-size:.72rem;
+    font-weight:600;
     letter-spacing:.14em;
     color:var(--gold-deep);
     text-transform:uppercase;
-    display:flex;
+    display:inline-flex;
     align-items:center;
     gap:.6em;
   }
@@ -44,305 +52,413 @@
     width:26px;height:1px;
     background:var(--gold-deep);
     display:inline-block;
+    flex-shrink:0;
   }
+  .eyebrow-invert{ color:#E8D9B8; }
+  .eyebrow-invert::before{ background:#E8D9B8; }
   h1,h2,h3{
-    font-family:'Amiri', serif;
+    font-family:'Alexandria', sans-serif;
     font-weight:700;
     color:var(--ink);
   }
   a{color:inherit;text-decoration:none;}
   img,svg{display:block;max-width:100%;}
+  section{scroll-margin-top:5rem;}
+
+  /* ===== Buttons ===== */
+  .btn{
+    font-family:'Alexandria',sans-serif;
+    font-size:.95rem; font-weight:600;
+    padding:.85rem 1.7rem;
+    border-radius:11px;
+    cursor:pointer;
+    border:1px solid transparent;
+    transition:transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+    display:inline-flex; align-items:center; gap:.55rem;
+  }
+  .btn:focus-visible{outline:2px solid var(--gold); outline-offset:3px;}
+  .btn-primary{
+    background:var(--ink); color:var(--white);
+    box-shadow:0 10px 24px rgba(90,62,43,.22);
+  }
+  .btn-primary:hover{transform:translateY(-2px); box-shadow:0 16px 32px rgba(90,62,43,.28);}
+  .btn-ghost{
+    background:transparent; border-color:var(--line); color:var(--ink);
+  }
+  .btn-ghost:hover{border-color:var(--gold-deep); color:var(--gold-deep);}
+  .btn-sm{padding:.6rem 1.15rem; font-size:.85rem;}
+  .btn-text{
+    padding:.85rem .2rem;
+    background:none;
+    position:relative;
+    color:var(--ink);
+  }
+  .btn-text::after{
+    content:"";
+    position:absolute; right:0; bottom:.55rem; left:0;
+    height:1px; background:var(--ink-soft);
+    transition:background .15s ease;
+  }
+  .btn-text:hover::after{ background:var(--gold-deep); }
+  .btn-text:hover{ color:var(--gold-deep); }
+  .btn-invert{
+    background:var(--gold); color:var(--ink);
+    box-shadow:0 14px 30px rgba(0,0,0,.25);
+  }
+  .btn-invert:hover{ transform:translateY(-2px); background:#D4B15E; }
 
   /* ===== Top bar ===== */
   .topbar{
     position:sticky; top:0; z-index:40;
     display:flex; align-items:center; justify-content:space-between;
-    padding:1.1rem clamp(1.25rem,4vw,3.5rem);
-    background:rgba(239,234,224,.92);
-    backdrop-filter:blur(6px);
+    padding:1.15rem clamp(1.25rem,4vw,3.5rem);
+    background:rgba(250,247,240,.86);
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
   }
-  .mark{
-    display:flex; align-items:baseline; gap:.5rem;
-  }
+  .mark{ display:flex; align-items:baseline; gap:.5rem; }
   .mark .name{
-    font-family:'Amiri',serif; font-weight:700; font-size:1.25rem; color:var(--ink);
+    font-family:'Alexandria',sans-serif; font-weight:700; font-size:1.2rem; color:var(--ink);
   }
   .mark .tm{font-size:.6rem; vertical-align:super; color:var(--gold-deep);}
   .mark .sub{
-    font-family:'IBM Plex Mono',monospace; font-size:.65rem; color:var(--ink-soft); letter-spacing:.05em;
+    font-family:'Alexandria',sans-serif; font-size:.66rem; color:var(--ink-soft); letter-spacing:.05em;
   }
-  .nav-actions{display:flex; align-items:center; gap:.75rem;}
-  .btn{
-    font-family:'IBM Plex Sans Arabic',sans-serif;
-    font-size:.92rem; font-weight:500;
-    padding:.65rem 1.4rem;
-    border-radius:3px;
-    cursor:pointer;
-    border:1px solid transparent;
-    transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
-    display:inline-flex; align-items:center; gap:.5rem;
-  }
-  .btn:focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
-  .btn-primary{
-    background:var(--ink); color:var(--white);
-  }
-  .btn-primary:hover{transform:translateY(-1px); box-shadow:0 6px 16px rgba(28,37,65,.25);}
-  .btn-ghost{
-    background:transparent; border-color:var(--ink-soft); color:var(--ink);
-  }
-  .btn-ghost:hover{border-color:var(--gold-deep); color:var(--gold-deep);}
-  .btn-sm{padding:.5rem 1rem; font-size:.82rem;}
+  .nav-actions{display:flex; align-items:center; gap:.7rem;}
 
   /* ===== Hero ===== */
   .hero{
     position:relative;
     display:grid;
-    grid-template-columns:1.15fr .85fr;
-    gap:3rem;
-    padding:5.5rem clamp(1.25rem,4vw,3.5rem) 4rem;
+    grid-template-columns:1.08fr .92fr;
+    gap:clamp(2rem,5vw,4rem);
+    padding:clamp(3.5rem,8vw,6.5rem) clamp(1.25rem,4vw,3.5rem) clamp(3rem,6vw,4.5rem);
     align-items:center;
-    max-width:1320px;
+    max-width:1360px;
     margin:0 auto;
   }
+  .hero-copy{ animation:rise .6s ease both; }
+  @keyframes rise{
+    from{ opacity:0; transform:translateY(14px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
   .hero h1{
-    font-size:clamp(2.2rem,4vw,3.4rem);
-    line-height:1.28;
-    margin:1.1rem 0 1.4rem;
+    font-size:clamp(2.5rem,5.4vw,4.35rem);
+    font-weight:800;
+    line-height:1.14;
+    letter-spacing:-.01em;
+    margin:1.3rem 0 1.5rem;
   }
   .hero h1 em{
     font-style:normal;
     color:var(--gold-deep);
-    border-bottom:2px solid var(--gold);
+    box-shadow: inset 0 -0.28em 0 rgba(201,162,75,.28);
   }
   .hero p.lede{
-    font-size:1.08rem;
+    font-size:1.14rem;
     color:var(--ink-soft);
     max-width:46ch;
-    margin-bottom:2rem;
+    margin-bottom:2.2rem;
   }
-  .hero .cta-row{display:flex; flex-wrap:wrap; gap:.9rem; align-items:center;}
+  .hero .cta-row{display:flex; flex-wrap:wrap; gap:1rem; align-items:center;}
   .principle{
     margin-top:2.6rem;
-    padding:1.1rem 1.4rem;
+    padding-right:1.2rem;
     border-right:3px solid var(--gold);
-    background:var(--paper-raised);
-    font-family:'Amiri',serif;
-    font-size:1.15rem;
+    font-family:'Alexandria',sans-serif;
+    font-size:1.2rem;
+    font-weight:500;
     color:var(--ink);
-    max-width:44ch;
+    max-width:42ch;
   }
 
-  /* ===== Signature decision diagram ===== */
-  .decision-diagram{
+  /* ===== Decision rail (hero visual) ===== */
+  .decision-rail{
     background:var(--paper-raised);
     border:1px solid var(--line);
-    border-radius:6px;
-    padding:1.9rem 1.3rem 1.5rem;
+    border-radius:var(--radius-lg);
+    padding:2.1rem 1.9rem 1.7rem;
+    box-shadow:var(--shadow-lg);
+    animation:rise .7s ease .1s both;
+  }
+  .rail-stop{
     display:flex;
-    flex-direction:column;
-    align-items:center;
-  }
-  .dd-node{
-    display:flex; flex-direction:column; align-items:center;
-    text-align:center; gap:.3rem;
-  }
-  .dd-icon{
-    display:flex; align-items:center; justify-content:center;
-    width:44px; height:44px; flex:none;
-    border-radius:50%;
-    background:var(--white);
-    border:1px solid var(--line);
-    color:var(--ink);
-  }
-  .dd-icon svg{width:21px; height:21px;}
-
-  .dd-situation .dd-icon{border-color:var(--gold); color:var(--gold-deep);}
-  .dd-situation .dd-title{font-weight:600; font-size:.96rem; margin-top:.15rem;}
-  .dd-situation .dd-desc{font-size:.76rem; color:var(--ink-soft);}
-
-  .dd-connector{
-    width:1.5px; height:26px;
-    background:var(--amber-line);
-    opacity:.65;
+    gap:1.1rem;
     position:relative;
   }
-  .dd-connector::after{
-    content:"";
-    position:absolute; bottom:-5px; left:50%; transform:translateX(-50%);
-    width:0; height:0;
-    border-left:4px solid transparent;
-    border-right:4px solid transparent;
-    border-top:5px solid var(--amber-line);
-    opacity:.85;
+  .rail-marker{
+    display:flex; flex-direction:column; align-items:center;
+    flex-shrink:0;
+    width:44px;
   }
-
-  .dd-alternatives{
-    width:100%;
-    max-width:460px;
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:.85rem;
-    margin:.35rem 0 0;
-  }
-  .dd-alt{
-    background:var(--white);
-    border:1px solid var(--line);
-    border-radius:5px;
-    padding:1rem .75rem;
-    display:flex; flex-direction:column; align-items:center; text-align:center;
-    gap:.4rem;
-    box-shadow:0 2px 8px rgba(28,37,65,.05);
-  }
-  .dd-alt .dd-icon{width:38px; height:38px; border-color:var(--line); color:var(--gold-deep);}
-  .dd-alt .dd-icon svg{width:18px; height:18px;}
-  .dd-alt-title{font-weight:600; font-size:.88rem; color:var(--ink);}
-  .dd-alt-desc{font-size:.72rem; color:var(--ink-soft); line-height:1.5;}
-
-  .dd-bus{
-    display:block;
-    width:100%; max-width:300px; height:32px;
-  }
-  .dd-bus path, .dd-bus line{
-    stroke:var(--amber-line);
-    stroke-width:1.5;
-    stroke-linecap:round;
-    fill:none;
-    opacity:.65;
-  }
-
-  .dd-decision{
-    background:var(--white);
-    border:2px solid var(--gold);
+  .rail-marker .node{
+    width:44px; height:44px; flex-shrink:0;
     border-radius:50%;
-    width:130px; height:130px;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:.1rem;
-    padding:.5rem;
-    box-shadow:0 10px 22px rgba(185,137,0,.18);
+    background:var(--white);
+    border:1.5px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--ink);
+    position:relative; z-index:1;
   }
-  .dd-decision .dd-icon{
-    background:var(--gold); color:var(--white); border:none;
-    width:34px; height:34px; margin-bottom:.25rem;
+  .rail-marker .node svg{width:20px; height:20px;}
+  .rail-marker .thread{
+    width:2px; flex:1;
+    min-height:1.4rem;
+    background:linear-gradient(var(--amber-line), var(--amber-line));
+    margin:.3rem 0;
   }
-  .dd-decision .dd-icon svg{width:17px; height:17px;}
-  .dd-decision-title{font-weight:700; font-size:.84rem; color:var(--ink);}
-  .dd-decision-desc{font-size:.65rem; color:var(--ink-soft); max-width:92px; line-height:1.35;}
+  .rail-stop:last-child .rail-marker .thread{display:none;}
+  .rail-content{ flex:1; padding-top:.15rem; padding-bottom:1.7rem; min-width:0; }
+  .rail-stop:last-child .rail-content{ padding-bottom:0; }
+  .stage-tag{
+    font-size:.68rem; font-weight:700; color:var(--ink-soft);
+    letter-spacing:.08em;
+  }
+  .stage-title{
+    font-size:1rem; font-weight:700; color:var(--ink);
+    margin:.15rem 0 .2rem;
+  }
+  .stage-desc{ font-size:.82rem; color:var(--ink-soft); line-height:1.55; }
+  .stage-desc br{ content:""; }
 
-  .dd-plan{
-    margin-top:.3rem;
-    background:var(--ink);
-    color:var(--white);
-    border-radius:5px;
-    padding:.85rem 1.5rem;
-    display:flex; align-items:center; gap:.6rem;
-    justify-content:center;
-    min-width:150px;
+  .rail-stop-alt .node{ border-color:var(--gold); color:var(--gold-deep); }
+  .alt-mini-grid{
+    display:flex; flex-direction:column; gap:.5rem;
+    margin-top:.55rem;
   }
-  .dd-plan .dd-icon{
-    background:transparent; border:1px solid rgba(255,253,248,.35); color:var(--white);
-    width:32px; height:32px;
+  .alt-mini{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-radius:9px;
+    padding:.55rem .75rem;
+    display:flex; align-items:baseline; gap:.5rem;
+    flex-wrap:wrap;
   }
-  .dd-plan .dd-icon svg{width:16px; height:16px;}
-  .dd-plan-title{font-weight:600; font-size:.86rem;}
+  .alt-mini-title{ font-size:.78rem; font-weight:700; color:var(--ink); }
+  .alt-mini-desc{ font-size:.7rem; color:var(--ink-soft); }
 
-  .decision-diagram figcaption{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:.66rem; color:var(--ink-soft);
-    letter-spacing:.05em;
+  .rail-stop-decision .node{
+    background:var(--gold); border-color:var(--gold); color:var(--white);
+    box-shadow:0 8px 18px rgba(201,162,75,.35);
+  }
+  .rail-stop-decision .stage-title{ font-size:1.08rem; }
+
+  .rail-stop-plan .node{
+    background:var(--ink); border-color:var(--ink); color:var(--white);
+  }
+
+  .decision-rail figcaption{
+    font-family:'Alexandria',sans-serif;
+    font-size:.68rem; color:var(--ink-soft);
+    letter-spacing:.04em;
     text-align:center;
-    margin-top:1.1rem;
+    margin-top:.6rem;
+    padding-top:1.3rem;
+    border-top:1px dashed var(--line);
+  }
+
+  /* ===== Proof bar ===== */
+  .proof-bar{
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    background:var(--paper-raised);
+  }
+  .proof-bar-inner{
+    max-width:1360px; margin:0 auto;
+    padding:1.6rem clamp(1.25rem,4vw,3.5rem);
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+  }
+  .proof-item{
+    text-align:center;
+    padding:.4rem 1rem;
+    border-inline-start:1px solid var(--line);
+    direction:ltr;
+  }
+  .proof-item:first-child{ border-inline-start:none; }
+  .proof-item .word{
+    font-size:.82rem; font-weight:700; letter-spacing:.1em;
+    color:var(--ink); text-transform:uppercase;
+  }
+  .proof-item .gloss{
+    font-size:.72rem; color:var(--ink-soft); margin-top:.25rem;
+    direction:rtl;
   }
 
   /* ===== Section shell ===== */
-  section{
-    padding:4.5rem clamp(1.25rem,4vw,3.5rem);
-    max-width:1320px;
+  section.block{
+    padding:clamp(3.5rem,7vw,6rem) clamp(1.25rem,4vw,3.5rem);
+    max-width:1360px;
     margin:0 auto;
   }
-  .section-head{margin-bottom:2.4rem; max-width:60ch;}
-  .section-head h2{font-size:clamp(1.6rem,2.6vw,2.15rem); margin-top:.8rem;}
+  .section-head{margin-bottom:2.8rem; max-width:60ch;}
+  .section-head h2{font-size:clamp(1.7rem,3vw,2.35rem); margin-top:.9rem;}
 
-  /* ===== Why different table ===== */
-  .compare{
+  /* ===== Why different — modern comparison ===== */
+  .compare-modern{
     display:grid;
     grid-template-columns:1fr 1fr;
+    gap:1.25rem;
+    position:relative;
+  }
+  .compare-vs{
+    position:absolute; top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    width:42px; height:42px; border-radius:50%;
+    background:var(--paper); border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-size:.7rem; font-weight:700; color:var(--gold-deep);
+    z-index:2;
+  }
+  .compare-panel{
+    border-radius:var(--radius-md);
+    padding:1.9rem 1.8rem 2rem;
     border:1px solid var(--line);
-    border-radius:4px;
-    overflow:hidden;
+  }
+  .compare-panel.trad{
     background:var(--paper-raised);
   }
-  .compare .col-head{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:.78rem;
-    letter-spacing:.03em;
-    padding:1rem 1.3rem;
+  .compare-panel.zahraa{
+    background:var(--ink);
+    border-color:var(--ink);
+    box-shadow:var(--shadow-md);
+  }
+  .compare-panel .panel-head{
+    font-family:'Alexandria',sans-serif;
+    font-size:.78rem; font-weight:700;
+    letter-spacing:.04em;
+    padding-bottom:1.1rem;
+    margin-bottom:1.1rem;
     border-bottom:1px solid var(--line);
   }
-  .compare .col-head.trad{color:var(--ink-soft); background:transparent;}
-  .compare .col-head.zahraa{color:var(--white); background:var(--ink);}
-  .compare .row{display:contents;}
-  .compare .cell{
-    padding:1.1rem 1.3rem;
-    border-bottom:1px solid var(--line);
-    font-size:.97rem;
+  .compare-panel.trad .panel-head{ color:var(--ink-soft); }
+  .compare-panel.zahraa .panel-head{ color:#E8D9B8; border-bottom-color:rgba(255,255,255,.15); }
+  .compare-row{
+    display:flex; align-items:flex-start; gap:.7rem;
+    padding:.75rem 0;
   }
-  .compare .cell.trad{color:var(--ink-soft);}
-  .compare .cell.zahraa{color:var(--ink); background:rgba(185,137,0,.06); font-weight:500;}
-  .compare .row:last-child .cell{border-bottom:none;}
+  .compare-row + .compare-row{ border-top:1px dashed rgba(0,0,0,.06); }
+  .compare-panel.zahraa .compare-row + .compare-row{ border-top-color:rgba(255,255,255,.08); }
+  .compare-mark{
+    width:20px; height:20px; flex-shrink:0; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    margin-top:.1rem;
+  }
+  .compare-panel.trad .compare-mark{ background:rgba(139,127,114,.12); color:var(--ink-soft); }
+  .compare-panel.zahraa .compare-mark{ background:rgba(201,162,75,.22); color:var(--gold); }
+  .compare-mark svg{ width:11px; height:11px; }
+  .compare-row p{ font-size:.94rem; }
+  .compare-panel.trad .compare-row p{ color:var(--ink-soft); }
+  .compare-panel.zahraa .compare-row p{ color:#F5EFE0; font-weight:500; }
 
-  /* ===== Workflow (marginalia style) ===== */
-  .workflow{
+  /* ===== How it works — timeline ===== */
+  .timeline{
+    position:relative;
     display:flex; flex-direction:column;
-    border-top:1px solid var(--line);
+    gap:0;
   }
-  .wf-step{
+  .tl-step{
+    position:relative;
     display:grid;
     grid-template-columns:64px 1fr;
-    gap:1.2rem;
-    padding:1.3rem 0;
-    border-bottom:1px solid var(--line);
-    align-items:baseline;
+    gap:1.6rem;
+    padding:2rem 0;
   }
-  .wf-step .num{
-    font-family:'IBM Plex Mono',monospace;
+  .tl-step + .tl-step{ border-top:1px solid var(--line); }
+  .tl-marker{
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .tl-dot{
+    width:44px; height:44px; border-radius:50%;
+    background:var(--paper-raised);
+    border:1.5px solid var(--amber-line);
     color:var(--gold-deep);
-    font-size:.85rem;
-    text-align:center;
-    border-left:1px solid var(--line);
-    align-self:stretch;
     display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:.85rem;
+    flex-shrink:0;
   }
-  .wf-step h3{font-size:1.05rem; margin-bottom:.25rem; font-family:'IBM Plex Sans Arabic',sans-serif; font-weight:600;}
-  .wf-step p{color:var(--ink-soft); font-size:.92rem; max-width:60ch;}
+  .tl-body{ position:relative; min-width:0; }
+  .tl-ghost{
+    position:absolute;
+    top:-1.6rem; inset-inline-end:0;
+    font-size:clamp(3.2rem,6vw,4.6rem);
+    font-weight:800;
+    color:var(--gold);
+    opacity:.08;
+    line-height:1;
+    pointer-events:none;
+    user-select:none;
+  }
+  .tl-body h3{font-size:1.12rem; margin-bottom:.4rem; position:relative;}
+  .tl-body p{color:var(--ink-soft); font-size:.95rem; max-width:60ch; position:relative;}
 
   /* ===== Audience ===== */
   .audience-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-    gap:1.2rem;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:1.6rem;
   }
   .aud-card{
     border:1px solid var(--line);
     background:var(--paper-raised);
-    border-radius:4px;
-    padding:1.4rem;
+    border-radius:var(--radius-md);
+    padding:2rem 1.9rem;
+    position:relative;
+    overflow:hidden;
+    transition:transform .18s ease, box-shadow .18s ease;
   }
+  .aud-card:hover{ transform:translateY(-3px); box-shadow:var(--shadow-md); }
+  .aud-card::before{
+    content:"";
+    position:absolute; top:0; right:0; left:0; height:3px;
+    background:linear-gradient(90deg, var(--gold), var(--amber-line));
+  }
+  .aud-icon{
+    width:42px; height:42px; border-radius:11px;
+    background:rgba(201,162,75,.12);
+    color:var(--gold-deep);
+    display:flex; align-items:center; justify-content:center;
+    margin-bottom:1.3rem;
+  }
+  .aud-icon svg{ width:20px; height:20px; }
   .aud-card .eyebrow{margin-bottom:.7rem;}
-  .aud-card p{font-size:.94rem; color:var(--ink-soft);}
+  .aud-card p{font-size:.98rem; color:var(--ink-soft);}
+
+  /* ===== Closing CTA ===== */
+  .cta-close{
+    background:var(--ink);
+    color:var(--white);
+  }
+  .cta-close-inner{
+    max-width:760px; margin:0 auto;
+    padding:clamp(4rem,8vw,6rem) clamp(1.25rem,4vw,3.5rem);
+    text-align:center;
+    display:flex; flex-direction:column; align-items:center;
+  }
+  .cta-close-headline{
+    font-size:clamp(1.8rem,3.6vw,2.6rem);
+    line-height:1.35;
+    margin:1.1rem 0 2.2rem;
+    color:var(--white);
+  }
+  .cta-close-headline em{
+    font-style:normal;
+    color:var(--gold);
+  }
 
   footer{
-    padding:2.6rem clamp(1.25rem,4vw,3.5rem) 3rem;
-    border-top:1px solid var(--line);
-    display:flex; justify-content:space-between; flex-wrap:wrap; gap:1rem;
-    font-size:.82rem; color:var(--ink-soft);
-    max-width:1320px; margin:0 auto;
+    background:var(--ink);
+    border-top:1px solid rgba(255,255,255,.1);
+    padding:1.8rem clamp(1.25rem,4vw,3.5rem) 2.4rem;
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:.6rem;
+    font-size:.8rem; color:#C9BCA9;
   }
 
   /* ===== For Judges overlay ===== */
   .overlay{
     position:fixed; inset:0; z-index:100;
-    background:rgba(20,24,40,.55);
+    background:rgba(74,50,30,.55);
     display:none;
     align-items:flex-start; justify-content:center;
     padding:4vh 1.25rem;
@@ -356,7 +472,7 @@
     border-radius:6px;
     padding:2.6rem clamp(1.5rem,4vw,3.2rem) 3rem;
     direction:ltr; text-align:left;
-    font-family:'IBM Plex Sans Arabic', sans-serif;
+    font-family:'Alexandria', sans-serif;
     position:relative;
     box-shadow:0 30px 60px rgba(0,0,0,.3);
   }
@@ -364,38 +480,38 @@
     position:absolute; top:1.3rem; left:1.3rem;
     background:none; border:none; cursor:pointer;
     font-size:1.1rem; color:var(--ink-soft);
-    font-family:'IBM Plex Mono',monospace;
+    font-family:'Alexandria',sans-serif;
   }
   .judges-panel .tag{
-    font-family:'IBM Plex Mono',monospace; font-size:.7rem;
+    font-family:'Alexandria',sans-serif; font-size:.7rem;
     letter-spacing:.1em; text-transform:uppercase; color:var(--gold-deep);
     margin-bottom:.6rem;
   }
-  .judges-panel h1{font-family:'Amiri',serif; font-size:1.9rem; margin-bottom:.2rem;}
+  .judges-panel h1{font-family:'Alexandria',sans-serif; font-size:1.9rem; margin-bottom:.2rem;}
   .judges-panel h2.jp-sub{
-    font-family:'Amiri',serif; font-weight:400; font-style:italic;
+    font-family:'Alexandria',sans-serif; font-weight:400; font-style:italic;
     font-size:1.1rem; color:var(--gold-deep); margin-bottom:1.4rem;
   }
   .judges-panel p{font-size:.98rem; color:var(--ink-soft); margin-bottom:1rem;}
   .judges-panel .quote{
-    font-family:'Amiri',serif; font-size:1.2rem; color:var(--ink);
+    font-family:'Alexandria',sans-serif; font-size:1.2rem; color:var(--ink);
     border-left:3px solid var(--gold); padding:.4rem 1rem; margin:1.6rem 0;
   }
   .judges-panel h3{
-    font-family:'IBM Plex Sans Arabic',sans-serif; font-weight:600;
+    font-family:'Alexandria',sans-serif; font-weight:600;
     font-size:1.02rem; margin:1.8rem 0 .8rem;
     text-transform:uppercase; letter-spacing:.03em; color:var(--ink);
   }
   .jp-compare{width:100%; border-collapse:collapse; font-size:.9rem; margin-bottom:1rem;}
   .jp-compare th{
-    font-family:'IBM Plex Mono',monospace; font-weight:500; font-size:.72rem;
+    font-family:'Alexandria',sans-serif; font-weight:500; font-size:.72rem;
     text-transform:uppercase; letter-spacing:.04em; text-align:left;
     padding:.6rem .8rem; border-bottom:1px solid var(--line); color:var(--ink-soft);
   }
   .jp-compare td{padding:.6rem .8rem; border-bottom:1px solid var(--line); vertical-align:top;}
-  .jp-compare td:last-child{background:rgba(185,137,0,.06); font-weight:500;}
+  .jp-compare td:last-child{background:rgba(201,162,75,.06); font-weight:500;}
   .jp-flow{
-    font-family:'IBM Plex Mono',monospace; font-size:.92rem;
+    font-family:'Alexandria',sans-serif; font-size:.92rem;
     background:var(--paper-raised); border:1px solid var(--line);
     padding:.9rem 1.1rem; border-radius:4px; margin-bottom:1rem;
   }
@@ -408,32 +524,33 @@
     cursor:pointer; font-weight:600; font-size:.94rem; color:var(--ink);
     list-style:none; display:flex; align-items:center; gap:.5rem;
   }
-  details.jp-more summary::before{content:"+"; font-family:'IBM Plex Mono',monospace; color:var(--gold-deep);}
+  details.jp-more summary::before{content:"+"; font-family:'Alexandria',sans-serif; color:var(--gold-deep);}
   details.jp-more[open] summary::before{content:"–";}
   details.jp-more .body{padding-top:1.1rem;}
 
-  @media (max-width:880px){
-    .hero{grid-template-columns:1fr; padding-top:3rem;}
-    .compare{grid-template-columns:1fr;}
-    .compare .col-head.zahraa, .compare .cell.zahraa{order:1;}
-    .nav-actions .btn span.long{display:none;}
-    .decision-diagram{padding:1.6rem 1rem 1.3rem;}
-    .dd-alternatives{max-width:420px;}
+  /* ===== Responsive ===== */
+  @media (max-width:960px){
+    .hero{grid-template-columns:1fr; padding-top:2.6rem;}
+    .compare-modern{grid-template-columns:1fr; gap:1rem;}
+    .compare-vs{ position:static; transform:none; margin:0 auto; }
+    .tl-ghost{ display:none; }
   }
-  @media (max-width:560px){
-    .dd-alternatives{
-      grid-template-columns:1fr;
-      max-width:280px;
-    }
-    .dd-bus{display:none;}
-    .dd-decision{margin-top:1rem;}
+  @media (max-width:680px){
+    .proof-bar-inner{ grid-template-columns:repeat(2,1fr); gap:1.2rem 0; }
+    .proof-item{ border-inline-start:none; border-top:1px solid var(--line); padding-top:1rem; }
+    .proof-item:nth-child(1),
+    .proof-item:nth-child(2){ border-top:none; padding-top:.4rem; }
+    .tl-step{ grid-template-columns:48px 1fr; gap:1rem; }
+    .tl-dot{ width:36px; height:36px; font-size:.75rem; }
+    .decision-rail{ padding:1.6rem 1.3rem 1.3rem; }
+    .cta-close-inner{ padding-left:1.25rem; padding-right:1.25rem; }
   }
-  @media (max-width:360px){
-    .dd-decision{width:114px; height:114px;}
-    .dd-decision-desc{max-width:78px;}
+  @media (max-width:420px){
+    .audience-grid{ grid-template-columns:1fr; }
   }
   @media (prefers-reduced-motion: reduce){
-    *{transition:none !important;}
+    html{ scroll-behavior:auto !important; }
+    *{ transition:none !important; animation:none !important; scroll-behavior:auto !important; }
   }
 </style>
 </head>
@@ -448,164 +565,276 @@
     <button class="btn btn-ghost btn-sm" onclick="document.getElementById('judgesOverlay').classList.add('open')">
       For Judges
     </button>
-    <a href="alternatives.html" class="btn btn-primary btn-sm">ابدأ تحليل موقف تربوي</a>
+    <a href="alternatives.html" class="btn btn-primary btn-sm">ابدأ رحلة اتخاذ القرار</a>
   </div>
 </div>
 
 <section class="hero">
-  <div>
+  <div class="hero-copy">
     <span class="eyebrow">القرار قبل التوليد</span>
-    <h1>لا تبدأ بخطة الدرس…<br><em>ابدأ بالقرار الصحيح.</em></h1>
+    <h1>كل خطة ناجحة…<br><em>تبدأ بقرار تربوي صحيح.</em></h1>
     <p class="lede">
       حلّل موقفك التعليمي، وقارن بين بدائل تربوية مختلفة، ثم اعتمد القرار المناسب —
       قبل أن يُنشئ النظام خطة التنفيذ.
     </p>
     <div class="cta-row">
-      <a href="alternatives.html" class="btn btn-primary">ابدأ تحليل موقف تربوي</a>
-      <a href="#why" class="btn btn-ghost">لماذا يختلف؟</a>
+      <a href="alternatives.html" class="btn btn-primary">ابدأ رحلة اتخاذ القرار</a>
+      <a href="#why" class="btn btn-text">لماذا يختلف؟</a>
     </div>
     <div class="principle">الذكاء الاصطناعي يقترح، والمعلم يقرر.</div>
   </div>
 
-  <figure class="decision-diagram">
-    <div class="dd-node dd-situation">
-      <span class="dd-icon">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.4" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.4V12l3.2 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-      <span class="dd-title">الموقف</span>
-      <span class="dd-desc">تحليل الموقف التعليمي</span>
+  <figure class="decision-rail" aria-label="مسار القرار: من تحليل الموقف إلى خطة التنفيذ">
+    <div class="rail-stop">
+      <div class="rail-marker">
+        <span class="node">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="8.4" stroke="currentColor" stroke-width="1.6"/><path d="M12 7.4V12l3.2 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="thread"></span>
+      </div>
+      <div class="rail-content">
+        <span class="stage-tag">01</span>
+        <h3 class="stage-title">الموقف</h3>
+        <p class="stage-desc">تحليل الموقف التعليمي</p>
+      </div>
     </div>
 
-    <div class="dd-connector" aria-hidden="true"></div>
-
-    <div class="dd-alternatives">
-      <div class="dd-alt">
-        <span class="dd-icon">
+    <div class="rail-stop rail-stop-alt">
+      <div class="rail-marker">
+        <span class="node">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 5.5C4 4.7 4.7 4 5.5 4H11v16H5.5C4.7 20 4 19.3 4 18.5V5.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M20 5.5c0-.8-.7-1.5-1.5-1.5H13v16h5.5c.8 0 1.5-.7 1.5-1.5V5.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
         </span>
-        <span class="dd-alt-title">بديل أ</span>
-        <span class="dd-alt-desc">نهج تعليمي 1<br>فرصة مختلفة للنجاح</span>
+        <span class="thread"></span>
       </div>
-      <div class="dd-alt">
-        <span class="dd-icon">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 18h6M10 21h4M8.5 14.5C6.6 13.2 5.5 11.3 5.5 9.2 5.5 5.8 8.4 3 12 3s6.5 2.8 6.5 6.2c0 2.1-1.1 4-3 5.3-.6.4-1 1.1-1 1.9v.1H9.5v-.1c0-.8-.4-1.5-1-1.9Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      <div class="rail-content">
+        <span class="stage-tag">02</span>
+        <h3 class="stage-title">بدائل تربوية</h3>
+        <div class="alt-mini-grid">
+          <div class="alt-mini">
+            <span class="alt-mini-title">المدخل المفاهيمي البصري</span>
+            <span class="alt-mini-desc">نهج تعليمي 1 — فرصة مختلفة للنجاح</span>
+          </div>
+          <div class="alt-mini">
+            <span class="alt-mini-title">تحليل الأخطاء الشائعة</span>
+            <span class="alt-mini-desc">نهج تعليمي 2 — فرصة مختلفة للنجاح</span>
+          </div>
+          <div class="alt-mini">
+            <span class="alt-mini-title">إعادة التجزئة المنظمة</span>
+            <span class="alt-mini-desc">نهج تعليمي 3 — فرصة مختلفة للنجاح</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rail-stop rail-stop-decision">
+      <div class="rail-marker">
+        <span class="node">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M5 6h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M5 6 2.5 11a2.5 2.5 0 0 0 5 0L5 6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M19 6l-2.5 5a2.5 2.5 0 0 0 5 0L19 6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 6v13M8 19h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
         </span>
-        <span class="dd-alt-title">بديل ب</span>
-        <span class="dd-alt-desc">نهج تعليمي 2<br>فرصة مختلفة للنجاح</span>
+        <span class="thread"></span>
       </div>
-      <div class="dd-alt">
-        <span class="dd-icon">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8" r="2.6" stroke="currentColor" stroke-width="1.5"/><path d="M3.8 19c.5-2.8 2.7-4.6 5.2-4.6s4.7 1.8 5.2 4.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="16.5" cy="8.5" r="2" stroke="currentColor" stroke-width="1.4"/><path d="M15 14.7c1.9.2 3.6 1.7 4 4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      <div class="rail-content">
+        <span class="stage-tag">03</span>
+        <h3 class="stage-title">مراجعة القرار واعتماده</h3>
+        <p class="stage-desc">اختيار المعلم بعد المراجعة</p>
+      </div>
+    </div>
+
+    <div class="rail-stop rail-stop-plan">
+      <div class="rail-marker">
+        <span class="node">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3.5h7l4 4V20a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 3.5V8h4" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.5 12h7M8.5 15h7M8.5 18h4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
         </span>
-        <span class="dd-alt-title">بديل ج</span>
-        <span class="dd-alt-desc">نهج تعليمي 3<br>فرصة مختلفة للنجاح</span>
+      </div>
+      <div class="rail-content">
+        <span class="stage-tag">04</span>
+        <h3 class="stage-title">خطة التنفيذ</h3>
       </div>
     </div>
 
-    <svg class="dd-bus" viewBox="0 0 300 32" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-      <path d="M50 0 V9 H250 V0" stroke-dasharray="4 4"/>
-      <line x1="150" y1="9" x2="150" y2="32" stroke-dasharray="4 4"/>
-    </svg>
-
-    <div class="dd-node dd-decision">
-      <span class="dd-icon">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 3v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M5 6h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M5 6 2.5 11a2.5 2.5 0 0 0 5 0L5 6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M19 6l-2.5 5a2.5 2.5 0 0 0 5 0L19 6Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M12 6v13M8 19h8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-      </span>
-      <span class="dd-decision-title">القرار المعتمد</span>
-      <span class="dd-decision-desc">اختيار المعلم بعد المراجعة</span>
-    </div>
-
-    <div class="dd-connector" aria-hidden="true"></div>
-
-    <div class="dd-node dd-plan">
-      <span class="dd-icon">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3.5h7l4 4V20a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4.5a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 3.5V8h4" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M8.5 12h7M8.5 15h7M8.5 18h4.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-      </span>
-      <span class="dd-plan-title">خطة التنفيذ</span>
-    </div>
-
-    <figcaption>تحليل → مقارنة بدائل → اعتماد القرار → توليد الخطة</figcaption>
+    <figcaption>تحليل الموقف → مقارنة البدائل → مراجعة القرار → خطة التنفيذ</figcaption>
   </figure>
 </section>
 
-<section id="why">
+<div class="proof-bar">
+  <div class="proof-bar-inner">
+    <div class="proof-item">
+      <div class="word">Context</div>
+      <div class="gloss">تحليل</div>
+    </div>
+    <div class="proof-item">
+      <div class="word">Compare</div>
+      <div class="gloss">مقارنة</div>
+    </div>
+    <div class="proof-item">
+      <div class="word">Approve</div>
+      <div class="gloss">مراجعة القرار</div>
+    </div>
+    <div class="proof-item">
+      <div class="word">Generate</div>
+      <div class="gloss">توليد</div>
+    </div>
+  </div>
+</div>
+
+<section class="block" id="why">
   <div class="section-head">
     <span class="eyebrow">التمايز</span>
     <h2>لماذا يختلف؟</h2>
   </div>
-  <div class="compare">
-    <div class="col-head trad">الأدوات التقليدية</div>
-    <div class="col-head zahraa">ZAHRAA™ Teacher Decision Lab</div>
-    <div class="row">
-      <div class="cell trad">تولّد خطة مباشرة</div>
-      <div class="cell zahraa">تبدأ بتحليل الموقف التعليمي</div>
+  <div class="compare-modern">
+    <div class="compare-panel trad">
+      <div class="panel-head">الأدوات التقليدية</div>
+      <div class="compare-row">
+        <span class="compare-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5 5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <p>تولّد خطة مباشرة</p>
+      </div>
+      <div class="compare-row">
+        <span class="compare-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5 5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <p>تقدّم اقتراحًا واحدًا فوريًا</p>
+      </div>
+      <div class="compare-row">
+        <span class="compare-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5 5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <p>لا تتضمن خطوة صريحة لمراجعة القرار</p>
+      </div>
+      <div class="compare-row">
+        <span class="compare-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 5l14 14M19 5 5 19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </span>
+        <p>تركّز على إنتاج المحتوى</p>
+      </div>
     </div>
-    <div class="row">
-      <div class="cell trad">تقدّم اقتراحًا واحدًا فوريًا</div>
-      <div class="cell zahraa">تعرض بدائل تربوية مختلفة للمقارنة</div>
-    </div>
-    <div class="row">
-      <div class="cell trad">لا تتضمن خطوة صريحة لمراجعة القرار</div>
-      <div class="cell zahraa">تتطلب اعتماد المعلم قبل إنشاء الخطة</div>
-    </div>
-    <div class="row">
-      <div class="cell trad">تركّز على إنتاج المحتوى</div>
-      <div class="cell zahraa">تركّز على جودة القرار التربوي</div>
+
+    <span class="compare-vs" aria-hidden="true">مقابل</span>
+
+    <div class="compare-panel zahraa">
+      <div class="panel-head">ZAHRAA™ Teacher Decision Lab</div>
+      <div class="compare-row">
+        <span class="compare-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5 9 17 19.5 6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <p>تبدأ بتحليل الموقف التعليمي</p>
+      </div>
+      <div class="compare-row">
+        <span class="compare-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5 9 17 19.5 6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <p>تعرض بدائل تربوية مختلفة للمقارنة</p>
+      </div>
+      <div class="compare-row">
+        <span class="compare-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5 9 17 19.5 6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <p>تتطلب اعتماد المعلم قبل إنشاء الخطة</p>
+      </div>
+      <div class="compare-row">
+        <span class="compare-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5 9 17 19.5 6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <p>تركّز على جودة القرار التربوي</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section>
+<section class="block">
   <div class="section-head">
     <span class="eyebrow">المسار</span>
     <h2>كيف يعمل</h2>
   </div>
-  <div class="workflow">
-    <div class="wf-step">
-      <div class="num">01</div>
-      <div><h3>تحليل الموقف</h3><p>أدخل السياق التعليمي: المادة، الصف، الهدف، والتحدي الذي تواجهه.</p></div>
+  <div class="timeline">
+    <div class="tl-step">
+      <div class="tl-marker"><span class="tl-dot">01</span></div>
+      <div class="tl-body">
+        <span class="tl-ghost" aria-hidden="true">01</span>
+        <h3>تحليل الموقف</h3>
+        <p>أدخل السياق التعليمي: المادة، الصف، الهدف، والتحدي الذي تواجهه.</p>
+      </div>
     </div>
-    <div class="wf-step">
-      <div class="num">02</div>
-      <div><h3>سؤال تكيّفي</h3><p>يطرح النظام سؤالًا واحدًا فقط لتوضيح ما هو غير واضح، بدل استبيان طويل.</p></div>
+    <div class="tl-step">
+      <div class="tl-marker"><span class="tl-dot">02</span></div>
+      <div class="tl-body">
+        <span class="tl-ghost" aria-hidden="true">02</span>
+        <h3>سؤال تكيّفي</h3>
+        <p>يطرح النظام سؤالًا واحدًا فقط لتوضيح ما هو غير واضح، بدل استبيان طويل.</p>
+      </div>
     </div>
-    <div class="wf-step">
-      <div class="num">03</div>
-      <div><h3>ملخص الفهم</h3><p>راجعي ملخصًا لفهم النظام لموقفك قبل الانتقال للبدائل.</p></div>
+    <div class="tl-step">
+      <div class="tl-marker"><span class="tl-dot">03</span></div>
+      <div class="tl-body">
+        <span class="tl-ghost" aria-hidden="true">03</span>
+        <h3>ملخص الفهم</h3>
+        <p>راجعي ملخصًا لفهم النظام لموقفك قبل الانتقال للبدائل.</p>
+      </div>
     </div>
-    <div class="wf-step">
-      <div class="num">04</div>
-      <div><h3>البدائل التربوية</h3><p>قارني بين بدائل متمايزة تربويًا، بما في ذلك حدود كل بديل.</p></div>
+    <div class="tl-step">
+      <div class="tl-marker"><span class="tl-dot">04</span></div>
+      <div class="tl-body">
+        <span class="tl-ghost" aria-hidden="true">04</span>
+        <h3>البدائل التربوية</h3>
+        <p>قارني بين بدائل متمايزة تربويًا، بما في ذلك حدود كل بديل.</p>
+      </div>
     </div>
-    <div class="wf-step">
-      <div class="num">05</div>
-      <div><h3>موافقة المعلم</h3><p>اعتمدي القرار الذي ترينه الأنسب — القرار قرارك أنتِ.</p></div>
+    <div class="tl-step">
+      <div class="tl-marker"><span class="tl-dot">05</span></div>
+      <div class="tl-body">
+        <span class="tl-ghost" aria-hidden="true">05</span>
+        <h3>مراجعة القرار واعتماده</h3>
+        <p>اعتمدي القرار الذي ترينه الأنسب — القرار قرارك أنتِ.</p>
+      </div>
     </div>
-    <div class="wf-step">
-      <div class="num">06</div>
-      <div><h3>خطة التنفيذ</h3><p>يُنشئ النظام خطة تنفيذ مبنية على القرار المعتمد، لا قبل ذلك.</p></div>
+    <div class="tl-step">
+      <div class="tl-marker"><span class="tl-dot">06</span></div>
+      <div class="tl-body">
+        <span class="tl-ghost" aria-hidden="true">06</span>
+        <h3>خطة التنفيذ</h3>
+        <p>يُنشئ النظام خطة تنفيذ مبنية على القرار المعتمد، لا قبل ذلك.</p>
+      </div>
     </div>
   </div>
 </section>
 
-<section>
+<section class="block">
   <div class="section-head">
     <span class="eyebrow">مصمم من أجل</span>
     <h2>متى تحتاجينه فعلًا</h2>
   </div>
   <div class="audience-grid">
     <div class="aud-card">
+      <span class="aud-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 19V13M11 19V8M17 19v-6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </span>
       <span class="eyebrow">01</span>
       <p>صف بمستويات متفاوتة بشكل كبير بين الطلاب.</p>
     </div>
     <div class="aud-card">
+      <span class="aud-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 1 1-2.34-5.66" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><path d="M20 4v4h-4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
       <span class="eyebrow">02</span>
       <p>درس سابق لم ينجح، وتحتاجين إعادة التفكير فيه من جديد.</p>
     </div>
     <div class="aud-card">
+      <span class="aud-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.8"/><rect x="13" y="13" width="7" height="7" rx="1.5" stroke="currentColor" stroke-width="1.8"/><path d="M13 7.5h7M7.5 13v7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </span>
       <span class="eyebrow">03</span>
       <p>إعادة تصميم درس قائم بقرار تربوي مختلف عن المعتاد.</p>
     </div>
+  </div>
+</section>
+
+<section class="cta-close">
+  <div class="cta-close-inner">
+    <span class="eyebrow eyebrow-invert">القرار قبل التوليد</span>
+    <h2 class="cta-close-headline">الذكاء الاصطناعي يقترح، <em>والمعلم يقرر.</em></h2>
+    <a href="alternatives.html" class="btn btn-invert">ابدأ رحلة اتخاذ القرار</a>
   </div>
 </section>
 
