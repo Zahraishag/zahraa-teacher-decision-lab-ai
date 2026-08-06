@@ -523,7 +523,7 @@
   <div class="mark">
     <span class="name">ZAHRAA<span class="tm">™</span></span>
   </div>
-  <button class="btn back-btn">← العودة إلى التحليل</button>
+  <a class="btn back-btn" href="scenario.html">← العودة إلى بيانات الموقف</a>
 </div>
 
 <div class="progress">
@@ -540,10 +540,10 @@
     <span class="eyebrow">البدائل التربوية</span>
     <h1>قارن بين البدائل قبل اعتماد القرار</h1>
     <div class="context-line" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.8rem 1.4rem;">
-      <div><strong>الصف:</strong> الرابع</div>
-      <div><strong>المادة:</strong> الرياضيات</div>
-      <div><strong>التحدي:</strong> الطلاب يطبقون الخطوات دون فهم</div>
-      <div><strong>سياق القرار</strong><br>اتخاذ قرار تربوي مدروس قبل تنفيذ الدرس.</div>
+      <div><strong>الصف:</strong> <span id="ctxGrade">الرابع</span></div>
+      <div><strong>المادة:</strong> <span id="ctxSubject">الرياضيات</span></div>
+      <div><strong>التحدي:</strong> <span id="ctxChallenge">الطلاب يطبقون الخطوات دون فهم</span></div>
+      <div><strong>عنوان الدرس:</strong> <span id="ctxLesson">التكافؤ في المعادلات</span></div>
     </div>
   </div>
 
@@ -874,5 +874,18 @@ function changeDecision(btn){
 }
 </script>
 
+
+<script>
+(function(){
+  try {
+    const ctx = JSON.parse(localStorage.getItem('zahraaDecisionContext') || '{}');
+    const set=(id,val)=>{ if(val){ const el=document.getElementById(id); if(el) el.textContent=val; } };
+    set('ctxGrade',ctx.grade);
+    set('ctxSubject',ctx.subject);
+    set('ctxChallenge',ctx.challenge);
+    set('ctxLesson',ctx.lesson);
+  } catch(e) { console.warn('Decision context unavailable', e); }
+})();
+</script>
 </body>
 </html>
