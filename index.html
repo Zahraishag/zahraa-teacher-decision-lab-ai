@@ -396,50 +396,6 @@
   .status-chip .en{ direction:ltr; unicode-bidi:isolate; font-weight:700; color:var(--success); }
   .status-chip .ar{ color:var(--ink-soft); margin-inline-start:.35rem; }
 
-
-  /* ===== SITUATION INPUT ===== */
-  .situation-builder{
-    max-width:1060px; margin:0 auto;
-    padding:clamp(3rem,6vw,5rem) clamp(1.25rem,4vw,3.5rem);
-    scroll-margin-top:7rem;
-  }
-  .situation-panel{
-    background:var(--paper-raised); border:1px solid var(--line);
-    border-radius:var(--radius-lg); box-shadow:var(--shadow-md);
-    padding:clamp(1.5rem,4vw,2.5rem);
-  }
-  .situation-head{display:flex;justify-content:space-between;gap:1.5rem;align-items:flex-start;margin-bottom:1.6rem;}
-  .situation-head h2{font-size:clamp(1.55rem,3vw,2.25rem);margin:.55rem 0 .45rem;}
-  .situation-head p{color:var(--ink-soft);max-width:65ch;font-size:.94rem;}
-  .prototype-badge{
-    flex-shrink:0; padding:.45rem .8rem; border-radius:999px;
-    border:1px solid var(--amber-line); background:var(--paper);
-    color:var(--gold-deep); font-size:.7rem; font-weight:700; direction:ltr;
-  }
-  .situation-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
-  .situation-field{display:flex;flex-direction:column;gap:.45rem;}
-  .situation-field.full{grid-column:1/-1;}
-  .situation-field label{font-size:.82rem;font-weight:700;color:var(--ink);}
-  .situation-field label span{font-size:.68rem;font-weight:400;color:var(--ink-soft);direction:ltr;margin-inline-start:.35rem;}
-  .situation-field input,.situation-field textarea,.situation-field select{
-    width:100%; border:1px solid var(--line); border-radius:11px;
-    background:var(--paper); color:var(--ink); padding:.85rem 1rem;
-    font:inherit; font-size:.9rem; outline:none; transition:border-color .15s ease,box-shadow .15s ease;
-  }
-  .situation-field textarea{min-height:88px;resize:vertical;}
-  .situation-field input:focus,.situation-field textarea:focus,.situation-field select:focus{
-    border-color:var(--gold); box-shadow:0 0 0 3px rgba(201,162,75,.12);
-  }
-  .situation-actions{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-top:1.35rem;flex-wrap:wrap;}
-  .situation-note{font-size:.75rem;color:var(--ink-soft);max-width:58ch;}
-  .form-error{display:none;color:var(--danger);font-size:.78rem;margin-top:.7rem;font-weight:600;}
-  .form-error.visible{display:block;}
-  @media(max-width:720px){
-    .situation-head{flex-direction:column;}
-    .situation-grid{grid-template-columns:1fr;}
-    .situation-field.full{grid-column:auto;}
-  }
-
   /* ===== Proof bar ===== */
   .proof-bar{
     border-top:1px solid var(--line);
@@ -749,7 +705,7 @@
     <button class="btn btn-ghost btn-sm" onclick="document.getElementById('judgesOverlay').classList.add('open')">
       For Judges
     </button>
-    <a href="#situation-builder" class="btn btn-primary btn-sm">ابدأ رحلة اتخاذ القرار</a>
+    <a href="alternatives.html" class="btn btn-primary btn-sm">ابدأ رحلة اتخاذ القرار</a>
   </div>
 </div>
 
@@ -786,7 +742,7 @@
       قبل أن يُنشئ النظام خطة التنفيذ.
     </p>
     <div class="cta-row">
-      <a href="#situation-builder" class="btn btn-primary">ابدأ رحلة اتخاذ القرار</a>
+      <a href="alternatives.html" class="btn btn-primary">ابدأ رحلة اتخاذ القرار</a>
       <a href="#why" class="btn btn-text">لماذا يختلف؟</a>
     </div>
     <div class="principle">الذكاء الاصطناعي يقترح، والمعلم يقرر.</div>
@@ -881,58 +837,6 @@
 
     <figcaption>تحليل الموقف → جمع أدلة المنهج → الاستدلال بالبيانات الوصفية → مقارنة البدائل → اعتماد المعلم → تنفيذ قابل للتتبع<span class="figcaption-en">Situation Analysis → Curriculum Evidence → Metadata Reasoning → Alternatives → Teacher Approval → Traceable Implementation</span></figcaption>
   </figure>
-</section>
-
-
-<section class="situation-builder" id="situation-builder" aria-labelledby="situationTitle">
-  <div class="situation-panel">
-    <div class="situation-head">
-      <div>
-        <span class="eyebrow">ابدأ من السياق</span>
-        <h2 id="situationTitle">حلّل موقفك التعليمي أولًا</h2>
-        <p>أدخل البيانات الأساسية التي يحتاجها النظام لعرض الموقف داخل رحلة القرار. تُحفظ البيانات في هذه الجلسة فقط وتنتقل معك إلى صفحات البدائل والاعتماد والتنفيذ.</p>
-      </div>
-      <span class="prototype-badge">Metadata-driven prototype</span>
-    </div>
-    <form id="situationForm" novalidate>
-      <div class="situation-grid">
-        <div class="situation-field">
-          <label for="situationGrade">الصف <span>Grade</span></label>
-          <input id="situationGrade" name="grade" value="الرابع" required autocomplete="off">
-        </div>
-        <div class="situation-field">
-          <label for="situationSubject">المادة <span>Subject</span></label>
-          <input id="situationSubject" name="subject" value="الرياضيات" required autocomplete="off">
-        </div>
-        <div class="situation-field">
-          <label for="situationDuration">زمن الحصة <span>Duration</span></label>
-          <select id="situationDuration" name="duration">
-            <option value="40 دقيقة">40 دقيقة</option>
-            <option value="45 دقيقة" selected>45 دقيقة</option>
-            <option value="50 دقيقة">50 دقيقة</option>
-            <option value="60 دقيقة">60 دقيقة</option>
-          </select>
-        </div>
-        <div class="situation-field">
-          <label for="situationStudents">عدد الطلاب — اختياري <span>Students</span></label>
-          <input id="situationStudents" name="students" type="number" min="1" max="100" placeholder="مثال: 28">
-        </div>
-        <div class="situation-field full">
-          <label for="situationChallenge">التحدي التعليمي <span>Instructional challenge</span></label>
-          <textarea id="situationChallenge" name="challenge" required>الطلاب يطبقون الخطوات دون فهم</textarea>
-        </div>
-        <div class="situation-field full">
-          <label for="situationContext">سياق القرار <span>Decision context</span></label>
-          <textarea id="situationContext" name="context" required>اتخاذ قرار تربوي مدروس قبل تنفيذ الدرس.</textarea>
-        </div>
-      </div>
-      <div class="form-error" id="situationError" role="alert">يرجى تعبئة الصف والمادة والتحدي وسياق القرار قبل المتابعة.</div>
-      <div class="situation-actions">
-        <p class="situation-note">لأغراض العرض الحالي، البدائل التربوية مصممة حول السيناريو الافتراضي، بينما تنتقل بيانات المعلم المدخلة فعليًا عبر رحلة القرار.</p>
-        <button type="submit" class="btn btn-primary">تحليل الموقف والانتقال إلى البدائل ←</button>
-      </div>
-    </form>
-  </div>
 </section>
 
 <div class="proof-bar">
@@ -1172,7 +1076,7 @@
   <div class="cta-close-inner">
     <span class="eyebrow eyebrow-invert">القرار قبل التوليد</span>
     <h2 class="cta-close-headline">الذكاء الاصطناعي يقترح، <em>والمعلم يقرر.</em></h2>
-    <a href="#situation-builder" class="btn btn-invert">ابدأ رحلة اتخاذ القرار</a>
+    <a href="alternatives.html" class="btn btn-invert">ابدأ رحلة اتخاذ القرار</a>
   </div>
 </section>
 
@@ -1203,7 +1107,7 @@
     </table>
 
     <h3>Why DataHub?</h3>
-    <p>DataHub organizes curriculum assets, metadata relationships, and lineage. The agent retrieves traceable pedagogical evidence from this graph before presenting alternatives for teacher approval.</p>
+    <p>This metadata-driven prototype demonstrates how DataHub can organize curriculum assets, metadata relationships, and lineage so an agent can ground pedagogical alternatives in traceable evidence before teacher approval. Live DataHub ingestion and graph querying are planned integration steps.</p>
 
     <h3>How it works</h3>
     <div class="jp-flow">Analyze → Retrieve Metadata Evidence → Compare → Approve → Generate</div>
@@ -1252,47 +1156,6 @@
       judgesOverlay.classList.remove('open');
     }
   });
-
-  const situationForm = document.getElementById('situationForm');
-  const situationError = document.getElementById('situationError');
-
-  function loadSavedSituation(){
-    try{
-      const saved = JSON.parse(sessionStorage.getItem('zahraaSituation') || 'null');
-      if(!saved) return;
-      const mapping = {
-        situationGrade:'grade', situationSubject:'subject', situationDuration:'duration',
-        situationStudents:'students', situationChallenge:'challenge', situationContext:'context'
-      };
-      Object.entries(mapping).forEach(([id,key]) => {
-        const element = document.getElementById(id);
-        if(element && saved[key] !== undefined && saved[key] !== null && saved[key] !== '') element.value = saved[key];
-      });
-    }catch(e){}
-  }
-
-  loadSavedSituation();
-
-  situationForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const situation = {
-      grade: document.getElementById('situationGrade').value.trim(),
-      subject: document.getElementById('situationSubject').value.trim(),
-      duration: document.getElementById('situationDuration').value,
-      students: document.getElementById('situationStudents').value.trim(),
-      challenge: document.getElementById('situationChallenge').value.trim(),
-      context: document.getElementById('situationContext').value.trim()
-    };
-    const valid = situation.grade && situation.subject && situation.challenge && situation.context;
-    situationError.classList.toggle('visible', !valid);
-    if(!valid) return;
-    try{
-      sessionStorage.setItem('zahraaSituation', JSON.stringify(situation));
-      sessionStorage.removeItem('zahraaApprovedAlternative');
-    }catch(e){}
-    window.location.href = 'alternatives.html';
-  });
-
 </script>
 
 </body>

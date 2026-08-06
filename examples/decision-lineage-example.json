@@ -1,0 +1,52 @@
+{
+  "example_type": "illustrative_decision_lineage",
+  "prototype_status": "not_generated_by_live_datahub_queries",
+  "lineage": [
+    {
+      "stage": 1,
+      "name": "situation_analysis",
+      "status": "completed",
+      "summary": "Grade 4 Mathematics; students follow procedures without understanding"
+    },
+    {
+      "stage": 2,
+      "name": "metadata_evidence",
+      "status": "represented",
+      "categories": [
+        "learning_outcomes",
+        "teacher_guide",
+        "assessment_policy",
+        "grade_level",
+        "curriculum_relationships"
+      ]
+    },
+    {
+      "stage": 3,
+      "name": "pedagogical_alternatives",
+      "status": "compared",
+      "alternatives": [
+        "visual_conceptual_approach",
+        "common_error_analysis",
+        "structured_repartitioning"
+      ]
+    },
+    {
+      "stage": 4,
+      "name": "teacher_approval",
+      "status": "approved",
+      "selected_alternative": "visual_conceptual_approach"
+    },
+    {
+      "stage": 5,
+      "name": "traceable_implementation",
+      "status": "generated_after_approval",
+      "provenance_categories": [
+        "approved_decision",
+        "curriculum_metadata",
+        "learning_outcomes",
+        "teacher_guide",
+        "assessment_policy"
+      ]
+    }
+  ]
+}

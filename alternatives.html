@@ -523,7 +523,7 @@
   <div class="mark">
     <span class="name">ZAHRAA<span class="tm">™</span></span>
   </div>
-  <button class="btn back-btn" onclick="window.location.href='index.html#situation-builder'">← العودة إلى التحليل</button>
+  <button class="btn back-btn">← العودة إلى التحليل</button>
 </div>
 
 <div class="progress">
@@ -540,12 +540,10 @@
     <span class="eyebrow">البدائل التربوية</span>
     <h1>قارن بين البدائل قبل اعتماد القرار</h1>
     <div class="context-line" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.8rem 1.4rem;">
-      <div><strong>الصف:</strong> <span id="contextGrade">الرابع</span></div>
-      <div><strong>المادة:</strong> <span id="contextSubject">الرياضيات</span></div>
-      <div><strong>زمن الحصة:</strong> <span id="contextDuration">45 دقيقة</span></div>
-      <div id="studentsWrap" hidden><strong>عدد الطلاب:</strong> <span id="contextStudents"></span></div>
-      <div><strong>التحدي:</strong> <span id="contextChallenge">الطلاب يطبقون الخطوات دون فهم</span></div>
-      <div><strong>سياق القرار</strong><br><span id="contextDecision">اتخاذ قرار تربوي مدروس قبل تنفيذ الدرس.</span></div>
+      <div><strong>الصف:</strong> الرابع</div>
+      <div><strong>المادة:</strong> الرياضيات</div>
+      <div><strong>التحدي:</strong> الطلاب يطبقون الخطوات دون فهم</div>
+      <div><strong>سياق القرار</strong><br>اتخاذ قرار تربوي مدروس قبل تنفيذ الدرس.</div>
     </div>
   </div>
 
@@ -832,27 +830,6 @@
 </div>
 
 <script>
-
-const defaultSituation = {
-  grade:'الرابع', subject:'الرياضيات', duration:'45 دقيقة', students:'',
-  challenge:'الطلاب يطبقون الخطوات دون فهم',
-  context:'اتخاذ قرار تربوي مدروس قبل تنفيذ الدرس.'
-};
-function readSituation(){
-  try{ return {...defaultSituation, ...JSON.parse(sessionStorage.getItem('zahraaSituation') || '{}')}; }
-  catch(e){ return defaultSituation; }
-}
-const currentSituation = readSituation();
-document.getElementById('contextGrade').textContent = currentSituation.grade;
-document.getElementById('contextSubject').textContent = currentSituation.subject;
-document.getElementById('contextDuration').textContent = currentSituation.duration || '45 دقيقة';
-document.getElementById('contextChallenge').textContent = currentSituation.challenge;
-document.getElementById('contextDecision').textContent = currentSituation.context;
-if(currentSituation.students){
-  document.getElementById('studentsWrap').hidden = false;
-  document.getElementById('contextStudents').textContent = currentSituation.students;
-}
-
 const allCardIds = ['card1','card2','card3'];
 
 function toggleCard(id){

@@ -1,0 +1,44 @@
+{
+  "example_type": "illustrative_prototype_metadata",
+  "prototype_status": "not_exported_from_a_live_datahub_instance",
+  "scenario": {
+    "subject": "Mathematics",
+    "grade": "Grade 4",
+    "instructional_challenge": "Students apply procedures without conceptual understanding"
+  },
+  "curriculum_assets": [
+    {
+      "asset_type": "learning_outcome",
+      "label": "Explain mathematical equivalence using visual and symbolic representations"
+    },
+    {
+      "asset_type": "teacher_guide",
+      "label": "Use multiple representations before formal symbolic procedures"
+    },
+    {
+      "asset_type": "assessment_policy",
+      "label": "Collect evidence of reasoning, not procedural completion alone"
+    },
+    {
+      "asset_type": "grade_level_expectation",
+      "label": "Grade 4 conceptual-to-symbolic progression"
+    }
+  ],
+  "relationships": [
+    {
+      "from": "learning_outcome",
+      "relationship": "supported_by",
+      "to": "teacher_guide"
+    },
+    {
+      "from": "assessment_policy",
+      "relationship": "measures",
+      "to": "learning_outcome"
+    },
+    {
+      "from": "grade_level_expectation",
+      "relationship": "constrains",
+      "to": "pedagogical_alternative"
+    }
+  ]
+}
