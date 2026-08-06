@@ -981,15 +981,17 @@
 </div>
 
 <script>
-  // This prototype scenario is Grade 4 Mathematics. Set explicitly so the
-  // generic fallback label never appears in the demo. If a future session
-  // flow stores the subject/grade dynamically, read from that instead.
-  const planContext = {
-    subject: 'الرياضيات',
-    grade: 'الرابع الابتدائي'
+  const defaultSituation = {
+    subject:'الرياضيات', grade:'الرابع الابتدائي', duration:'45 دقيقة', students:''
   };
-  document.getElementById('metaSubject').textContent = planContext.subject;
-  document.getElementById('metaGrade').textContent = planContext.grade;
+  let planContext = defaultSituation;
+  try {
+    planContext = {...defaultSituation, ...JSON.parse(sessionStorage.getItem('zahraaSituation') || '{}')};
+  } catch (e) {}
+  document.getElementById('metaSubject').textContent = planContext.subject || defaultSituation.subject;
+  document.getElementById('metaGrade').textContent = planContext.grade || defaultSituation.grade;
+  const durationElement = document.getElementById('metaDuration');
+  if(durationElement) durationElement.textContent = planContext.duration || defaultSituation.duration;
 
   // Full implementation-plan content for each of the three alternatives
   // offered in alternatives.html. The id chosen there (card1/card2/card3)
