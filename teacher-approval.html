@@ -130,17 +130,27 @@
     margin:0 auto;
   }
 
-  /* ===== JUDGE VIEW ===== */
+  /* ===== FOR EVALUATION ===== */
   .judge-view{
     direction:ltr;
     text-align:left;
-    background:#FBF9F4;
-    border:1px dashed var(--line);
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    background:#FBF6E9;
+    border:1px solid #EBD9A8;
+    border-inline-start:3px solid var(--gold);
     border-radius:12px;
     padding:14px 18px;
     max-width:560px;
     margin:20px auto 32px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  .judge-view .jv-icon{
+    flex-shrink:0;
+    color:var(--gold-dark);
+    margin-top:1px;
+    display:flex;
   }
   .judge-view .jv-label{
     font-size:11px;
@@ -180,6 +190,17 @@
     text-align:right;
     margin:0 0 18px;
   }
+  .card-eyebrow{
+    font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size:10.5px;
+    font-weight:700;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:var(--gold-dark);
+    direction:ltr;
+    text-align:right;
+    margin:0 0 6px;
+  }
 
   /* ===== DECISION REVIEW CARD ===== */
   .approved-badge{
@@ -214,15 +235,16 @@
   }
   .decision-card .diamond{
     color:var(--gold);
-    font-size:20px;
+    font-size:22px;
     line-height:1.4;
     flex-shrink:0;
+    margin-top:2px;
   }
   .decision-card .decision-name{
-    font-size:19.5px;
+    font-size:26px;
     font-weight:800;
     color:var(--brown);
-    line-height:1.5;
+    line-height:1.4;
   }
   .decision-grid{
     display:grid;
@@ -251,48 +273,142 @@
     .decision-grid{ grid-template-columns:1fr; }
   }
 
-  /* ===== TRACEABILITY ===== */
-  .traceability{
-    margin-top:20px;
-    padding-top:18px;
-    border-top:1px dashed var(--line);
+  /* ===== EVIDENCE VERIFIED CARD ===== */
+  .evidence-verified-card{
+    background:linear-gradient(180deg, #F7FBF7, #EEF6EF);
+    border:1px solid #C9E0CC;
   }
-  .traceability .trace-title{
-    font-size:14px;
-    font-weight:700;
-    color:var(--brown);
-    margin-bottom:12px;
-  }
-  .trace-list{
-    list-style:none;
-    margin:0;
-    padding:0;
+  .ev-list{
     display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px 16px;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:10px;
+    margin:14px 0 12px;
   }
-  .trace-list li{
+  .ev-list .ev-item{
     display:flex;
     align-items:center;
     gap:8px;
-    font-size:13.5px;
-    color:var(--text);
+    background:var(--card);
+    border:1px solid #D9EAD9;
+    border-radius:10px;
+    padding:10px 12px;
   }
-  .trace-list li .check{
+  .ev-list .ev-item .check{
     color:var(--success);
     font-weight:700;
     flex-shrink:0;
+    font-size:14px;
   }
-  .trace-list.en{
+  .ev-list .ev-item .ev-text{
+    display:flex;
+    flex-direction:column;
+    line-height:1.35;
+  }
+  .ev-list .ev-item .ev-ar{
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--brown);
+  }
+  .ev-list .ev-item .ev-en{
+    font-size:11px;
+    color:var(--text-muted);
     direction:ltr;
-    margin-top:8px;
+    margin-top:1px;
   }
-  .trace-list.en li{
+  .ev-note{
     font-size:12.5px;
     color:var(--text-muted);
+    line-height:1.6;
+    margin:0;
+  }
+  .ev-note .en{
+    display:block;
+    direction:ltr;
+    font-size:11.5px;
+    margin-top:2px;
   }
   @media (max-width:600px){
-    .trace-list{ grid-template-columns:1fr; }
+    .ev-list{ grid-template-columns:1fr; }
+  }
+
+  /* ===== DECISION TRACE (standalone) ===== */
+  .trace-section{
+    background:linear-gradient(180deg, #FBF6E9, #F7EEDA);
+    border:1px solid #EBD9A8;
+  }
+  .trace-section .trace-title{
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.06em;
+    text-transform:uppercase;
+    color:var(--gold-dark);
+    margin-bottom:16px;
+  }
+  .trace-chain{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:0;
+  }
+  .trace-chain .chain-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:var(--card);
+    border:1px solid #EBD9A8;
+    border-radius:999px;
+    padding:8px 16px;
+    font-size:13px;
+    font-weight:600;
+    color:var(--brown);
+  }
+  .trace-chain .chain-item .dot{
+    width:18px; height:18px; min-width:18px;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-size:10.5px;
+    background:var(--success);
+    color:#fff;
+  }
+  .trace-chain .chain-item.current{
+    background:var(--brown);
+    border-color:var(--brown);
+    color:#fff;
+  }
+  .trace-chain .chain-item.current .dot{
+    background:var(--gold);
+    color:#fff;
+  }
+  .trace-chain .chain-item.upcoming{
+    background:transparent;
+    border-color:var(--line);
+    color:#B7AB9C;
+    font-weight:500;
+  }
+  .trace-chain .chain-item.upcoming .dot{
+    background:transparent;
+    border:1.5px solid var(--line);
+    color:transparent;
+  }
+  .trace-chain .chain-item.upcoming .en{
+    opacity:0.7;
+  }
+  .trace-chain .chain-item .en{
+    direction:ltr;
+    font-weight:500;
+    opacity:0.85;
+    font-size:12px;
+  }
+  .trace-chain .chain-arrow{
+    color:var(--gold-dark);
+    font-size:14px;
+    margin:0 8px;
+    flex-shrink:0;
+  }
+  @media (max-width:600px){
+    .trace-chain{ flex-direction:column; align-items:stretch; }
+    .trace-chain .chain-item{ justify-content:center; }
+    .trace-chain .chain-arrow{ transform:rotate(90deg); margin:2px auto; }
   }
 
   /* ===== CHARTER CARD ===== */
@@ -340,6 +456,13 @@
   .charter-check-item input[type="checkbox"]:disabled{
     cursor:not-allowed;
     opacity:0.7;
+  }
+  .charter-check-item input[type="checkbox"]:focus-visible{
+    outline:2px solid var(--gold-dark);
+    outline-offset:2px;
+  }
+  .charter-check-item:focus-within{
+    border-color:var(--gold-dark);
   }
   .charter-check-item input[type="checkbox"]::before{
     content:"";
@@ -527,6 +650,11 @@
     transition:transform .12s ease, box-shadow .12s ease, opacity .12s ease;
   }
   .btn:active{ transform:translateY(1px); }
+  .btn:focus-visible,
+  .btn-approve:focus-visible{
+    outline:2px solid var(--gold-dark);
+    outline-offset:2px;
+  }
 
   .btn-secondary{
     background:transparent;
@@ -629,11 +757,23 @@
     margin-top:48px;
     opacity:0.6;
   }
-  .footer-signature .sig-title{
+  .footer-signature .footer-name{
     font-size:12px;
     font-weight:700;
     color:var(--brown-soft);
     letter-spacing:0.02em;
+  }
+  .footer-signature .footer-name .tm{
+    font-size:.7em;
+    vertical-align:super;
+  }
+  .footer-signature .sig-title{
+    font-size:11.5px;
+    font-weight:700;
+    color:var(--gold-dark);
+    font-style:italic;
+    direction:ltr;
+    margin-top:3px;
   }
   .footer-signature .sig-sub{
     font-size:11.5px;
@@ -676,7 +816,7 @@
     <span class="progress-sep">—</span>
     <div class="progress-step done"><span class="dot">✓</span>بدائل</div>
     <span class="progress-sep">—</span>
-    <div class="progress-step current"><span class="dot">●</span>مراجعة القرار</div>
+    <div class="progress-step current"><span class="dot">●</span>مراجعة القرار واعتماده</div>
     <span class="progress-sep">—</span>
     <div class="progress-step upcoming"><span class="dot">○</span>خطة التنفيذ</div>
   </div>
@@ -687,14 +827,18 @@
     <p>لن يتم إنشاء خطة التنفيذ حتى يراجع المعلم القرار المقترح ويوافق عليه.</p>
   </div>
 
-  <!-- JUDGE VIEW -->
+  <!-- FOR EVALUATION -->
   <div class="judge-view">
-    <div class="jv-label">Judge View</div>
-    <p>The implementation plan will not be generated until the teacher explicitly reviews and approves the selected pedagogical decision.</p>
+    <span class="jv-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 8.5h9M7.5 12h9M7.5 15.5h5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+    <div>
+      <div class="jv-label">For Evaluation</div>
+      <p>The implementation plan remains locked until the teacher explicitly reviews and approves the selected pedagogical decision.</p>
+    </div>
   </div>
 
-  <!-- DECISION REVIEW CARD -->
+  <!-- DECISION REVIEW CARD (Executive Decision Summary) -->
   <div class="card decision-card">
+    <div class="card-eyebrow">Executive Decision Summary</div>
     <div class="card-title">القرار الذي سيتم بناء الخطة عليه</div>
     <div class="card-title-en">The Decision Behind the Plan</div>
 
@@ -705,42 +849,56 @@
 
     <div class="decision-head">
       <span class="diamond">◆</span>
-      <span class="decision-name">المدخل المفاهيمي البصري</span>
+      <span class="decision-name" id="decisionName">المدخل المفاهيمي البصري</span>
     </div>
 
     <div class="decision-grid">
       <div class="decision-field">
         <div class="field-label">يركز على</div>
-        <div class="field-value">الفهم قبل الإجراء</div>
+        <div class="field-value" id="fieldFocusValue">الفهم قبل الإجراء</div>
       </div>
       <div class="decision-field">
         <div class="field-label">يعالج</div>
-        <div class="field-value">صعوبة تفسير التكافؤ</div>
+        <div class="field-value" id="fieldAddressesValue">صعوبة تفسير التكافؤ</div>
       </div>
       <div class="decision-field">
         <div class="field-label">مناسب عندما</div>
-        <div class="field-value">الطلاب يستطيعون الرسم لكن لا يفسرون التكافؤ.</div>
+        <div class="field-value" id="fieldBestWhenValue">الطلاب يستطيعون الرسم لكن لا يفسرون التكافؤ.</div>
       </div>
       <div class="decision-field">
         <div class="field-label">ما قد لا يتحقق</div>
-        <div class="field-value">قد يحتاج وقتاً أطول داخل الحصة.</div>
+        <div class="field-value" id="fieldLimitationValue">قد يحتاج وقتاً أطول داخل الحصة.</div>
       </div>
     </div>
+  </div>
 
-    <div class="traceability">
-      <div class="trace-title">بُني هذا القرار اعتمادًا على:</div>
-      <ul class="trace-list">
-        <li><span class="check">✓</span>بيانات الحالة</li>
-        <li><span class="check">✓</span>السؤال التكيفي</li>
-        <li><span class="check">✓</span>البديل المختار</li>
-        <li><span class="check">✓</span>موافقة المعلم</li>
-      </ul>
-      <ul class="trace-list en">
-        <li><span class="check">✓</span>Context</li>
-        <li><span class="check">✓</span>Adaptive Question</li>
-        <li><span class="check">✓</span>Selected Alternative</li>
-        <li><span class="check">✓</span>Teacher Approval</li>
-      </ul>
+  <!-- EVIDENCE VERIFIED (read-only, system-verified) -->
+  <div class="card evidence-verified-card">
+    <div class="card-title">تم التحقق من الأدلة</div>
+    <div class="card-title-en">Evidence Verified</div>
+    <div class="ev-list">
+      <div class="ev-item"><span class="check">✓</span><span class="ev-text"><span class="ev-ar">نواتج التعلم</span><span class="ev-en">Learning Outcomes</span></span></div>
+      <div class="ev-item"><span class="check">✓</span><span class="ev-text"><span class="ev-ar">دليل المعلم</span><span class="ev-en">Teacher Guide</span></span></div>
+      <div class="ev-item"><span class="check">✓</span><span class="ev-text"><span class="ev-ar">سياسة التقويم</span><span class="ev-en">Assessment Policy</span></span></div>
+      <div class="ev-item"><span class="check">✓</span><span class="ev-text"><span class="ev-ar">علاقات المنهج</span><span class="ev-en">Curriculum Relationships</span></span></div>
+      <div class="ev-item"><span class="check">✓</span><span class="ev-text"><span class="ev-ar">مسار البيانات الوصفية</span><span class="ev-en">Metadata Lineage</span></span></div>
+    </div>
+    <p class="ev-note">تمت مراجعة هذه الفئات من الأدلة قبل عرض القرار لاعتماد المعلم.<span class="en">These evidence categories were reviewed before the decision was presented for teacher approval.</span></p>
+  </div>
+
+  <!-- DECISION TRACE -->
+  <div class="card trace-section">
+    <div class="trace-title">مسار القرار — Decision Trace</div>
+    <div class="trace-chain">
+      <span class="chain-item"><span class="dot">✓</span>تحليل الموقف<span class="en">Situation</span></span>
+      <span class="chain-arrow">←</span>
+      <span class="chain-item"><span class="dot">✓</span>أدلة المنهج<span class="en">Metadata Evidence</span></span>
+      <span class="chain-arrow">←</span>
+      <span class="chain-item"><span class="dot">✓</span>البدائل<span class="en">Alternatives</span></span>
+      <span class="chain-arrow">←</span>
+      <span class="chain-item current"><span class="dot">●</span>اعتماد المعلم<span class="en">Teacher Approval</span></span>
+      <span class="chain-arrow">←</span>
+      <span class="chain-item upcoming"><span class="dot">○</span>تنفيذ قابل للتتبع<span class="en">Traceable Implementation</span></span>
     </div>
   </div>
 
@@ -832,6 +990,7 @@
 
   <!-- FOOTER SIGNATURE -->
   <div class="footer-signature">
+    <div class="footer-name">ZAHRAA<span class="tm">™</span> Teacher Decision Lab</div>
     <div class="sig-title">Decision Before Generation™</div>
     <div class="sig-sub">AI suggests. Teachers decide.</div>
   </div>
@@ -839,6 +998,49 @@
 </div>
 
 <script>
+  // Mirrors the three alternatives defined in alternatives.html. Keeping the
+  // content here (rather than passing it all through sessionStorage) means
+  // only a small id needs to travel between pages, while this page stays the
+  // single source of truth for how that id is displayed.
+  const decisionData = {
+    card1: {
+      name: 'المدخل المفاهيمي البصري',
+      focus: 'الفهم قبل الإجراء',
+      addresses: 'صعوبة تفسير التكافؤ',
+      bestWhen: 'الطلاب يستطيعون الرسم لكن لا يفسرون التكافؤ.',
+      limitation: 'قد يحتاج وقتاً أطول داخل الحصة.'
+    },
+    card2: {
+      name: 'تحليل الأخطاء الشائعة',
+      focus: 'التفكير النقدي',
+      addresses: 'تكرار الخطأ المفاهيمي نفسه دون وعي الطالب به.',
+      bestWhen: 'يكرر عدد من الطلاب نفس الخطأ دون وعي به.',
+      limitation: 'قد يشعر بعض الطلاب بالتردد من مناقشة الخطأ علنًا.'
+    },
+    card3: {
+      name: 'إعادة التجزئة المنتظمة',
+      focus: 'الانتقال من البصري إلى الرمزي',
+      addresses: 'صعوبة تعميم الفهم الجزئي إلى قاعدة رمزية.',
+      bestWhen: 'الطلاب يفهمون الفكرة جزئيًا لكن يخطئون في تعميمها.',
+      limitation: 'قد لا يكفي من لم يكوّن تصورًا بصريًا بعد.'
+    }
+  };
+
+  (function renderApprovedDecision(){
+    let chosenId = 'card1';
+    try{
+      const stored = sessionStorage.getItem('zahraaApprovedAlternative');
+      if (stored && decisionData[stored]) chosenId = stored;
+    }catch(e){}
+
+    const d = decisionData[chosenId];
+    document.getElementById('decisionName').textContent = d.name;
+    document.getElementById('fieldFocusValue').textContent = d.focus;
+    document.getElementById('fieldAddressesValue').textContent = d.addresses;
+    document.getElementById('fieldBestWhenValue').textContent = d.bestWhen;
+    document.getElementById('fieldLimitationValue').textContent = d.limitation;
+  })();
+
   const charterCheckboxes = Array.from(document.querySelectorAll('.charter-checkbox'));
   const charterItems = [
     document.getElementById('charterItem1'),

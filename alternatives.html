@@ -6,19 +6,19 @@
 <title>البدائل التربوية — ZAHRAA™ Teacher Decision Lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#1c2541;
-    --ink-soft:#3a3f4b;
-    --paper:#efeae0;
-    --paper-raised:#f7f4ec;
-    --gold:#b98900;
-    --gold-deep:#8f6a00;
+    --ink:#5A3E2B;
+    --ink-soft:#8B7F72;
+    --paper:#FAF7F0;
+    --paper-raised:#FFFFFF;
+    --gold:#C9A24B;
+    --gold-deep:#B08A3A;
     --amber-bg:#faf1dc;
-    --amber-line:#e4c877;
-    --line:#d8d2c4;
-    --white:#fffdf8;
+    --amber-line:#EBD9A8;
+    --line:#EAE2D3;
+    --white:#FFFFFF;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   body{
@@ -32,7 +32,7 @@
   a{color:inherit; text-decoration:none;}
 
   .eyebrow{
-    font-family:'IBM Plex Mono', monospace;
+    font-family:'Alexandria', sans-serif;
     font-size:.72rem; letter-spacing:.14em;
     color:var(--gold-deep); text-transform:uppercase;
     display:flex; align-items:center; gap:.6em;
@@ -65,9 +65,9 @@
     color:var(--gold-deep);
   }
 
-  .frame{max-width:1280px; margin:0 auto; padding:2.6rem clamp(1.25rem,4vw,3.5rem) 5rem;}
+  .frame{max-width:1280px; margin:0 auto; padding:1.6rem clamp(1.25rem,4vw,3.5rem) 5rem;}
 
-  .question-head{max-width:62ch; margin-bottom:2.4rem;}
+  .question-head{max-width:62ch; margin-bottom:1.3rem;}
   .question-head h1{font-size:clamp(1.5rem,2.6vw,2rem); margin-top:.7rem; line-height:1.4;}
   .question-head .context-line{
     margin-top:1rem; font-size:.92rem; color:var(--ink-soft);
@@ -80,7 +80,7 @@
     padding:.9rem clamp(1.25rem,4vw,3.5rem);
     border-bottom:1px solid var(--line);
     background:var(--paper-raised);
-    font-family:'IBM Plex Mono',monospace;
+    font-family:'Alexandria',sans-serif;
     font-size:.74rem;
     flex-wrap:wrap;
   }
@@ -105,11 +105,11 @@
   }
   .card:hover:not(.approved):not(.dimmed){
     border-color:var(--gold);
-    box-shadow:0 10px 26px rgba(185,137,0,.16);
+    box-shadow:0 10px 26px rgba(201,162,75,.16);
     transform:translateY(-4px);
   }
   .card-kicker{
-    font-family:'IBM Plex Mono',monospace;
+    font-family:'Alexandria',sans-serif;
     font-size:.66rem;
     letter-spacing:.08em;
     text-transform:uppercase;
@@ -129,11 +129,11 @@
     display:inline-flex; margin-bottom:.6rem; color:var(--gold-deep);
   }
   .symbol svg{width:22px; height:22px; display:block;}
-  .card-head h2{font-size:1.15rem; line-height:1.4; color:#7a4b2a;}
+  .card-head h2{font-size:1.15rem; line-height:1.4; color:var(--ink);}
 
   .card-body{padding:1.2rem 1.4rem 1.4rem; flex:1; display:flex; flex-direction:column; gap:1rem;}
   .field .label{
-    font-family:'IBM Plex Mono',monospace; font-size:.68rem;
+    font-family:'Alexandria',sans-serif; font-size:.68rem;
     letter-spacing:.05em; color:var(--ink-soft); text-transform:uppercase;
     margin-bottom:.3rem; display:block;
   }
@@ -141,16 +141,17 @@
   .field .value.strong{font-weight:600;}
 
   .constraint-box{
-    background:var(--amber-bg);
-    border:1px solid var(--amber-line);
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-inline-start:2px solid var(--amber-line);
     border-radius:4px;
-    padding:.9rem 1rem;
+    padding:.85rem 1rem;
   }
   .constraint-box .label{
-    font-family:'IBM Plex Mono',monospace; font-size:.68rem;
-    letter-spacing:.03em; color:#7a5c00; margin-bottom:.35rem; display:block;
+    font-family:'Alexandria',sans-serif; font-size:.68rem;
+    letter-spacing:.03em; color:var(--ink-soft); margin-bottom:.35rem; display:block;
   }
-  .constraint-box .value{font-size:.9rem; color:#5c4600;}
+  .constraint-box .value{font-size:.9rem; color:var(--ink-soft);}
 
   .expand-toggle{
     margin-top:.2rem;
@@ -202,13 +203,13 @@
     cursor:pointer;
     transition:all .15s ease;
   }
-  .approve-btn:hover{box-shadow:0 8px 18px rgba(28,37,65,.25); transform:translateY(-1px);}
+  .approve-btn:hover{box-shadow:0 8px 18px rgba(90,62,43,.25); transform:translateY(-1px);}
   .card.open .approve-btn{display:block;}
 
   .approved-badge{
     display:none;
     text-align:center;
-    font-family:'IBM Plex Mono',monospace;
+    font-family:'Alexandria',sans-serif;
     font-size:.8rem; color:var(--gold-deep);
     padding:.9rem 1rem; border:1px solid var(--gold);
     border-radius:3px; background:var(--amber-bg);
@@ -251,12 +252,13 @@
   .approved-badge .change-decision:hover{color:var(--gold-deep);}
 
 
-  .judge-note{
+  .eval-note{
+    display:flex; gap:.7rem; align-items:flex-start;
     margin:0 0 1rem;
-    padding:.9rem 1rem;
-    border:1px solid var(--line);
-    border-right:3px solid var(--gold);
-    background:var(--white);
+    padding:.85rem 1rem;
+    border:1px solid var(--amber-line);
+    border-inline-start:3px solid var(--gold);
+    background:var(--amber-bg);
     color:var(--ink-soft);
     border-radius:4px;
     direction:ltr;
@@ -264,12 +266,20 @@
     font-size:.86rem;
     line-height:1.55;
   }
-  .judge-note strong{color:var(--ink);}
+  .eval-note .icon{color:var(--gold-deep); flex-shrink:0; margin-top:.1rem; display:flex;}
+  .eval-note .icon svg{width:17px; height:17px; display:block;}
+  .eval-note .label{
+    font-family:'Alexandria',sans-serif;
+    font-size:.68rem; font-weight:700; letter-spacing:.08em;
+    text-transform:uppercase; color:var(--gold-deep);
+    display:block; margin-bottom:.3rem;
+  }
+  .eval-note p{margin:0;}
   .en-label{
     display:block;
     direction:ltr;
     text-align:left;
-    font-family:'IBM Plex Mono',monospace;
+    font-family:'Alexandria',sans-serif;
     font-size:.62rem;
     letter-spacing:.03em;
     color:var(--gold-deep);
@@ -305,8 +315,8 @@
     background:var(--paper-raised);
     border:1px solid var(--line);
     border-radius:5px;
-    padding:1rem 1.2rem;
-    margin-bottom:1.6rem;
+    padding:.9rem 1.2rem;
+    margin-bottom:1rem;
     font-size:.86rem;
     color:var(--ink-soft);
   }
@@ -324,7 +334,7 @@
     border:1px solid var(--amber-line);
     border-radius:5px;
     padding:.7rem 1.1rem;
-    margin-bottom:1.6rem;
+    margin-bottom:1.2rem;
   }
   .workshop-title{
     display:flex; align-items:baseline; gap:.5rem;
@@ -332,7 +342,7 @@
   }
   .workshop-title .ar{font-weight:700; font-size:.85rem; color:var(--ink);}
   .workshop-title .en{
-    font-family:'IBM Plex Mono',monospace;
+    font-family:'Alexandria',sans-serif;
     font-size:.62rem; letter-spacing:.05em; text-transform:uppercase;
     color:var(--gold-deep); direction:ltr;
   }
@@ -348,7 +358,7 @@
     padding:.22rem .65rem .22rem .3rem;
   }
   .wstep .en{
-    font-family:'IBM Plex Mono',monospace;
+    font-family:'Alexandria',sans-serif;
     font-size:.6rem; color:var(--gold-deep); direction:ltr; margin-inline-start:.15rem;
   }
   .wdot{
@@ -359,13 +369,104 @@
     flex-shrink:0;
   }
 
+  .evidence-intro{
+    background:var(--paper-raised);
+    border:1px solid var(--line);
+    border-radius:5px;
+    padding:1rem 1.2rem;
+    margin-bottom:1.2rem;
+  }
+  .evidence-intro .ei-title{
+    display:flex; align-items:baseline; gap:.5rem; margin-bottom:.5rem; flex-wrap:wrap;
+  }
+  .evidence-intro .ei-title .ar{font-weight:700; font-size:.9rem; color:var(--ink);}
+  .evidence-intro .ei-title .en{
+    font-family:'Alexandria',sans-serif; font-size:.62rem; letter-spacing:.05em;
+    text-transform:uppercase; color:var(--gold-deep); direction:ltr;
+  }
+  .evidence-intro p{font-size:.88rem; color:var(--ink-soft); margin-bottom:.5rem;}
+  .evidence-intro p.ei-en{
+    font-size:.8rem; direction:ltr; text-align:left; color:var(--ink-soft); margin-bottom:0;
+  }
+
+  .evidence-chips-block{ margin-top:-.1rem; }
+  .evidence-chips-block .ec-title{
+    display:flex; align-items:baseline; gap:.4rem; margin-bottom:.5rem; flex-wrap:wrap;
+  }
+  .evidence-chips-block .ec-title .ar{font-size:.72rem; font-weight:600; color:var(--ink);}
+  .evidence-chips-block .ec-title .en{
+    font-family:'Alexandria',sans-serif; font-size:.6rem; letter-spacing:.04em;
+    text-transform:uppercase; color:var(--gold-deep); direction:ltr;
+  }
+  .evidence-chips{display:flex; flex-wrap:wrap; gap:.4rem;}
+  .ev-chip{
+    font-size:.72rem; color:var(--ink);
+    background:var(--amber-bg); border:1px solid var(--amber-line);
+    border-radius:999px; padding:.28rem .7rem;
+    display:inline-flex; flex-direction:column; line-height:1.25;
+  }
+  .ev-chip .en{font-size:.62rem; color:var(--gold-deep); direction:ltr;}
+
+  .reasoning-evidence{
+    margin-bottom:1rem;
+    border:1px solid var(--line);
+    border-radius:4px;
+    background:var(--paper);
+  }
+  .reasoning-evidence summary{
+    cursor:pointer; list-style:none;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:.7rem 1rem; font-size:.82rem; font-weight:600; color:var(--ink);
+  }
+  .reasoning-evidence summary::-webkit-details-marker{display:none;}
+  .reasoning-evidence summary .re-label{display:flex; align-items:baseline; gap:.5rem; flex-wrap:wrap;}
+  .reasoning-evidence summary .re-label .en{
+    font-family:'Alexandria',sans-serif; font-size:.6rem; letter-spacing:.04em;
+    text-transform:uppercase; color:var(--gold-deep); direction:ltr; font-weight:500;
+  }
+  .reasoning-evidence summary .re-chev{transition:transform .2s ease; font-size:.7rem; color:var(--ink-soft);}
+  .reasoning-evidence[open] summary .re-chev{transform:rotate(180deg);}
+  .reasoning-evidence .re-body{
+    padding:0 1rem 1rem;
+    display:flex; flex-direction:column; gap:.4rem;
+    border-top:1px dashed var(--line);
+    padding-top:.7rem;
+  }
+  .reasoning-evidence .re-cat{
+    font-size:.82rem; color:var(--ink-soft);
+    display:flex; align-items:baseline; gap:.4rem; flex-wrap:wrap;
+  }
+  .reasoning-evidence .re-cat .mark{color:var(--gold-deep); font-weight:700;}
+  .reasoning-evidence .re-cat .en{
+    font-size:.68rem; color:var(--ink-soft); direction:ltr; opacity:.8;
+  }
+
+  .datahub-note{
+    display:flex; gap:.7rem; align-items:flex-start;
+    margin-top:2rem;
+    padding:.85rem 1.1rem;
+    border:1px solid var(--line);
+    border-inline-start:3px solid var(--gold);
+    background:var(--paper-raised);
+    border-radius:4px;
+  }
+  .datahub-note .icon{color:var(--gold-deep); flex-shrink:0; margin-top:.15rem; display:flex;}
+  .datahub-note .icon svg{width:16px; height:16px; display:block;}
+  .datahub-note .dn-title{
+    font-family:'Alexandria',sans-serif; font-size:.68rem; font-weight:700;
+    letter-spacing:.06em; text-transform:uppercase; color:var(--gold-deep);
+    display:block; margin-bottom:.3rem;
+  }
+  .datahub-note p{font-size:.84rem; color:var(--ink-soft); margin:0 0 .3rem;}
+  .datahub-note p.dn-en{font-size:.76rem; direction:ltr; text-align:left; margin-bottom:0;}
+
   .decision-trace{
     margin-top:3rem;
     padding-top:1.8rem;
     border-top:1px solid var(--line);
   }
   .decision-trace .trace-title{
-    font-family:'IBM Plex Mono',monospace;
+    font-family:'Alexandria',sans-serif;
     font-size:.72rem;
     letter-spacing:.06em;
     text-transform:uppercase;
@@ -391,19 +492,24 @@
   }
   .decision-trace .trace-step{
     display:flex; align-items:center; gap:.7rem;
-    font-size:.88rem; color:#b9b2a2;
+    font-size:.88rem; color:#B7AA96;
     position:relative; z-index:1;
   }
   .decision-trace .trace-step .dot{
     width:19px; height:19px; min-width:19px; border-radius:50%;
     display:flex; align-items:center; justify-content:center;
     font-size:.64rem;
-    background:var(--paper-raised); border:1.5px solid var(--line); color:#b9b2a2;
+    background:var(--paper-raised); border:1.5px solid var(--line); color:#B7AA96;
   }
   .decision-trace .trace-step.done{color:var(--gold-deep);}
   .decision-trace .trace-step.done .dot{background:var(--gold-deep); border-color:var(--gold-deep); color:#fff;}
   .decision-trace .trace-step.current{color:var(--ink); font-weight:700;}
   .decision-trace .trace-step.current .dot{background:var(--gold); border-color:var(--gold); color:#fff;}
+  .decision-trace .trace-step .step-en{
+    font-size:.68rem; color:var(--ink-soft); direction:ltr; unicode-bidi:isolate;
+    margin-inline-start:.4rem; font-weight:400; opacity:.8;
+  }
+  .decision-trace .trace-step.current .step-en{ opacity:.9; }
 
   @media (max-width:960px){
     .cards{grid-template-columns:1fr;}
@@ -422,11 +528,11 @@
 
 <div class="progress">
   <span class="step done">✓ تحليل</span><span class="sep">/</span>
-  <span class="step done">✓ سؤال</span><span class="sep">/</span>
+  <span class="step done">✓ سؤال تكيفي</span><span class="sep">/</span>
   <span class="step done">✓ ملخص</span><span class="sep">/</span>
-  <span class="step current">● البدائل</span><span class="sep">/</span>
-  <span class="step">الموافقة</span><span class="sep">/</span>
-  <span class="step">الخطة</span>
+  <span class="step current">● بدائل</span><span class="sep">/</span>
+  <span class="step">○ مراجعة القرار واعتماده</span><span class="sep">/</span>
+  <span class="step">○ خطة التنفيذ</span>
 </div>
 
 <div class="frame">
@@ -441,8 +547,12 @@
     </div>
   </div>
 
-  <div class="judge-note" lang="en">
-    <strong>Judge view:</strong> Compare three pedagogically distinct alternatives.<br>Teacher approval is required before plan generation.
+  <div class="eval-note" lang="en">
+    <span class="icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 8.5h9M7.5 12h9M7.5 15.5h5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+    <div>
+      <span class="label">For Evaluation</span>
+      <p>The system deliberately presents three pedagogically distinct alternatives before the teacher reviews and approves the final decision.</p>
+    </div>
   </div>
 
   <div class="context-why">
@@ -451,6 +561,15 @@
       <strong>لماذا يعرض النظام ثلاثة بدائل؟<span class="en-label" style="margin-top:.2rem;">Why three alternatives?</span></strong>
       لأن كل بديل يمثل فلسفة تربوية مختلفة، وليس ترتيبًا من الأفضل إلى الأسوأ.
     </div>
+  </div>
+
+  <div class="evidence-intro">
+    <div class="ei-title">
+      <span class="ar">الأدلة التربوية المسترجعة</span>
+      <span class="en">Pedagogical Evidence Retrieved</span>
+    </div>
+    <p>قبل إنشاء أي بديل، يعتمد النظام على نموذج تتبع يربط الأدلة بالبيانات الوصفية للمنهج، ونواتج التعلم، ودليل المعلم، وسياسة التقويم، ويقارن العلاقات بينها ضمن مسار DataHub المقترح قبل اقتراح البدائل.</p>
+    <p class="ei-en">Alternatives are generated according to a traceability model that links curriculum metadata, learning outcomes, teacher guidance, and assessment policy through the intended DataHub-powered workflow.</p>
   </div>
 
   <div class="workshop-card">
@@ -488,12 +607,39 @@
           <span class="label">ما الذي قد لا يتحقق؟<span class="en-label">What may not be achieved</span></span>
           <span class="value">قد يستغرق وقتًا أطول من الحصة، وقد لا يناسب من ينهي المهام بسرعة.</span>
         </div>
+        <div class="evidence-chips-block">
+          <div class="ec-title">
+            <span class="ar">الأدلة التربوية المسترجعة</span>
+            <span class="en">Pedagogical Evidence Retrieved</span>
+          </div>
+          <div class="evidence-chips">
+            <span class="ev-chip">نواتج التعلم<span class="en">Learning Outcomes</span></span>
+            <span class="ev-chip">دليل المعلم<span class="en">Teacher Guide</span></span>
+            <span class="ev-chip">تطور المفهوم<span class="en">Concept Development</span></span>
+            <span class="ev-chip">المرحلة الدراسية<span class="en">Grade Level</span></span>
+          </div>
+        </div>
         <button class="expand-toggle" onclick="toggleCard('card1')">
           <span class="txt bilingual-btn">عرض التحليل الكامل<small>View full analysis</small></span> <span class="chev">▾</span>
         </button>
       </div>
       <div class="details">
+        <div class="field"><span class="label">لماذا اقترحه النظام؟<span class="en-label">Why was this alternative suggested?</span></span><span class="value">لأن البيانات الوصفية للمنهج تشير إلى أن الفهم المفاهيمي ينبغي أن يسبق الإجراءات الرمزية.</span></div>
         <div class="field"><span class="label">الفجوة التي يعالجها<span class="en-label">Gap addressed</span></span><span class="value">الانتقال المبكر إلى الرمز قبل ترسيخ المعنى.</span></div>
+        <details class="reasoning-evidence">
+          <summary>
+            <span class="re-label"><span class="ar">مسار الاستدلال</span><span class="en">Reasoning Evidence</span></span>
+            <span class="re-chev">▾</span>
+          </summary>
+          <div class="re-body">
+            <div class="re-cat"><span class="mark">✓</span>نواتج المنهج<span class="en">Curriculum outcome</span></div>
+            <div class="re-cat"><span class="mark">✓</span>دليل المعلم<span class="en">Teacher guide</span></div>
+            <div class="re-cat"><span class="mark">✓</span>سياسة التقويم<span class="en">Assessment policy</span></div>
+            <div class="re-cat"><span class="mark">✓</span>علاقة المنهج<span class="en">Curriculum relationship</span></div>
+            <div class="re-cat"><span class="mark">✓</span>تدرّج التعلّم<span class="en">Learning progression</span></div>
+            <div class="re-cat"><span class="mark">✓</span>المرحلة الدراسية<span class="en">Grade level</span></div>
+          </div>
+        </details>
         <div class="field"><span class="label">المنطق التربوي<span class="en-label">Pedagogical rationale</span></span><span class="value">بناء تمثيل بصري (مساحات/أشرطة كسور) قبل أي عملية رمزية، بحيث يُبنى الرمز على معنى مرئي لا العكس.</span></div>
         <div class="field"><span class="label">نقطة البداية</span><span class="value">مقارنة نموذجين بصريين متكافئين دون كتابة أي رمز.</span></div>
         <div class="field"><span class="label">تسلسل بناء المفهوم</span><span class="value">تمثيل بصري ← مقارنة يدوية ← ربط بالرمز ← تدريب رمزي.</span></div>
@@ -534,12 +680,39 @@
           <span class="label">ما الذي قد لا يتحقق؟<span class="en-label">What may not be achieved</span></span>
           <span class="value">قد يشعر بعض الطلاب بالتردد عند مناقشة أخطاء أمام الصف علنًا.</span>
         </div>
+        <div class="evidence-chips-block">
+          <div class="ec-title">
+            <span class="ar">الأدلة التربوية المسترجعة</span>
+            <span class="en">Pedagogical Evidence Retrieved</span>
+          </div>
+          <div class="evidence-chips">
+            <span class="ev-chip">أخطاء الطلاب السابقة<span class="en">Previous Student Errors</span></span>
+            <span class="ev-chip">سياسة التقويم<span class="en">Assessment Policy</span></span>
+            <span class="ev-chip">دليل المعلم<span class="en">Teacher Guide</span></span>
+            <span class="ev-chip">نواتج التعلم<span class="en">Learning Outcomes</span></span>
+          </div>
+        </div>
         <button class="expand-toggle" onclick="toggleCard('card2')">
           <span class="txt bilingual-btn">عرض التحليل الكامل<small>View full analysis</small></span> <span class="chev">▾</span>
         </button>
       </div>
       <div class="details">
+        <div class="field"><span class="label">لماذا اقترحه النظام؟<span class="en-label">Why was this alternative suggested?</span></span><span class="value">لأن الأخطاء المفاهيمية المتكررة تظهر لدى الطلاب قبل اكتساب الطلاقة الإجرائية.</span></div>
         <div class="field"><span class="label">الفجوة التي يعالجها<span class="en-label">Gap addressed</span></span><span class="value">تكرار الخطأ نفسه دون أن يلاحظه الطالب بنفسه.</span></div>
+        <details class="reasoning-evidence">
+          <summary>
+            <span class="re-label"><span class="ar">مسار الاستدلال</span><span class="en">Reasoning Evidence</span></span>
+            <span class="re-chev">▾</span>
+          </summary>
+          <div class="re-body">
+            <div class="re-cat"><span class="mark">✓</span>نواتج المنهج<span class="en">Curriculum outcome</span></div>
+            <div class="re-cat"><span class="mark">✓</span>دليل المعلم<span class="en">Teacher guide</span></div>
+            <div class="re-cat"><span class="mark">✓</span>سياسة التقويم<span class="en">Assessment policy</span></div>
+            <div class="re-cat"><span class="mark">✓</span>علاقة المنهج<span class="en">Curriculum relationship</span></div>
+            <div class="re-cat"><span class="mark">✓</span>تدرّج التعلّم<span class="en">Learning progression</span></div>
+            <div class="re-cat"><span class="mark">✓</span>المرحلة الدراسية<span class="en">Grade level</span></div>
+          </div>
+        </details>
         <div class="field"><span class="label">المنطق التربوي<span class="en-label">Pedagogical rationale</span></span><span class="value">عرض حل خاطئ نموذجي ومطالبة الطلاب باكتشاف الخطأ وتبرير تصحيحه، لا تلقّي التصحيح جاهزًا.</span></div>
         <div class="field"><span class="label">نقطة البداية</span><span class="value">عرض حل يبدو صحيحًا ظاهريًا لكنه يحتوي خطأ مفاهيميًا شائعًا.</span></div>
         <div class="field"><span class="label">تسلسل بناء المفهوم</span><span class="value">عرض الخطأ ← نقاش جماعي ← تحديد سببه ← تصحيح موجّه.</span></div>
@@ -580,12 +753,39 @@
           <span class="label">ما الذي قد لا يتحقق؟<span class="en-label">What may not be achieved</span></span>
           <span class="value">قد لا يكفي لطلاب لم يكوّنوا أي تصور بصري بعد.</span>
         </div>
+        <div class="evidence-chips-block">
+          <div class="ec-title">
+            <span class="ar">الأدلة التربوية المسترجعة</span>
+            <span class="en">Pedagogical Evidence Retrieved</span>
+          </div>
+          <div class="evidence-chips">
+            <span class="ev-chip">علاقات المنهج<span class="en">Curriculum Relationships</span></span>
+            <span class="ev-chip">تسلسل المفهوم<span class="en">Concept Progression</span></span>
+            <span class="ev-chip">معايير التقويم<span class="en">Assessment Criteria</span></span>
+            <span class="ev-chip">المرحلة الدراسية<span class="en">Grade Level</span></span>
+          </div>
+        </div>
         <button class="expand-toggle" onclick="toggleCard('card3')">
           <span class="txt bilingual-btn">عرض التحليل الكامل<small>View full analysis</small></span> <span class="chev">▾</span>
         </button>
       </div>
       <div class="details">
+        <div class="field"><span class="label">لماذا اقترحه النظام؟<span class="en-label">Why was this alternative suggested?</span></span><span class="value">لأن تسلسل المنهج يوصي بانتقال منظم من التمثيل البصري إلى التجريد الرمزي.</span></div>
         <div class="field"><span class="label">الفجوة التي يعالجها<span class="en-label">Gap addressed</span></span><span class="value">صعوبة تعميم فهم جزئي إلى قاعدة رمزية ثابتة.</span></div>
+        <details class="reasoning-evidence">
+          <summary>
+            <span class="re-label"><span class="ar">مسار الاستدلال</span><span class="en">Reasoning Evidence</span></span>
+            <span class="re-chev">▾</span>
+          </summary>
+          <div class="re-body">
+            <div class="re-cat"><span class="mark">✓</span>نواتج المنهج<span class="en">Curriculum outcome</span></div>
+            <div class="re-cat"><span class="mark">✓</span>دليل المعلم<span class="en">Teacher guide</span></div>
+            <div class="re-cat"><span class="mark">✓</span>سياسة التقويم<span class="en">Assessment policy</span></div>
+            <div class="re-cat"><span class="mark">✓</span>علاقة المنهج<span class="en">Curriculum relationship</span></div>
+            <div class="re-cat"><span class="mark">✓</span>تدرّج التعلّم<span class="en">Learning progression</span></div>
+            <div class="re-cat"><span class="mark">✓</span>المرحلة الدراسية<span class="en">Grade level</span></div>
+          </div>
+        </details>
         <div class="field"><span class="label">المنطق التربوي<span class="en-label">Pedagogical rationale</span></span><span class="value">تدريب منظم على تجزئة الوحدة نفسها بطرق متعددة، ثم استخلاص القاعدة الرمزية من التكرار المنظم لا من الشرح المباشر.</span></div>
         <div class="field"><span class="label">نقطة البداية</span><span class="value">تجزئة نفس الشكل الهندسي بثلاث طرق مختلفة.</span></div>
         <div class="field"><span class="label">تسلسل بناء المفهوم</span><span class="value">تجزئة متكررة ← ملاحظة النمط ← صياغة قاعدة ← تطبيق رمزي.</span></div>
@@ -608,14 +808,23 @@
 
   </div>
 
+  <div class="datahub-note">
+    <span class="icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="6" cy="6.5" r="1.8" stroke="currentColor" stroke-width="1.4"/><circle cx="18" cy="6.5" r="1.8" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="17.5" r="1.8" stroke="currentColor" stroke-width="1.4"/><path d="M7.6 7.5 10.4 15.7M16.4 7.5 13.6 15.7M7.8 6.5h8.4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg></span>
+    <div>
+      <span class="dn-title">DataHub Traceability</span>
+      <p>جميع البدائل في هذه الصفحة قابلة للتتبع إلى مصادرها المنهجية، ويمكن للمعلم مراجعة الأدلة قبل اعتماد القرار.</p>
+      <p class="dn-en">Every alternative is traceable to curriculum evidence before teacher approval.</p>
+    </div>
+  </div>
+
   <div class="decision-trace">
-    <div class="trace-title">مسار بناء القرار <span class="en">— Decision Trace</span></div>
+    <div class="trace-title">مسار القرار <span class="en">— Decision Trace</span></div>
     <div class="trace-chain">
-      <div class="trace-step done"><span class="dot">✓</span>السياق</div>
-      <div class="trace-step done"><span class="dot">✓</span>التحليل</div>
-      <div class="trace-step current"><span class="dot">●</span>البدائل</div>
-      <div class="trace-step"><span class="dot">○</span>اعتماد المعلم</div>
-      <div class="trace-step"><span class="dot">○</span>خطة التنفيذ</div>
+      <div class="trace-step done"><span class="dot">✓</span>تحليل الموقف<span class="step-en">Situation</span></div>
+      <div class="trace-step done"><span class="dot">✓</span>أدلة المنهج<span class="step-en">Metadata Evidence</span></div>
+      <div class="trace-step current"><span class="dot">●</span>البدائل<span class="step-en">Alternatives</span></div>
+      <div class="trace-step"><span class="dot">○</span>اعتماد المعلم<span class="step-en">Teacher Approval</span></div>
+      <div class="trace-step"><span class="dot">○</span>تنفيذ قابل للتتبع<span class="step-en">Traceable Implementation</span></div>
     </div>
   </div>
 </div>
@@ -640,6 +849,9 @@ function approveCard(id){
       document.getElementById(otherId).classList.add('dimmed');
     }
   });
+  try {
+    sessionStorage.setItem('zahraaApprovedAlternative', id);
+  } catch (e) {}
 }
 
 function goToApproval(btn){
@@ -656,6 +868,9 @@ function changeDecision(btn){
   approvedCard.classList.remove('approved', 'open');
   approvedCard.querySelector('.expand-toggle .txt').innerHTML = 'عرض التحليل الكامل<small>View full analysis</small>';
   allCardIds.forEach(id => document.getElementById(id).classList.remove('dimmed'));
+  try {
+    sessionStorage.removeItem('zahraaApprovedAlternative');
+  } catch (e) {}
 }
 </script>
 

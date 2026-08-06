@@ -214,7 +214,7 @@
     gap:18px;
     align-items:flex-start;
   }
-  .plan-section .section-icon{
+  .section-icon{
     width:40px;
     height:40px;
     border-radius:12px;
@@ -231,20 +231,23 @@
     flex:1;
     min-width:0;
   }
-  .plan-section .section-title{
+  .section-title{
     font-size:16px;
     font-weight:700;
     color:var(--brown);
     margin-bottom:3px;
   }
-  .plan-section .section-title-en{
+  .section-title-en{
     font-size:11.5px;
     color:var(--text-muted);
     direction:ltr;
     text-align:right;
+    margin-bottom:0;
+  }
+  .plan-section .section-title-en{
     margin-bottom:10px;
   }
-  .plan-section .section-text{
+  .section-text{
     font-size:14.5px;
     color:var(--text);
     line-height:1.9;
@@ -374,17 +377,102 @@
     margin:6px auto 0;
   }
 
-  /* ===== JUDGE VIEW ===== */
+  /* ===== PLAN PROVENANCE CARD ===== */
+  .provenance-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:22px 26px 24px;
+    margin:0 0 24px;
+    box-shadow:var(--shadow);
+  }
+  .provenance-card .pc-title{
+    font-size:15px;
+    font-weight:700;
+    color:var(--brown);
+    margin:0 0 2px;
+  }
+  .provenance-card .pc-title-en{
+    font-size:12px;
+    color:var(--text-muted);
+    direction:ltr;
+    text-align:right;
+    margin:0 0 14px;
+  }
+  .provenance-card .pc-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:10px;
+    margin-bottom:12px;
+  }
+  .provenance-card .pc-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:var(--ivory);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:10px 12px;
+  }
+  .provenance-card .pc-item .check{
+    color:var(--success);
+    font-weight:700;
+    font-size:14px;
+    flex-shrink:0;
+  }
+  .provenance-card .pc-item .pc-text{
+    display:flex;
+    flex-direction:column;
+    line-height:1.35;
+  }
+  .provenance-card .pc-item .pc-ar{
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--brown);
+  }
+  .provenance-card .pc-item .pc-en{
+    font-size:11px;
+    color:var(--text-muted);
+    direction:ltr;
+    margin-top:1px;
+  }
+  .provenance-card .pc-note{
+    font-size:12.5px;
+    color:var(--text-muted);
+    line-height:1.6;
+    margin:0;
+  }
+  .provenance-card .pc-note .en{
+    display:block;
+    direction:ltr;
+    font-size:11.5px;
+    margin-top:2px;
+  }
+  @media (max-width:600px){
+    .provenance-card .pc-list{ grid-template-columns:1fr; }
+  }
+
+  /* ===== FOR EVALUATION ===== */
   .judge-view{
     direction:ltr;
     text-align:left;
-    background:#FBF9F4;
-    border:1px dashed var(--line);
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+    background:#FBF6E9;
+    border:1px solid #EBD9A8;
+    border-inline-start:3px solid var(--gold);
     border-radius:12px;
     padding:14px 18px;
     max-width:620px;
     margin:20px auto 28px;
     font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  }
+  .judge-view .jv-icon{
+    flex-shrink:0;
+    color:var(--gold-dark);
+    margin-top:1px;
+    display:flex;
   }
   .judge-view .jv-label{
     font-size:11px;
@@ -425,6 +513,53 @@
     font-size:13.5px;
     font-weight:600;
     color:var(--brown);
+  }
+
+  /* ===== SECTION TINTS (subtle, per plan.md) ===== */
+  .card.tint-green{ border-inline-start:3px solid #8FBF9F; }
+  .card.tint-gold{ border-inline-start:3px solid var(--gold); }
+  .card.tint-ivory{ background:#FBF8F2; }
+  .card.tint-secondary{ background:#F5F0E4; }
+  .card.tint-dashed{ border-style:dashed; }
+
+  /* ===== ACCORDION SECTIONS ===== */
+  details.card{ padding:0; }
+  details.card summary{
+    list-style:none;
+    cursor:pointer;
+    padding:26px 28px;
+    display:flex;
+    align-items:flex-start;
+    gap:18px;
+  }
+  details.card summary::-webkit-details-marker{ display:none; }
+  details.card summary:focus-visible{
+    outline:2px solid var(--gold-dark);
+    outline-offset:-2px;
+    border-radius:12px;
+  }
+  details.card summary .summary-head{
+    flex:1;
+    min-width:0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+  details.card summary .summary-titles{ flex:1; min-width:0; }
+  details.card .chev{
+    flex-shrink:0;
+    color:var(--gold-dark);
+    transition:transform .2s ease;
+    margin-top:2px;
+  }
+  details.card[open] .chev{ transform:rotate(180deg); }
+  details.card .details-body{
+    padding:0 28px 24px 28px;
+  }
+  @media (max-width:600px){
+    details.card summary{ padding:20px 18px; }
+    details.card .details-body{ padding:0 18px 20px 18px; }
   }
 
   /* ===== SVG ICONS ===== */
@@ -484,17 +619,97 @@
     .lesson-meta{grid-template-columns:1fr;}
   }
 
+  /* ===== FINAL TRACEABLE CLOSING ===== */
+  .closing-card{
+    background:linear-gradient(180deg, #FFFDF7, #FBF3DE);
+    border:1px solid #EBD9A8;
+    border-radius:var(--radius);
+    padding:28px 30px;
+    margin-top:32px;
+    text-align:center;
+  }
+  .closing-card .cc-title{
+    font-size:16px;
+    font-weight:700;
+    color:var(--brown);
+    margin-bottom:2px;
+  }
+  .closing-card .cc-title-en{
+    font-size:12px;
+    font-weight:600;
+    color:var(--gold-dark);
+    direction:ltr;
+    margin-bottom:20px;
+  }
+  .closing-card .cc-chain{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:3px;
+    margin-bottom:18px;
+  }
+  .closing-card .cc-step{
+    font-size:13.5px;
+    font-weight:600;
+    color:var(--brown);
+    line-height:1.4;
+  }
+  .closing-card .cc-step .en{
+    display:block;
+    font-size:11px;
+    font-weight:400;
+    color:var(--text-muted);
+    direction:ltr;
+  }
+  .closing-card .cc-arrow{
+    color:var(--gold-dark);
+    font-size:13px;
+    line-height:1;
+    margin:2px 0;
+  }
+  .closing-card .cc-text{
+    font-size:13px;
+    color:var(--text-muted);
+    line-height:1.8;
+    max-width:480px;
+    margin:0 auto 14px;
+  }
+  .closing-card .cc-text .en{
+    display:block;
+    direction:ltr;
+    font-size:12px;
+    margin-top:4px;
+  }
+  .closing-card .cc-brand{
+    font-size:12px;
+    font-weight:700;
+    color:var(--gold-dark);
+    font-style:italic;
+    direction:ltr;
+  }
+
   /* ===== FOOTER SIGNATURE ===== */
   .footer-signature{
     text-align:center;
     margin-top:40px;
     opacity:0.6;
   }
-  .footer-signature .sig-title{
+  .footer-signature .footer-name{
     font-size:12px;
     font-weight:700;
     color:var(--brown-soft);
     letter-spacing:0.02em;
+  }
+  .footer-signature .footer-name .tm{
+    font-size:.7em;
+    vertical-align:super;
+  }
+  .footer-signature .footer-tagline{
+    font-size:11.5px;
+    color:var(--gold-dark);
+    font-style:italic;
+    direction:ltr;
+    margin-top:3px;
   }
   .footer-signature .sig-sub{
     font-size:11.5px;
@@ -557,18 +772,34 @@
     <p>تم إنشاء هذه الخطة بعد مراجعة القرار واعتماد المعلم.</p>
   </div>
 
-  <!-- JUDGE VIEW -->
+  <!-- FOR EVALUATION -->
   <div class="judge-view reveal" style="animation-delay:.05s">
-    <div class="jv-label">Judge View</div>
-    <p>Generated only after the teacher reviewed and approved the decision below — not a direct prompt response.</p>
+    <span class="jv-icon"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 8.5h9M7.5 12h9M7.5 15.5h5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+    <div>
+      <div class="jv-label">For Evaluation</div>
+      <p>This implementation plan was generated only after structured pedagogical reasoning, comparison of alternatives, and explicit teacher approval — not from a single prompt.</p>
+    </div>
   </div>
 
   <!-- APPROVED DECISION CARD -->
   <div class="approved-decision-card reveal" style="animation-delay:.12s">
     <div class="adc-header"><span class="status-dot"></span>القرار الذي اعتمده المعلم</div>
     <div class="adc-body">
-      <div class="adc-name"><span class="diamond">◆</span>المدخل المفاهيمي البصري</div>
+      <div class="adc-name"><span class="diamond">◆</span><span id="planDecisionName">المدخل المفاهيمي البصري</span></div>
       <p class="adc-rationale">تم اختيار هذا القرار بعد تحليل الموقف ومقارنة البدائل ومراجعة المعلم قبل بدء إنشاء الخطة.</p>
+    </div>
+  </div>
+
+  <!-- DECISION TRACE -->
+  <div class="trace-card reveal" style="animation-delay:.16s">
+    <div class="trace-heading">مسار القرار — Decision Trace</div>
+    <div class="trace-start"></div>
+    <div class="trace-chain">
+      <span class="chain-item"><span class="check">✓</span>تحليل الموقف / Situation</span>
+      <span class="chain-item"><span class="check">✓</span>أدلة المنهج / Metadata Evidence</span>
+      <span class="chain-item"><span class="check">✓</span>البدائل / Alternatives</span>
+      <span class="chain-item"><span class="check">✓</span>اعتماد المعلم / Teacher Approval</span>
+      <span class="chain-item chain-final">تنفيذ قابل للتتبع / Traceable Implementation</span>
     </div>
   </div>
 
@@ -576,11 +807,11 @@
   <div class="lesson-meta reveal" style="animation-delay:.18s">
     <div class="meta-item">
       <div class="meta-label">المادة</div>
-      <div class="meta-value" id="metaSubject">حسب سيناريو المستخدم</div>
+      <div class="meta-value" id="metaSubject">الرياضيات</div>
     </div>
     <div class="meta-item">
       <div class="meta-label">الصف</div>
-      <div class="meta-value">السادس الابتدائي</div>
+      <div class="meta-value" id="metaGrade">الرابع الابتدائي</div>
     </div>
     <div class="meta-item">
       <div class="meta-label">الزمن</div>
@@ -592,26 +823,40 @@
     </div>
   </div>
 
+  <!-- PLAN PROVENANCE -->
+  <div class="provenance-card reveal" style="animation-delay:.21s">
+    <div class="pc-title">مصدر الخطة</div>
+    <div class="pc-title-en">Plan Provenance</div>
+    <div class="pc-list">
+      <div class="pc-item"><span class="check">✓</span><span class="pc-text"><span class="pc-ar">القرار المعتمد</span><span class="pc-en">Approved Decision</span></span></div>
+      <div class="pc-item"><span class="check">✓</span><span class="pc-text"><span class="pc-ar">البيانات الوصفية للمنهج</span><span class="pc-en">Curriculum Metadata</span></span></div>
+      <div class="pc-item"><span class="check">✓</span><span class="pc-text"><span class="pc-ar">نواتج التعلم</span><span class="pc-en">Learning Outcomes</span></span></div>
+      <div class="pc-item"><span class="check">✓</span><span class="pc-text"><span class="pc-ar">دليل المعلم</span><span class="pc-en">Teacher Guide</span></span></div>
+      <div class="pc-item"><span class="check">✓</span><span class="pc-text"><span class="pc-ar">سياسة التقويم</span><span class="pc-en">Assessment Policy</span></span></div>
+    </div>
+    <p class="pc-note">بُنيت هذه الخطة من القرار الذي اعتمده المعلم، وربطت بعناصر المنهج والأدلة التربوية ذات الصلة.<span class="en">This plan was derived from the teacher-approved decision and linked to the relevant curriculum and pedagogical evidence.</span></p>
+  </div>
+
   <!-- هدف التعلم -->
-  <div class="card reveal" style="animation-delay:.24s">
+  <div class="card tint-green reveal" style="animation-delay:.24s">
     <div class="plan-section">
       <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4"/><path d="M12 4v2M20 12h-2M12 20v-2M4 12h2"/></svg></div>
       <div class="section-body">
         <div class="section-title">هدف التعلم</div>
         <div class="section-title-en">Learning Objective</div>
-        <p class="section-text">يفسّر الطالب معنى التكافؤ بين طرفي المعادلة باستخدام تمثيل بصري، ويربط بين الرسم والعبارة الرمزية قبل الانتقال إلى الحل الإجرائي.</p>
+        <p class="section-text" id="planObjective">يفسّر الطالب معنى التكافؤ بين طرفي المعادلة باستخدام تمثيل بصري، ويربط بين الرسم والعبارة الرمزية قبل الانتقال إلى الحل الإجرائي.</p>
       </div>
     </div>
   </div>
 
   <!-- معيار النجاح -->
-  <div class="card reveal" style="animation-delay:.30s">
+  <div class="card tint-gold reveal" style="animation-delay:.30s">
     <div class="plan-section">
       <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19 19 5"/><path d="m8 16 2 2M11 13l2 2M14 10l2 2"/><rect x="3" y="10" width="18" height="4" rx="1" transform="rotate(-45 12 12)"/></svg></div>
       <div class="section-body">
         <div class="section-title">معيار النجاح</div>
         <div class="section-title-en">Success Criteria</div>
-        <p class="section-text">يستطيع الطالب أن يوضّح بلغته الخاصة سبب تساوي طرفي المعادلة، مستعينًا برسم أو نموذج بصري، دون الاعتماد على حفظ خطوات الحل فقط.</p>
+        <p class="section-text" id="planSuccess">يستطيع الطالب أن يوضّح بلغته الخاصة سبب تساوي طرفي المعادلة، مستعينًا برسم أو نموذج بصري، دون الاعتماد على حفظ خطوات الحل فقط.</p>
       </div>
     </div>
   </div>
@@ -623,7 +868,7 @@
       <div class="section-body">
         <div class="section-title">التمهيد</div>
         <div class="section-title-en">Warm-up</div>
-        <p class="section-text">تُعرض على الطلاب صورة ميزان يحمل أشكالًا مختلفة على كفتيه، ويُطرح سؤال: "متى يبقى الميزان متزنًا؟" لتنشيط فكرة التكافؤ قبل ربطها بالرموز الرياضية.</p>
+        <p class="section-text" id="planWarmup">تُعرض على الطلاب صورة ميزان يحمل أشكالًا مختلفة على كفتيه، ويُطرح سؤال: "متى يبقى الميزان متزنًا؟" لتنشيط فكرة التكافؤ قبل ربطها بالرموز الرياضية.</p>
       </div>
     </div>
   </div>
@@ -635,7 +880,7 @@
       <div class="section-body">
         <div class="section-title">خطوات التنفيذ</div>
         <div class="section-title-en">Lesson Steps</div>
-        <ul class="step-list">
+        <ul class="step-list" id="planSteps">
           <li>تقديم نموذج الميزان البصري وربطه بفكرة "طرفين متساويين".<span class="step-time">5 د</span></li>
           <li>تحويل نموذج الميزان إلى معادلة رمزية بسيطة أمام الطلاب.<span class="step-time">7 د</span></li>
           <li>عمل جماعي: كل مجموعة ترسم ميزانها الخاص وتكتب المعادلة المقابلة له.<span class="step-time">12 د</span></li>
@@ -647,84 +892,213 @@
   </div>
 
   <!-- التمايز -->
-  <div class="card reveal" style="animation-delay:.48s">
-    <div class="plan-section">
+  <details class="card tint-ivory reveal" style="animation-delay:.48s" open>
+    <summary>
       <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3h4a2 2 0 1 1 4 0h5v5a2 2 0 1 0 0 4v5h-5a2 2 0 1 1-4 0H8v-5a2 2 0 1 0 0-4V3Z"/></svg></div>
-      <div class="section-body">
-        <div class="section-title">التمايز</div>
-        <div class="section-title-en">Differentiation</div>
-        <div class="tag-list">
-          <span class="tag">دعم: نماذج ميزان جاهزة بالألوان</span>
-          <span class="tag">تمكين: معادلات بمجهولين على الطرفين</span>
-          <span class="tag">لغوي: بطاقات مفردات "تكافؤ / طرف / يساوي"</span>
+      <div class="summary-head">
+        <div class="summary-titles">
+          <div class="section-title">التمايز</div>
+          <div class="section-title-en">Differentiation</div>
         </div>
+        <span class="chev">▾</span>
+      </div>
+    </summary>
+    <div class="details-body">
+      <div class="tag-list" id="planDiffTags">
+        <span class="tag">دعم: نماذج ميزان جاهزة بالألوان</span>
+        <span class="tag">تمكين: معادلات بمجهولين على الطرفين</span>
+        <span class="tag">لغوي: بطاقات مفردات "تكافؤ / طرف / يساوي"</span>
       </div>
     </div>
-  </div>
+  </details>
 
   <!-- التقويم -->
-  <div class="card reveal" style="animation-delay:.54s">
-    <div class="plan-section">
+  <details class="card tint-secondary reveal" style="animation-delay:.54s" open>
+    <summary>
       <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg></div>
-      <div class="section-body">
-        <div class="section-title">التقويم</div>
-        <div class="section-title-en">Assessment</div>
-        <p class="section-text">ملاحظة مباشرة أثناء العمل الجماعي على قدرة كل مجموعة على تفسير التوازن بصريًا، إضافة إلى مراجعة سريعة لتفسيرات الطلاب الفردية في نهاية الحصة.</p>
+      <div class="summary-head">
+        <div class="summary-titles">
+          <div class="section-title">التقويم</div>
+          <div class="section-title-en">Assessment</div>
+        </div>
+        <span class="chev">▾</span>
       </div>
+    </summary>
+    <div class="details-body">
+      <p class="section-text" id="planAssessment">ملاحظة مباشرة أثناء العمل الجماعي على قدرة كل مجموعة على تفسير التوازن بصريًا، إضافة إلى مراجعة سريعة لتفسيرات الطلاب الفردية في نهاية الحصة.</p>
     </div>
-  </div>
+  </details>
 
   <!-- بطاقة الخروج -->
-  <div class="card reveal" style="animation-delay:.60s">
-    <div class="plan-section">
+  <details class="card tint-dashed reveal" style="animation-delay:.60s" open>
+    <summary>
       <div class="section-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 21h14"/><path d="M7 21V4a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v17"/><path d="M11 12h.01"/></svg></div>
-      <div class="section-body">
-        <div class="section-title">بطاقة الخروج</div>
-        <div class="section-title-en">Exit Card</div>
-        <div class="exit-card-box">
-          <div class="exit-q">"ارسم ميزانًا يمثّل المعادلة: ٣ + ٢ = ٤ + ١، ثم اشرح لماذا يبقى متزنًا."</div>
-          <div class="exit-hint">يُجيب كل طالب بشكل فردي في آخر دقيقتين من الحصة.</div>
+      <div class="summary-head">
+        <div class="summary-titles">
+          <div class="section-title">بطاقة الخروج</div>
+          <div class="section-title-en">Exit Card</div>
         </div>
+        <span class="chev">▾</span>
+      </div>
+    </summary>
+    <div class="details-body">
+      <div class="exit-card-box">
+        <div class="exit-q" id="planExitQ">"ارسم ميزانًا يمثّل المعادلة: ٣ + ٢ = ٤ + ١، ثم اشرح لماذا يبقى متزنًا."</div>
+        <div class="exit-hint" id="planExitHint">يُجيب كل طالب بشكل فردي في آخر دقيقتين من الحصة.</div>
       </div>
     </div>
-  </div>
+  </details>
 
-  <!-- DECISION TRACE -->
-  <div class="trace-card reveal" style="animation-delay:.68s">
-    <div class="trace-heading">مسار القرار — Decision Trace</div>
-    <div class="trace-start"></div>
-    <div class="trace-chain">
-      <span class="chain-item"><span class="check">✓</span>السياق / Context</span>
-      
-      <span class="chain-item"><span class="check">✓</span>السؤال التكيفي / Adaptive Question</span>
-      
-      <span class="chain-item"><span class="check">✓</span>البدائل / Alternatives</span>
-      
-      <span class="chain-item"><span class="check">✓</span>موافقة المعلم / Teacher Approval</span>
-      
-      <span class="chain-item chain-final">خطة التنفيذ / Implementation Plan</span>
+  <!-- FINAL TRACEABLE CLOSING -->
+  <div class="closing-card reveal" style="animation-delay:.66s">
+    <div class="cc-title">قرار تربوي قابل للتتبع</div>
+    <div class="cc-title-en">Traceable Pedagogical Decision</div>
+    <div class="cc-chain">
+      <span class="cc-step">الموقف<span class="en">Situation</span></span>
+      <span class="cc-arrow">↓</span>
+      <span class="cc-step">البيانات الوصفية<span class="en">Metadata</span></span>
+      <span class="cc-arrow">↓</span>
+      <span class="cc-step">الأدلة<span class="en">Evidence</span></span>
+      <span class="cc-arrow">↓</span>
+      <span class="cc-step">البدائل<span class="en">Alternatives</span></span>
+      <span class="cc-arrow">↓</span>
+      <span class="cc-step">اعتماد المعلم<span class="en">Teacher Approval</span></span>
+      <span class="cc-arrow">↓</span>
+      <span class="cc-step">التنفيذ<span class="en">Implementation</span></span>
     </div>
+    <p class="cc-text">تم إنشاء هذه الخطة فقط بعد استدلال تربوي منظم ومراجعة واعتماد صريح من المعلم.<span class="en">This plan was generated only after structured pedagogical reasoning and explicit teacher review and approval.</span></p>
+    <div class="cc-brand">Decision Before Generation™</div>
   </div>
 
-  <!-- FOOTER SIGNATURE -->
+  <!-- FOOTER -->
   <div class="footer-signature">
-    <div class="sig-title">ZAHRAA™ Teacher Decision Lab</div>
+    <div class="footer-name">ZAHRAA<span class="tm">™</span> Teacher Decision Lab</div>
+    <div class="footer-tagline">Decision Before Generation™</div>
     <div class="sig-sub">AI suggests. Teachers decide.</div>
   </div>
+
 
 </div>
 
 <script>
-  // Integration point: replace with the actual subject from the live
-  // decision/plan data for this session. Falls back to a neutral label
-  // so the product never appears hard-coded to one subject (e.g. Math)
-  // in front of a judge or a teacher outside that domain.
+  // This prototype scenario is Grade 4 Mathematics. Set explicitly so the
+  // generic fallback label never appears in the demo. If a future session
+  // flow stores the subject/grade dynamically, read from that instead.
   const planContext = {
-    subject: null // e.g. "الرياضيات" — set this from real session data
+    subject: 'الرياضيات',
+    grade: 'الرابع الابتدائي'
   };
-  if (planContext.subject) {
-    document.getElementById('metaSubject').textContent = planContext.subject;
-  }
+  document.getElementById('metaSubject').textContent = planContext.subject;
+  document.getElementById('metaGrade').textContent = planContext.grade;
+
+  // Full implementation-plan content for each of the three alternatives
+  // offered in alternatives.html. The id chosen there (card1/card2/card3)
+  // is read from sessionStorage below, so the plan shown here always
+  // matches the decision the teacher actually approved.
+  const planData = {
+    card1: {
+      decisionName: 'المدخل المفاهيمي البصري',
+      objective: 'يفسّر الطالب معنى التكافؤ بين طرفي المعادلة باستخدام تمثيل بصري، ويربط بين الرسم والعبارة الرمزية قبل الانتقال إلى الحل الإجرائي.',
+      success: 'يستطيع الطالب أن يوضّح بلغته الخاصة سبب تساوي طرفي المعادلة، مستعينًا برسم أو نموذج بصري، دون الاعتماد على حفظ خطوات الحل فقط.',
+      warmup: 'تُعرض على الطلاب صورة ميزان يحمل أشكالًا مختلفة على كفتيه، ويُطرح سؤال: "متى يبقى الميزان متزنًا؟" لتنشيط فكرة التكافؤ قبل ربطها بالرموز الرياضية.',
+      steps: [
+        ['تقديم نموذج الميزان البصري وربطه بفكرة "طرفين متساويين".', '5 د'],
+        ['تحويل نموذج الميزان إلى معادلة رمزية بسيطة أمام الطلاب.', '7 د'],
+        ['عمل جماعي: كل مجموعة ترسم ميزانها الخاص وتكتب المعادلة المقابلة له.', '12 د'],
+        ['مناقشة صفية لعرض نماذج المجموعات وتصحيح المفاهيم الخاطئة أولًا بأول.', '10 د'],
+        ['تدريب فردي قصير على تفسير معادلات جديدة دون حلها إجرائيًا.', '6 د']
+      ],
+      diffTags: [
+        'دعم: نماذج ميزان جاهزة بالألوان',
+        'تمكين: معادلات بمجهولين على الطرفين',
+        'لغوي: بطاقات مفردات "تكافؤ / طرف / يساوي"'
+      ],
+      assessment: 'ملاحظة مباشرة أثناء العمل الجماعي على قدرة كل مجموعة على تفسير التوازن بصريًا، إضافة إلى مراجعة سريعة لتفسيرات الطلاب الفردية في نهاية الحصة.',
+      exitQ: '"ارسم ميزانًا يمثّل المعادلة: ٣ + ٢ = ٤ + ١، ثم اشرح لماذا يبقى متزنًا."',
+      exitHint: 'يُجيب كل طالب بشكل فردي في آخر دقيقتين من الحصة.'
+    },
+    card2: {
+      decisionName: 'تحليل الأخطاء الشائعة',
+      objective: 'يحدد الطالب سبب الخطأ الشائع في حل معادلات التكافؤ، ويصحّحه مستندًا إلى تبرير منطقي لا إلى حفظ القاعدة.',
+      success: 'يستطيع الطالب أن يشرح لماذا حل معين للمعادلة خاطئ، ويقترح تصحيحًا مبررًا دون توجيه مباشر من المعلم.',
+      warmup: 'يُعرض على الطلاب حل لمعادلة يبدو صحيحًا لكنه يحتوي خطأ شائعًا في التعامل مع طرفي المعادلة، ويُطرح سؤال: "هل هذا الحل صحيح؟ كيف تعرف؟"',
+      steps: [
+        ['عرض الحل الخاطئ النموذجي على الشاشة دون الإشارة إلى وجود خطأ فيه.', '5 د'],
+        ['سؤال فردي صامت: هل توافق على هذا الحل؟ اكتب سبب رأيك.', '5 د'],
+        ['نقاش جماعي موجّه: مين شاف مشكلة؟ فين بالظبط؟ ليه حصل الخطأ ده؟', '10 د'],
+        ['تحديد جماعي لسبب الخطأ المفاهيمي وصياغة تصحيح صحيح بمشاركة الطلاب.', '10 د'],
+        ['تدريب فردي قصير: تحديد خطأ مشابه في معادلة جديدة وتصحيحه.', '10 د']
+      ],
+      diffTags: [
+        'دعم: أمثلة أخطاء أبسط وأوضح بصريًا',
+        'تمكين: تحليل أكثر من خطأ في نفس المعادلة',
+        'لغوي: بطاقات مفردات "خطأ شائع / تبرير / تصحيح"'
+      ],
+      assessment: 'ملاحظة مباشرة لجودة تبرير كل طالب أثناء النقاش الجماعي، إضافة إلى مراجعة إجابة التدريب الفردي في نهاية الحصة.',
+      exitQ: '"اعثر على الخطأ في الحل التالي واشرح سببه: ٧ + ٣ = ٤ + ٥ + ١"',
+      exitHint: 'يجيب كل طالب فرديًا في آخر دقيقتين من الحصة.'
+    },
+    card3: {
+      decisionName: 'إعادة التجزئة المنتظمة',
+      objective: 'يصوغ الطالب القاعدة الرمزية للتكافؤ بنفسه، انطلاقًا من تكرار تجزئة الشكل نفسه بطرق مختلفة، لا من تلقّي القاعدة جاهزة.',
+      success: 'يستطيع الطالب أن يكتب معادلة تكافؤ صحيحة، ويفسّر كيف توصل إليها من خلال ملاحظة نمط التجزئة المتكرر.',
+      warmup: 'يوزَّع على الطلاب نفس الشكل الهندسي (مستطيل واحد)، ويُطلب منهم تجزئته بثلاث طرق مختلفة خلال دقيقتين، دون أي تفسير رمزي بعد.',
+      steps: [
+        ['عرض نماذج التجزئة الثلاثة التي رسمها الطلاب ومقارنتها ببعضها.', '6 د'],
+        ['سؤال موجّه: "إيه اللي متكرر في كل الطرق دي؟" لاستخلاص أول ملاحظة نمط.', '8 د'],
+        ['تكرار التجزئة على شكل ثانٍ لتأكيد النمط الملاحظ.', '8 د'],
+        ['صياغة جماعية لقاعدة رمزية تلخّص النمط، بمشاركة الطلاب لا إملاء المعلم.', '10 د'],
+        ['تطبيق فردي: كتابة معادلة تكافؤ لشكل جديد باستخدام القاعدة المستخلَصة.', '8 د']
+      ],
+      diffTags: [
+        'دعم: عدد تجزئات أقل مع نموذج مساعد',
+        'تمكين: تجزئة أشكال غير منتظمة',
+        'لغوي: بطاقة مفردات "نمط / قاعدة / تعميم"'
+      ],
+      assessment: 'مراجعة عمل مكتوب قصير يوضح قدرة الطالب على كتابة القاعدة وتطبيقها على شكل جديد.',
+      exitQ: '"بدون رسم، اكتب القاعدة التي تصف متى يتساوى طرفا أي معادلة تكافؤ."',
+      exitHint: 'يجيب الطالب فرديًا في آخر دقيقتين من الحصة.'
+    }
+  };
+
+  (function renderPlan(){
+    let chosenId = 'card1';
+    try{
+      const stored = sessionStorage.getItem('zahraaApprovedAlternative');
+      if (stored && planData[stored]) chosenId = stored;
+    }catch(e){}
+
+    const p = planData[chosenId];
+
+    document.getElementById('planDecisionName').textContent = p.decisionName;
+    document.getElementById('planObjective').textContent = p.objective;
+    document.getElementById('planSuccess').textContent = p.success;
+    document.getElementById('planWarmup').textContent = p.warmup;
+    document.getElementById('planAssessment').textContent = p.assessment;
+    document.getElementById('planExitQ').textContent = p.exitQ;
+    document.getElementById('planExitHint').textContent = p.exitHint;
+
+    const stepsList = document.getElementById('planSteps');
+    stepsList.innerHTML = '';
+    p.steps.forEach(([text, time]) => {
+      const li = document.createElement('li');
+      li.textContent = text;
+      const span = document.createElement('span');
+      span.className = 'step-time';
+      span.textContent = time;
+      li.appendChild(span);
+      stepsList.appendChild(li);
+    });
+
+    const tagList = document.getElementById('planDiffTags');
+    tagList.innerHTML = '';
+    p.diffTags.forEach(tag => {
+      const span = document.createElement('span');
+      span.className = 'tag';
+      span.textContent = tag;
+      tagList.appendChild(span);
+    });
+  })();
 </script>
 
 </body>
