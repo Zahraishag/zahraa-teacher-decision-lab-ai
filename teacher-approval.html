@@ -273,64 +273,6 @@
     .decision-grid{ grid-template-columns:1fr; }
   }
 
-  /* ===== EVIDENCE VERIFIED CARD ===== */
-  .evidence-verified-card{
-    background:linear-gradient(180deg, #F7FBF7, #EEF6EF);
-    border:1px solid #C9E0CC;
-  }
-  .ev-list{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:10px;
-    margin:14px 0 12px;
-  }
-  .ev-list .ev-item{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    background:var(--card);
-    border:1px solid #D9EAD9;
-    border-radius:10px;
-    padding:10px 12px;
-  }
-  .ev-list .ev-item .check{
-    color:var(--success);
-    font-weight:700;
-    flex-shrink:0;
-    font-size:14px;
-  }
-  .ev-list .ev-item .ev-text{
-    display:flex;
-    flex-direction:column;
-    line-height:1.35;
-  }
-  .ev-list .ev-item .ev-ar{
-    font-size:13.5px;
-    font-weight:600;
-    color:var(--brown);
-  }
-  .ev-list .ev-item .ev-en{
-    font-size:11px;
-    color:var(--text-muted);
-    direction:ltr;
-    margin-top:1px;
-  }
-  .ev-note{
-    font-size:12.5px;
-    color:var(--text-muted);
-    line-height:1.6;
-    margin:0;
-  }
-  .ev-note .en{
-    display:block;
-    direction:ltr;
-    font-size:11.5px;
-    margin-top:2px;
-  }
-  @media (max-width:600px){
-    .ev-list{ grid-template-columns:1fr; }
-  }
-
   /* ===== DECISION TRACE (standalone) ===== */
   .trace-section{
     background:linear-gradient(180deg, #FBF6E9, #F7EEDA);
@@ -378,20 +320,6 @@
   .trace-chain .chain-item.current .dot{
     background:var(--gold);
     color:#fff;
-  }
-  .trace-chain .chain-item.upcoming{
-    background:transparent;
-    border-color:var(--line);
-    color:#B7AB9C;
-    font-weight:500;
-  }
-  .trace-chain .chain-item.upcoming .dot{
-    background:transparent;
-    border:1.5px solid var(--line);
-    color:transparent;
-  }
-  .trace-chain .chain-item.upcoming .en{
-    opacity:0.7;
   }
   .trace-chain .chain-item .en{
     direction:ltr;
@@ -794,6 +722,16 @@
     .actions{ flex-direction:column-reverse; align-items:stretch; }
     .actions .btn{ width:100%; text-align:center; justify-content:center; }
   }
+
+  /* ===== TEACHER CONTEXT SUMMARY ===== */
+  .context-summary{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin-bottom:20px;box-shadow:var(--shadow);}
+  .context-summary h2{font-size:16px;color:var(--brown);margin:0 0 12px;}
+  .context-summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
+  .context-summary-item{background:var(--ivory);border:1px solid var(--line);border-radius:10px;padding:10px 12px;}
+  .context-summary-item .label{font-size:11px;font-weight:700;color:var(--gold-dark);margin-bottom:4px;}
+  .context-summary-item .value{font-size:13px;color:var(--text);line-height:1.6;}
+  .context-summary-item.full{grid-column:1/-1;}
+  @media(max-width:600px){.context-summary-grid{grid-template-columns:1fr}.context-summary-item.full{grid-column:auto}}
 </style>
 </head>
 <body>
@@ -872,33 +810,17 @@
     </div>
   </div>
 
-  <!-- EVIDENCE VERIFIED (read-only, system-verified) -->
-  <div class="card evidence-verified-card">
-    <div class="card-title">تم التحقق من الأدلة</div>
-    <div class="card-title-en">Evidence Verified</div>
-    <div class="ev-list">
-      <div class="ev-item"><span class="check">✓</span><span class="ev-text"><span class="ev-ar">نواتج التعلم</span><span class="ev-en">Learning Outcomes</span></span></div>
-      <div class="ev-item"><span class="check">✓</span><span class="ev-text"><span class="ev-ar">دليل المعلم</span><span class="ev-en">Teacher Guide</span></span></div>
-      <div class="ev-item"><span class="check">✓</span><span class="ev-text"><span class="ev-ar">سياسة التقويم</span><span class="ev-en">Assessment Policy</span></span></div>
-      <div class="ev-item"><span class="check">✓</span><span class="ev-text"><span class="ev-ar">علاقات المنهج</span><span class="ev-en">Curriculum Relationships</span></span></div>
-      <div class="ev-item"><span class="check">✓</span><span class="ev-text"><span class="ev-ar">مسار البيانات الوصفية</span><span class="ev-en">Metadata Lineage</span></span></div>
-    </div>
-    <p class="ev-note">تمت مراجعة هذه الفئات من الأدلة قبل عرض القرار لاعتماد المعلم.<span class="en">These evidence categories were reviewed before the decision was presented for teacher approval.</span></p>
-  </div>
-
   <!-- DECISION TRACE -->
   <div class="card trace-section">
     <div class="trace-title">مسار القرار — Decision Trace</div>
     <div class="trace-chain">
-      <span class="chain-item"><span class="dot">✓</span>تحليل الموقف<span class="en">Situation</span></span>
+      <span class="chain-item"><span class="dot">✓</span>السياق<span class="en">Context</span></span>
       <span class="chain-arrow">←</span>
-      <span class="chain-item"><span class="dot">✓</span>أدلة المنهج<span class="en">Metadata Evidence</span></span>
+      <span class="chain-item"><span class="dot">✓</span>السؤال التكيفي<span class="en">Adaptive Question</span></span>
       <span class="chain-arrow">←</span>
       <span class="chain-item"><span class="dot">✓</span>البدائل<span class="en">Alternatives</span></span>
       <span class="chain-arrow">←</span>
-      <span class="chain-item current"><span class="dot">●</span>اعتماد المعلم<span class="en">Teacher Approval</span></span>
-      <span class="chain-arrow">←</span>
-      <span class="chain-item upcoming"><span class="dot">○</span>تنفيذ قابل للتتبع<span class="en">Traceable Implementation</span></span>
+      <span class="chain-item current"><span class="dot">●</span>مراجعة القرار واعتماده<span class="en">Teacher Approval</span></span>
     </div>
   </div>
 
@@ -1002,6 +924,15 @@
   // content here (rather than passing it all through sessionStorage) means
   // only a small id needs to travel between pages, while this page stays the
   // single source of truth for how that id is displayed.
+
+  (function renderTeacherContext(){
+    try{
+      const c=JSON.parse(localStorage.getItem('zahraaDecisionContext')||'{}');
+      const map={grade:'approvalCtxGrade',subject:'approvalCtxSubject',lesson:'approvalCtxLesson',outcome:'approvalCtxOutcome',challenge:'approvalCtxChallenge'};
+      Object.entries(map).forEach(([key,id])=>{if(c[key]&&document.getElementById(id))document.getElementById(id).textContent=c[key];});
+    }catch(e){}
+  })();
+
   const decisionData = {
     card1: {
       name: 'المدخل المفاهيمي البصري',
@@ -1029,7 +960,7 @@
   (function renderApprovedDecision(){
     let chosenId = 'card1';
     try{
-      const stored = sessionStorage.getItem('zahraaApprovedAlternative');
+      const stored = localStorage.getItem('zahraaApprovedAlternative');
       if (stored && decisionData[stored]) chosenId = stored;
     }catch(e){}
 

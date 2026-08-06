@@ -377,81 +377,6 @@
     margin:6px auto 0;
   }
 
-  /* ===== PLAN PROVENANCE CARD ===== */
-  .provenance-card{
-    background:var(--card);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:22px 26px 24px;
-    margin:0 0 24px;
-    box-shadow:var(--shadow);
-  }
-  .provenance-card .pc-title{
-    font-size:15px;
-    font-weight:700;
-    color:var(--brown);
-    margin:0 0 2px;
-  }
-  .provenance-card .pc-title-en{
-    font-size:12px;
-    color:var(--text-muted);
-    direction:ltr;
-    text-align:right;
-    margin:0 0 14px;
-  }
-  .provenance-card .pc-list{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-    gap:10px;
-    margin-bottom:12px;
-  }
-  .provenance-card .pc-item{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    background:var(--ivory);
-    border:1px solid var(--line);
-    border-radius:10px;
-    padding:10px 12px;
-  }
-  .provenance-card .pc-item .check{
-    color:var(--success);
-    font-weight:700;
-    font-size:14px;
-    flex-shrink:0;
-  }
-  .provenance-card .pc-item .pc-text{
-    display:flex;
-    flex-direction:column;
-    line-height:1.35;
-  }
-  .provenance-card .pc-item .pc-ar{
-    font-size:13.5px;
-    font-weight:600;
-    color:var(--brown);
-  }
-  .provenance-card .pc-item .pc-en{
-    font-size:11px;
-    color:var(--text-muted);
-    direction:ltr;
-    margin-top:1px;
-  }
-  .provenance-card .pc-note{
-    font-size:12.5px;
-    color:var(--text-muted);
-    line-height:1.6;
-    margin:0;
-  }
-  .provenance-card .pc-note .en{
-    display:block;
-    direction:ltr;
-    font-size:11.5px;
-    margin-top:2px;
-  }
-  @media (max-width:600px){
-    .provenance-card .pc-list{ grid-template-columns:1fr; }
-  }
-
   /* ===== FOR EVALUATION ===== */
   .judge-view{
     direction:ltr;
@@ -492,7 +417,7 @@
   /* ===== LESSON METADATA ===== */
   .lesson-meta{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+    grid-template-columns:repeat(3,1fr);
     gap:12px;
     margin:0 0 26px;
   }
@@ -619,75 +544,6 @@
     .lesson-meta{grid-template-columns:1fr;}
   }
 
-  /* ===== FINAL TRACEABLE CLOSING ===== */
-  .closing-card{
-    background:linear-gradient(180deg, #FFFDF7, #FBF3DE);
-    border:1px solid #EBD9A8;
-    border-radius:var(--radius);
-    padding:28px 30px;
-    margin-top:32px;
-    text-align:center;
-  }
-  .closing-card .cc-title{
-    font-size:16px;
-    font-weight:700;
-    color:var(--brown);
-    margin-bottom:2px;
-  }
-  .closing-card .cc-title-en{
-    font-size:12px;
-    font-weight:600;
-    color:var(--gold-dark);
-    direction:ltr;
-    margin-bottom:20px;
-  }
-  .closing-card .cc-chain{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:3px;
-    margin-bottom:18px;
-  }
-  .closing-card .cc-step{
-    font-size:13.5px;
-    font-weight:600;
-    color:var(--brown);
-    line-height:1.4;
-  }
-  .closing-card .cc-step .en{
-    display:block;
-    font-size:11px;
-    font-weight:400;
-    color:var(--text-muted);
-    direction:ltr;
-  }
-  .closing-card .cc-arrow{
-    color:var(--gold-dark);
-    font-size:13px;
-    line-height:1;
-    margin:2px 0;
-  }
-  .closing-card .cc-text{
-    font-size:13px;
-    color:var(--text-muted);
-    line-height:1.8;
-    max-width:480px;
-    margin:0 auto 14px;
-  }
-  .closing-card .cc-text .en{
-    display:block;
-    direction:ltr;
-    font-size:12px;
-    margin-top:4px;
-  }
-  .closing-card .cc-brand{
-    font-size:12px;
-    font-weight:700;
-    color:var(--gold-dark);
-    font-style:italic;
-    direction:ltr;
-  }
-
   /* ===== FOOTER SIGNATURE ===== */
   .footer-signature{
     text-align:center;
@@ -795,11 +651,11 @@
     <div class="trace-heading">مسار القرار — Decision Trace</div>
     <div class="trace-start"></div>
     <div class="trace-chain">
-      <span class="chain-item"><span class="check">✓</span>تحليل الموقف / Situation</span>
-      <span class="chain-item"><span class="check">✓</span>أدلة المنهج / Metadata Evidence</span>
+      <span class="chain-item"><span class="check">✓</span>السياق / Context</span>
+      <span class="chain-item"><span class="check">✓</span>السؤال التكيفي / Adaptive Question</span>
       <span class="chain-item"><span class="check">✓</span>البدائل / Alternatives</span>
-      <span class="chain-item"><span class="check">✓</span>اعتماد المعلم / Teacher Approval</span>
-      <span class="chain-item chain-final">تنفيذ قابل للتتبع / Traceable Implementation</span>
+      <span class="chain-item"><span class="check">✓</span>مراجعة القرار واعتماده / Teacher Approval</span>
+      <span class="chain-item chain-final">خطة التنفيذ / Implementation Plan</span>
     </div>
   </div>
 
@@ -807,7 +663,7 @@
   <div class="lesson-meta reveal" style="animation-delay:.18s">
     <div class="meta-item">
       <div class="meta-label">المادة</div>
-      <div class="meta-value" id="metaSubject">الرياضيات</div>
+      <div class="meta-value" id="metaSubject">حسب سيناريو المستخدم</div>
     </div>
     <div class="meta-item">
       <div class="meta-label">الصف</div>
@@ -815,26 +671,20 @@
     </div>
     <div class="meta-item">
       <div class="meta-label">الزمن</div>
-      <div class="meta-value">40 من 45 دقيقة</div>
+      <div class="meta-value" id="metaDuration">40 من 45 دقيقة</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">عنوان الدرس</div>
+      <div class="meta-value" id="metaLesson">التكافؤ في المعادلات</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-label">ناتج التعلم المدخل</div>
+      <div class="meta-value" id="metaOutcome">تفسير معنى التكافؤ.</div>
     </div>
     <div class="meta-item">
       <div class="meta-label">البدائل التي تمت مراجعتها</div>
       <div class="meta-value">3 بدائل</div>
     </div>
-  </div>
-
-  <!-- PLAN PROVENANCE -->
-  <div class="provenance-card reveal" style="animation-delay:.21s">
-    <div class="pc-title">مصدر الخطة</div>
-    <div class="pc-title-en">Plan Provenance</div>
-    <div class="pc-list">
-      <div class="pc-item"><span class="check">✓</span><span class="pc-text"><span class="pc-ar">القرار المعتمد</span><span class="pc-en">Approved Decision</span></span></div>
-      <div class="pc-item"><span class="check">✓</span><span class="pc-text"><span class="pc-ar">البيانات الوصفية للمنهج</span><span class="pc-en">Curriculum Metadata</span></span></div>
-      <div class="pc-item"><span class="check">✓</span><span class="pc-text"><span class="pc-ar">نواتج التعلم</span><span class="pc-en">Learning Outcomes</span></span></div>
-      <div class="pc-item"><span class="check">✓</span><span class="pc-text"><span class="pc-ar">دليل المعلم</span><span class="pc-en">Teacher Guide</span></span></div>
-      <div class="pc-item"><span class="check">✓</span><span class="pc-text"><span class="pc-ar">سياسة التقويم</span><span class="pc-en">Assessment Policy</span></span></div>
-    </div>
-    <p class="pc-note">بُنيت هذه الخطة من القرار الذي اعتمده المعلم، وربطت بعناصر المنهج والأدلة التربوية ذات الصلة.<span class="en">This plan was derived from the teacher-approved decision and linked to the relevant curriculum and pedagogical evidence.</span></p>
   </div>
 
   <!-- هدف التعلم -->
@@ -949,27 +799,6 @@
     </div>
   </details>
 
-  <!-- FINAL TRACEABLE CLOSING -->
-  <div class="closing-card reveal" style="animation-delay:.66s">
-    <div class="cc-title">قرار تربوي قابل للتتبع</div>
-    <div class="cc-title-en">Traceable Pedagogical Decision</div>
-    <div class="cc-chain">
-      <span class="cc-step">الموقف<span class="en">Situation</span></span>
-      <span class="cc-arrow">↓</span>
-      <span class="cc-step">البيانات الوصفية<span class="en">Metadata</span></span>
-      <span class="cc-arrow">↓</span>
-      <span class="cc-step">الأدلة<span class="en">Evidence</span></span>
-      <span class="cc-arrow">↓</span>
-      <span class="cc-step">البدائل<span class="en">Alternatives</span></span>
-      <span class="cc-arrow">↓</span>
-      <span class="cc-step">اعتماد المعلم<span class="en">Teacher Approval</span></span>
-      <span class="cc-arrow">↓</span>
-      <span class="cc-step">التنفيذ<span class="en">Implementation</span></span>
-    </div>
-    <p class="cc-text">تم إنشاء هذه الخطة فقط بعد استدلال تربوي منظم ومراجعة واعتماد صريح من المعلم.<span class="en">This plan was generated only after structured pedagogical reasoning and explicit teacher review and approval.</span></p>
-    <div class="cc-brand">Decision Before Generation™</div>
-  </div>
-
   <!-- FOOTER -->
   <div class="footer-signature">
     <div class="footer-name">ZAHRAA<span class="tm">™</span> Teacher Decision Lab</div>
@@ -981,15 +810,25 @@
 </div>
 
 <script>
-  // This prototype scenario is Grade 4 Mathematics. Set explicitly so the
-  // generic fallback label never appears in the demo. If a future session
-  // flow stores the subject/grade dynamically, read from that instead.
-  const planContext = {
-    subject: 'الرياضيات',
-    grade: 'الرابع الابتدائي'
-  };
-  document.getElementById('metaSubject').textContent = planContext.subject;
-  document.getElementById('metaGrade').textContent = planContext.grade;
+  // Reflects the teacher's actual input from scenario.html (persisted via
+  // localStorage as zahraaDecisionContext) instead of a hardcoded subject/
+  // grade/duration. Falls back to the defaults already in the markup above
+  // if the teacher landed here directly with no prior context.
+  (function renderScenarioMeta(){
+    try{
+      const stored = JSON.parse(localStorage.getItem('zahraaDecisionContext') || '{}');
+      if (stored.subject) document.getElementById('metaSubject').textContent = stored.subject;
+      if (stored.grade) document.getElementById('metaGrade').textContent = stored.grade;
+      if (stored.lesson && document.getElementById('metaLesson')) document.getElementById('metaLesson').textContent = stored.lesson;
+      if (stored.outcome && document.getElementById('metaOutcome')) document.getElementById('metaOutcome').textContent = stored.outcome;
+      if (stored.duration) {
+        const totalMinutes = parseInt(stored.duration, 10);
+        if (!isNaN(totalMinutes)) {
+          document.getElementById('metaDuration').textContent = stored.duration;
+        }
+      }
+    }catch(e){}
+  })();
 
   // Full implementation-plan content for each of the three alternatives
   // offered in alternatives.html. The id chosen there (card1/card2/card3)
@@ -1064,7 +903,7 @@
   (function renderPlan(){
     let chosenId = 'card1';
     try{
-      const stored = sessionStorage.getItem('zahraaApprovedAlternative');
+      const stored = localStorage.getItem('zahraaApprovedAlternative');
       if (stored && planData[stored]) chosenId = stored;
     }catch(e){}
 

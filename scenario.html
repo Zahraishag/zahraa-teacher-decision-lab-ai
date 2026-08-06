@@ -46,6 +46,6 @@ const form=document.getElementById('scenarioForm');
 const previous=JSON.parse(localStorage.getItem('zahraaDecisionContext')||'{}');
 for(const id of ['grade','subject','lesson','duration','outcome','challenge','notes']){if(previous[id]) document.getElementById(id).value=previous[id];}
 if(previous.level){const r=document.querySelector(`input[name="level"][value="${previous.level}"]`);if(r)r.checked=true;}
-form.addEventListener('submit',e=>{e.preventDefault();const data={};for(const id of ['grade','subject','lesson','duration','outcome','challenge','notes'])data[id]=document.getElementById(id).value.trim();data.level=document.querySelector('input[name="level"]:checked')?.value||'متوسط';localStorage.setItem('zahraaDecisionContext',JSON.stringify(data));window.location.href='alternatives.html';});
+form.addEventListener('submit',e=>{e.preventDefault();const data={};for(const id of ['grade','subject','lesson','duration','outcome','challenge','notes'])data[id]=document.getElementById(id).value.trim();data.level=document.querySelector('input[name="level"]:checked')?.value||'متوسط';localStorage.setItem('zahraaDecisionContext',JSON.stringify(data));localStorage.removeItem('zahraaApprovedAlternative');window.location.href='alternatives.html';});
 </script>
 </body></html>

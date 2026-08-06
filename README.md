@@ -77,6 +77,13 @@ This repository is a **front-end, metadata-driven prototype** that demonstrates 
 - **Arabic-first bilingual interface:** Arabic RTL experience with supporting English labels for evaluators.
 - **Judge view:** a concise explanation of the product logic and DataHub role.
 
+## Decision Journey
+
+1. `scenario.html` — teacher enters grade, subject, lesson, learning outcome, challenge, duration, and notes.
+2. `alternatives.html` — the prototype presents three pedagogically distinct alternatives.
+3. `teacher-approval.html` — the teacher reviews and explicitly approves the decision.
+4. `implementation-plan.html` — a traceable plan is generated from the approved decision.
+
 ## Demo scenario
 
 The current demonstration uses a mathematics scenario for Grade 4:
