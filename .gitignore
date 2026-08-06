@@ -4,3 +4,7 @@ Thumbs.db
 .vscode/
 .idea/
 push-error.txt
+
+.env.local
+.vercel/
+push-error.txt
