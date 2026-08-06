@@ -1,44 +1,68 @@
 {
-  "example_type": "illustrative_prototype_metadata",
-  "prototype_status": "not_exported_from_a_live_datahub_instance",
+  "prototype": true,
+  "source": "illustrative metadata model",
   "scenario": {
     "subject": "Mathematics",
     "grade": "Grade 4",
-    "instructional_challenge": "Students apply procedures without conceptual understanding"
+    "challenge": "Students execute procedural steps without conceptual understanding"
   },
-  "curriculum_assets": [
+  "entities": [
     {
-      "asset_type": "learning_outcome",
-      "label": "Explain mathematical equivalence using visual and symbolic representations"
+      "id": "learning-outcome:equivalence-concept",
+      "type": "LearningOutcome",
+      "title": "Explain equivalence using visual and symbolic representations"
     },
     {
-      "asset_type": "teacher_guide",
-      "label": "Use multiple representations before formal symbolic procedures"
+      "id": "teacher-guide:visual-models",
+      "type": "TeacherGuide",
+      "title": "Use balance and paired representations before symbolic abstraction"
     },
     {
-      "asset_type": "assessment_policy",
-      "label": "Collect evidence of reasoning, not procedural completion alone"
+      "id": "assessment-policy:explain-reasoning",
+      "type": "AssessmentPolicy",
+      "title": "Assess explanation and representation, not procedure alone"
     },
     {
-      "asset_type": "grade_level_expectation",
-      "label": "Grade 4 conceptual-to-symbolic progression"
+      "id": "standard:concept-before-procedure",
+      "type": "CurriculumStandard",
+      "title": "Develop conceptual understanding before procedural fluency"
+    },
+    {
+      "id": "grade-level:4",
+      "type": "GradeLevel",
+      "title": "Grade 4"
+    },
+    {
+      "id": "concept-progression:visual-to-symbolic",
+      "type": "ConceptProgression",
+      "title": "Visual representation to symbolic reasoning"
     }
   ],
   "relationships": [
     {
-      "from": "learning_outcome",
-      "relationship": "supported_by",
-      "to": "teacher_guide"
+      "from": "learning-outcome:equivalence-concept",
+      "type": "SUPPORTED_BY",
+      "to": "teacher-guide:visual-models"
     },
     {
-      "from": "assessment_policy",
-      "relationship": "measures",
-      "to": "learning_outcome"
+      "from": "learning-outcome:equivalence-concept",
+      "type": "ASSESSED_BY",
+      "to": "assessment-policy:explain-reasoning"
     },
     {
-      "from": "grade_level_expectation",
-      "relationship": "constrains",
-      "to": "pedagogical_alternative"
+      "from": "learning-outcome:equivalence-concept",
+      "type": "ALIGNED_WITH",
+      "to": "standard:concept-before-procedure"
+    },
+    {
+      "from": "standard:concept-before-procedure",
+      "type": "APPLIES_TO",
+      "to": "grade-level:4"
+    },
+    {
+      "from": "learning-outcome:equivalence-concept",
+      "type": "FOLLOWS_PROGRESSION",
+      "to": "concept-progression:visual-to-symbolic"
     }
   ]
 }

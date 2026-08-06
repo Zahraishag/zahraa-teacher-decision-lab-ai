@@ -1,62 +1,68 @@
 # Architecture
 
-## Current Prototype
+## Conceptual architecture
 
 ```mermaid
 flowchart TD
-    A[index.html] --> B[alternatives.html]
-    B -->|selected card ID in sessionStorage| C[teacher-approval.html]
-    C -->|approved card ID retained| D[implementation-plan.html]
+    T[Teacher] --> S[Instructional Situation]
+    S --> M[Curriculum Metadata Search]
+    M --> DH[DataHub Metadata & Lineage Layer]
+    DH --> EG[Evidence Relationships]
+    EG --> PR[Pedagogical Reasoning]
+    PR --> A[Distinct Alternatives]
+    A --> H[Human Decision Gate]
+    H --> P[Traceable Implementation Plan]
 ```
 
-The current build is a static front-end prototype:
-
-- HTML and CSS render the Arabic-first bilingual interface.
-- Vanilla JavaScript controls cards, approval gates, loading transitions, and navigation.
-- `sessionStorage` carries the approved alternative across pages.
-- Each alternative maps to a distinct implementation-plan data object.
-
-## Intended DataHub-Powered Architecture
+## Data model represented by the prototype
 
 ```mermaid
-flowchart LR
-    S[Curriculum Files and Policies] --> I[DataHub Ingestion]
-    I --> G[Governed Curriculum Metadata Graph]
-    G --> R[Pedagogical Evidence Retrieval]
-    R --> A[Reasoning Agent]
-    A --> P[Pedagogical Alternatives]
-    P --> H[Teacher Approval Gate]
-    H --> O[Implementation Plan and Decision Lineage]
+graph LR
+    LESSON[Lesson / Teaching Situation]
+    LO[Learning Outcome]
+    GUIDE[Teacher Guide]
+    POLICY[Assessment Policy]
+    STANDARD[Curriculum Standard]
+    GRADE[Grade Level]
+    CONCEPT[Concept Progression]
+    DECISION[Teacher-Approved Decision]
+    PLAN[Implementation Plan]
+
+    LESSON --> LO
+    LESSON --> GUIDE
+    LESSON --> POLICY
+    LO --> STANDARD
+    STANDARD --> GRADE
+    LO --> CONCEPT
+    LO --> DECISION
+    GUIDE --> DECISION
+    POLICY --> DECISION
+    DECISION --> PLAN
 ```
 
-## Proposed Metadata Entities
+## Current implementation
 
-- Curriculum document
-- Learning outcome
-- Teacher guide section
-- Assessment policy
-- Grade level
-- Curriculum standard
-- Learning progression
-- Pedagogical alternative
-- Teacher-approved decision
-- Implementation plan
+The current build is a static front-end prototype. It represents metadata categories, evidence relationships, approval state, and decision lineage in the user experience.
 
-## Proposed Relationships
+`sessionStorage` carries the selected alternative between:
 
-- `learning_outcome -> supported_by -> teacher_guide`
-- `assessment_policy -> measures -> learning_outcome`
-- `grade_level -> constrains -> learning_progression`
-- `curriculum_standard -> governs -> learning_outcome`
-- `pedagogical_alternative -> grounded_in -> evidence_asset`
-- `teacher_decision -> selects -> pedagogical_alternative`
-- `implementation_plan -> derived_from -> teacher_decision`
+```text
+alternatives.html
+    → teacher-approval.html
+    → implementation-plan.html
+```
 
-## Trust Boundary
+## Intended DataHub integration
 
-The prototype deliberately separates:
+A production implementation would:
 
-- **system-represented evidence categories**, which are read-only; and
-- **teacher professional approval**, which requires explicit interaction.
+1. ingest curriculum documents and assets;
+2. register them as DataHub entities or related metadata assets;
+3. define relationships among learning outcomes, standards, guides, assessment rules, activities, and grade levels;
+4. query relevant evidence for the current instructional situation;
+5. preserve lineage from source assets to alternatives, approved decision, and final plan;
+6. expose provenance for teacher review and governance.
 
-The production system should never treat generated content as approved until the teacher decision event has been recorded.
+## Trust boundary
+
+The agent may retrieve, compare, and propose. The teacher remains responsible for approving the pedagogical decision before implementation content is generated.

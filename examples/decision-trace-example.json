@@ -1,0 +1,48 @@
+{
+  "prototype": true,
+  "trace_id": "example-trace-grade4-math",
+  "stages": [
+    {
+      "order": 1,
+      "stage": "Situation Analysis",
+      "status": "completed",
+      "summary": "Students can perform steps but cannot explain the underlying concept."
+    },
+    {
+      "order": 2,
+      "stage": "Metadata Evidence",
+      "status": "completed",
+      "categories": [
+        "Learning Outcomes",
+        "Teacher Guide",
+        "Assessment Policy",
+        "Curriculum Standards",
+        "Grade Level",
+        "Concept Progression"
+      ]
+    },
+    {
+      "order": 3,
+      "stage": "Alternatives",
+      "status": "completed",
+      "options": [
+        "Visual Conceptual Approach",
+        "Common-Error Analysis",
+        "Structured Repartitioning"
+      ]
+    },
+    {
+      "order": 4,
+      "stage": "Teacher Approval",
+      "status": "completed",
+      "selected": "Visual Conceptual Approach",
+      "approved_by": "Teacher"
+    },
+    {
+      "order": 5,
+      "stage": "Traceable Implementation",
+      "status": "completed",
+      "output": "lesson-plan-output.md"
+    }
+  ]
+}

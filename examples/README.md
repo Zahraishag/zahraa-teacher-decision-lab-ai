@@ -1,9 +1,9 @@
-# Illustrative Outputs
+# Example Artifacts
 
-These files demonstrate the proposed output structure for the ZAHRAA™ Teacher Decision Lab metadata and lineage workflow.
+These files let reviewers inspect the intended metadata, lineage, and output model without running the interface.
 
-They are **illustrative prototype examples**, not exports from a live DataHub instance. They intentionally contain no fake API responses, confidence scores, production identifiers, or claims of real-time graph execution.
+- `curriculum-metadata-example.json`: illustrative curriculum entities and relationships.
+- `decision-trace-example.json`: an example trace from situation to teacher-approved decision and implementation.
+- `lesson-plan-output.md`: an example human-readable output.
 
-- `curriculum-metadata-example.json` — sample curriculum asset categories and relationships.
-- `decision-lineage-example.json` — sample trace from situation analysis to implementation.
-- `sample-output.md` — readable example of a teacher-approved pedagogical decision and plan provenance.
+These are transparent prototype examples, not exports from a live DataHub instance.

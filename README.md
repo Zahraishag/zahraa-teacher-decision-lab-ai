@@ -1,127 +1,128 @@
 # ZAHRAA™ Teacher Decision Lab
 
-**Decision Before Generation™**  
-**AI suggests. Teachers decide.**
+**Decision Before Generation™ — القرار قبل التوليد**
 
-[Live Demo](https://zahraa-teacher-decision-lab-ai.vercel.app/) · [Public Repository](https://github.com/Zahraishag/zahraa-teacher-decision-lab-ai)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-111111?style=flat-square)](https://zahraa-teacher-decision-lab-ai.vercel.app/)
+[![License](https://img.shields.io/badge/License-Apache%202.0-C9A24B?style=flat-square)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Hackathon%20Prototype-5A3E2B?style=flat-square)](#prototype-scope)
 
-## Overview
+ZAHRAA™ Teacher Decision Lab is a human-centered educational decision-governance prototype. Instead of generating a lesson plan immediately, it first helps the teacher analyze the instructional situation, review curriculum evidence, compare pedagogically distinct alternatives, approve a decision, and only then generate an implementation plan.
 
-ZAHRAA™ Teacher Decision Lab is a human-centered educational decision prototype that helps teachers analyze an instructional situation, compare pedagogically distinct alternatives, explicitly approve a professional decision, and only then generate an implementation plan.
+مختبر قرار المعلم ZAHRAA™ هو نموذج أولي لحوكمة القرار التربوي. لا يبدأ بإنشاء خطة درس مباشرة، بل يمر بتحليل الموقف، ومراجعة أدلة المنهج، ومقارنة بدائل تربوية مختلفة، ثم اعتماد المعلم للقرار قبل إنشاء خطة التنفيذ.
 
-The core idea is simple:
+## Why it matters | لماذا هذا المشروع؟
 
-> Generative AI should not begin with content generation. It should begin with structured pedagogical reasoning and preserve the teacher's authority over the final decision.
+Most AI lesson-planning tools optimize for rapid content generation. That can hide the pedagogical choices behind the output and reduce teacher agency.
 
-## Problem
+This project introduces a different workflow:
 
-Many AI lesson-planning tools move directly from a prompt to a single generated plan. That workflow can hide assumptions, collapse distinct teaching philosophies into one answer, and reduce the teacher's role to reviewing generated content after the main pedagogical decision has already been made.
+> **AI suggests. Teachers decide.**
 
-ZAHRAA™ Teacher Decision Lab reverses that sequence.
+The core principle is that a lesson plan should be the result of a reviewed pedagogical decision—not a direct response to a prompt.
 
-## Solution
+## Core workflow | مسار العمل
 
-The prototype presents a transparent workflow:
-
-1. **Situation Analysis** — identify the grade, subject, learning challenge, and decision context.
-2. **Metadata Evidence** — represent the curriculum evidence categories that should inform the decision.
-3. **Pedagogical Alternatives** — compare three genuinely different instructional approaches, including their strengths and limitations.
-4. **Teacher Approval** — require an explicit human decision gate before generation.
-5. **Traceable Implementation** — generate a plan that remains linked to the approved decision and represented evidence categories.
-
-## Why DataHub?
-
-DataHub provides the metadata, relationship, governance, and lineage concepts needed for a trustworthy educational reasoning layer. In the intended architecture, curriculum assets such as learning outcomes, teacher guides, assessment policies, grade-level expectations, and curriculum relationships are modeled as governed metadata and connected through lineage.
-
-That structure allows an agent to:
-
-- discover relevant curriculum assets;
-- retrieve related pedagogical evidence;
-- preserve source relationships and lineage;
-- generate distinct alternatives from traceable evidence;
-- record the teacher-approved decision;
-- connect the final plan back to its decision provenance.
-
-### Current implementation status
-
-This repository contains a **front-end, metadata-driven prototype** of that workflow. It demonstrates the interaction model, decision governance, evidence representation, state transfer, and traceability experience using HTML, CSS, JavaScript, and `sessionStorage`.
-
-A live DataHub ingestion pipeline, graph query service, and production agent backend are **not yet implemented** in this repository. The files in [`examples/`](examples/) illustrate the proposed metadata and lineage outputs without claiming live DataHub API execution.
-
-## Product Flow
-
-```mermaid
-flowchart LR
-    A[Instructional Situation] --> B[Curriculum Metadata Evidence]
-    B --> C[Pedagogical Alternatives]
-    C --> D[Teacher Review and Approval]
-    D --> E[Traceable Implementation Plan]
+```text
+Situation Analysis
+        ↓
+Curriculum Metadata Evidence
+        ↓
+Pedagogical Alternatives
+        ↓
+Teacher Review and Approval
+        ↓
+Traceable Implementation Plan
 ```
 
-## Key Features
+بالعربية:
 
-- **Decision Before Generation™** workflow.
-- Three pedagogically distinct alternatives rather than one immediate answer.
-- Visible evidence categories for every alternative.
-- Human-in-the-loop approval gate.
-- Professional decision charter before plan generation.
-- Dynamic plan generation for each selected alternative.
-- Decision lineage, evidence verification, and plan provenance.
-- Arabic-first RTL interface with bilingual evaluation labels.
-- Responsive static web application deployable on Vercel or any static host.
+```text
+تحليل الموقف
+      ↓
+أدلة البيانات الوصفية للمنهج
+      ↓
+البدائل التربوية
+      ↓
+مراجعة المعلم واعتماده
+      ↓
+خطة تنفيذ قابلة للتتبع
+```
 
-## Demo Scenario
+## How DataHub fits | دور DataHub
 
-The current prototype uses a Grade 4 Mathematics scenario:
+The prototype models DataHub as the metadata and lineage layer that organizes curriculum assets and their relationships, including:
 
-- **Challenge:** students can follow procedures but do not understand the underlying concept.
+- learning outcomes;
+- teacher guidance;
+- assessment policy;
+- curriculum standards;
+- grade level;
+- conceptual progression;
+- relationships between curriculum entities.
+
+These relationships form the evidence context used to explain why pedagogical alternatives are presented and how an approved decision is connected to the final plan.
+
+### Important implementation note
+
+This repository is a **front-end, metadata-driven prototype** that demonstrates the intended DataHub-powered reasoning and traceability workflow. It does **not** claim a production DataHub deployment, live graph queries, or real-time API retrieval in its current version.
+
+## Key features
+
+- **Decision before generation:** no implementation plan is produced before teacher approval.
+- **Three pedagogically distinct alternatives:** conceptual, diagnostic, and structured approaches.
+- **Evidence visibility:** curriculum evidence categories are shown alongside each alternative.
+- **Human decision gate:** the teacher reviews the selected decision and explicitly approves it.
+- **Decision lineage:** the workflow connects context, metadata evidence, alternatives, approval, and implementation.
+- **Dynamic plans:** the final plan changes according to the selected alternative.
+- **Arabic-first bilingual interface:** Arabic RTL experience with supporting English labels for evaluators.
+- **Judge view:** a concise explanation of the product logic and DataHub role.
+
+## Demo scenario
+
+The current demonstration uses a mathematics scenario for Grade 4:
+
+- **Challenge:** students execute procedural steps without understanding.
 - **Alternatives:**
-  - Visual Conceptual Approach
-  - Common-Error Analysis
-  - Structured Repartitioning
-- **Outcome:** the final implementation plan changes according to the teacher-approved alternative.
+  1. Visual Conceptual Approach;
+  2. Common-Error Analysis;
+  3. Structured Repartitioning.
+- **Decision:** the teacher reviews one alternative and approves it.
+- **Output:** a lesson implementation plan aligned to that decision.
+
+## Architecture
+
+```mermaid
+flowchart TD
+    A[Teacher / المعلم] --> B[Situation Analysis]
+    B --> C[Curriculum Metadata Layer]
+    C --> D[DataHub Metadata & Lineage Model]
+    D --> E[Pedagogical Reasoning]
+    E --> F[Distinct Alternatives]
+    F --> G[Teacher Review & Approval]
+    G --> H[Traceable Implementation Plan]
+```
+
+A more detailed architecture note is available in [`docs/architecture.md`](docs/architecture.md).
 
 ## Technology
 
 - HTML5
 - CSS3
 - Vanilla JavaScript
-- Browser `sessionStorage` for cross-page decision state
-- Google Fonts — Alexandria
-- GitHub for source control
+- `sessionStorage` for passing the selected alternative through the demo journey
+- Google Fonts (Alexandria)
 - Vercel for static deployment
+- DataHub metadata and lineage concepts represented in the prototype workflow
 
-No external JavaScript framework or backend is required for the current prototype.
+No front-end framework or build step is required.
 
-## Repository Structure
+## Run locally
 
-```text
-.
-├── index.html
-├── alternatives.html
-├── teacher-approval.html
-├── implementation-plan.html
-├── examples/
-│   ├── README.md
-│   ├── curriculum-metadata-example.json
-│   ├── decision-lineage-example.json
-│   └── sample-output.md
-├── docs/
-│   ├── ARCHITECTURE.md
-│   ├── DEVPOST_SUBMISSION.md
-│   ├── VIDEO_SCRIPT_AR.md
-│   └── SUBMISSION_CHECKLIST.md
-├── LICENSE
-└── README.md
-```
-
-## Run Locally
-
-### Option 1 — Open directly
+### Option 1: Open directly
 
 Open `index.html` in a modern browser.
 
-### Option 2 — Use a local static server
+### Option 2: Use a local server
 
 ```bash
 python -m http.server 8000
@@ -133,61 +134,87 @@ Then open:
 http://localhost:8000
 ```
 
-## Test the Decision Flow
+## Recommended test path
 
-Run the complete workflow three times:
-
-1. Open `alternatives.html`.
-2. Select one alternative and approve it.
-3. Continue to `teacher-approval.html`.
-4. Confirm that the same alternative appears.
+1. Open `index.html`.
+2. Select **ابدأ رحلة اتخاذ القرار**.
+3. Review the three alternatives.
+4. Expand one alternative and select it.
 5. Complete the professional decision charter.
-6. Approve the decision and generate the plan.
-7. Confirm that `implementation-plan.html` displays the matching plan.
-8. Repeat for `card1`, `card2`, and `card3`.
+6. Approve the decision.
+7. Generate the implementation plan.
+8. Verify that the final plan matches the selected alternative.
 
-## Example Outputs
+Repeat the flow with each alternative to see the dynamic plan change.
 
-The [`examples/`](examples/) directory contains illustrative, non-production samples of:
+## Repository structure
 
-- curriculum metadata representation;
-- decision lineage;
-- a teacher-approved implementation output.
+```text
+.
+├── index.html
+├── alternatives.html
+├── teacher-approval.html
+├── implementation-plan.html
+├── LICENSE
+├── README.md
+├── DEVPOST_SUBMISSION.md
+├── VIDEO_SCRIPT.md
+├── docs/
+│   ├── architecture.md
+│   └── demo-guide.md
+└── examples/
+    ├── README.md
+    ├── curriculum-metadata-example.json
+    ├── decision-trace-example.json
+    └── lesson-plan-output.md
+```
 
-These examples are included so judges can inspect the intended quality and traceability model without running a backend.
+## Example outputs
 
-## Hackathon Submission
+The [`examples`](examples/) folder contains transparent sample artifacts so judges can inspect the intended metadata, lineage, and output quality without running the interface.
 
-- **Event:** Build with DataHub: The Agent Hackathon
-- **Challenge category:** Select exactly one category on Devpost before submission.
-- **Demo video:** Add the public YouTube, Vimeo, or Youku URL here after upload.
-- **Live project:** https://zahraa-teacher-decision-lab-ai.vercel.app/
+These examples are illustrative prototype artifacts, not exports from a live production DataHub instance.
 
-Copy-ready submission text and the Arabic three-minute video script are available in [`docs/`](docs/).
+## Prototype scope
 
-## Roadmap
+### Implemented
 
-- Ingest curriculum documents and policy assets into DataHub.
-- Model learning outcomes, grade levels, teacher guides, and assessment policies as governed metadata entities.
-- Query relationships and lineage through a backend service.
-- Connect an educational reasoning agent to DataHub evidence retrieval.
-- Persist teacher decisions and plan provenance.
-- Add authentication, multi-curriculum support, audit logs, and exportable decision reports.
+- complete interactive decision journey;
+- dynamic alternative selection;
+- teacher approval gate;
+- alternative-specific implementation plans;
+- metadata evidence and traceability presentation;
+- responsive static web deployment.
 
-## Responsible AI Principles
+### Future work
 
-- Human judgment remains authoritative.
-- Evidence should be visible and reviewable.
-- Generation follows explicit approval.
-- Metadata claims must be traceable.
-- The prototype does not present illustrative values as live production results.
+- connect to an operational DataHub instance;
+- ingest real curriculum assets and metadata;
+- execute graph-based retrieval and lineage queries;
+- add authentication and teacher workspaces;
+- export a decision report;
+- evaluate decisions with classroom outcome data.
+
+## Live demo
+
+**Vercel:** https://zahraa-teacher-decision-lab-ai.vercel.app/
+
+## Video
+
+Add the public or unlisted YouTube/Vimeo demo link here before final Devpost submission:
+
+```text
+VIDEO_URL_HERE
+```
+
+Test the video in an incognito window to confirm it works without sign-in.
+
+## Author
+
+**Dr. Zahra Idris Al-Ansari**  
+Founder, Zahraa Al-Ansari Academy  
+Educational AI, teacher development, and human-centered intelligent education.
 
 ## License
 
 Licensed under the [Apache License 2.0](LICENSE).
-
-## Author
-
-**Dr. Zahraa Al-Ansari**  
-Founder, Zahraa Al-Ansari Academy  
-Creator of the ZAHRAA™ Human-Centered Educational Intelligence approach
