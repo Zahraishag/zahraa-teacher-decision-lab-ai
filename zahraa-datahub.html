@@ -422,6 +422,38 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     const evidence = Array.isArray(data.evidence) ? data.evidence : [];
+    const cards = document.querySelectorAll(".cards .card");
+
+evidence.slice(0, 3).forEach((item, index) => {
+  const card = cards[index];
+  if (!card) return;
+
+  const tag = card.querySelector(".tag");
+  const title = card.querySelector("h3");
+  const description = card.querySelector("p");
+  const source = card.querySelector(".source");
+
+  if (tag) {
+    tag.textContent = `LIVE DATAHUB ${index + 1}`;
+  }
+
+  if (title) {
+    title.textContent = item.name || "DataHub Curriculum Evidence";
+  }
+
+  if (description) {
+    description.textContent =
+      item.description ||
+      "Verified curriculum metadata retrieved directly from DataHub.";
+  }
+
+  if (source) {
+    source.textContent =
+      `DataHub Verified • ${item.platform || "zahraa_curriculum"} • ${item.urn || ""}`;
+  }
+
+  card.setAttribute("data-live-datahub", "true");
+});
 
     const assetId = document.querySelector(".lesson-item strong");
 
