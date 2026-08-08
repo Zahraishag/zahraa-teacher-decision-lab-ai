@@ -55,7 +55,51 @@ if (!apiKey || apiKey.length < 20) {
       });
     }
 
-    const prompt = buildPrompt(task, session);
+let evidence = [];
+
+try {
+  const protocol =
+    request.headers["x-forwarded-proto"] || "https";
+
+  const host =
+    request.headers["x-forwarded-host"] ||
+    request.headers.host;
+
+  const datahubResponse = await fetch(
+    `${protocol}://${host}/api/datahub`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        session
+      })
+    }
+  );
+
+  const datahubData = await datahubResponse.json();
+
+  if (
+    datahubResponse.ok &&
+    datahubData.connected === true &&
+    Array.isArray(datahubData.evidence)
+  ) {
+    evidence = datahubData.evidence;
+  }
+
+  console.log(
+    "DataHub evidence passed to Gemini:",
+    evidence.length
+  );
+} catch (error) {
+  console.error(
+    "Unable to retrieve DataHub evidence for Gemini:",
+    error
+  );
+}
+
+const prompt = buildPrompt(task, session, evidence);
 
     const geminiResponse = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent`,
@@ -140,8 +184,8 @@ text = text
   }
 }
 
-function buildPrompt(task, session) {
-  const rules = `
+function buildPrompt(task, session, evidence = []) {
+`
 أنت محرك الاستدلال التربوي داخل منصة:
 ZAHRAA™ Teacher Decision Lab
 مختبر زهراء للقرار التربوي.
@@ -155,6 +199,20 @@ ZAHRAA™ Teacher Decision Lab
 - استخدم لغة عربية واضحة ومهنية.
 - راجع الأخطاء اللغوية قبل إخراج النتيجة.
 `;
+
+const evidenceContext =
+  Array.isArray(evidence) && evidence.length > 0
+    ? evidence
+        .slice(0, 5)
+        .map((item, index) => `
+دليل DataHub ${index + 1}:
+- الاسم: ${item.name || "غير محدد"}
+- الوصف: ${item.description || "لا يوجد وصف"}
+- المنصة: ${item.platform || "zahraa_curriculum"}
+- URN: ${item.urn || "غير متاح"}
+        `)
+        .join("\n")
+    : "لا توجد أدلة DataHub متاحة لهذه الجلسة.";
 
   const context = `
 المادة: ${session.subject || "غير محدد"}
@@ -188,6 +246,9 @@ ${session.additionalConstraints || "غير محدد"}
 
 إجابة المعلم عن السؤال التكيفي:
 ${session.adaptiveAnswer || "لا توجد إجابة بعد"}
+
+أدلة المنهج الحية المسترجعة من DataHub:
+${evidenceContext}
 `;
 
   if (task === "adaptive_question") {
