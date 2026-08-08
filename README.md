@@ -1,227 +1,489 @@
+
 # ZAHRAA™ Teacher Decision Lab
 
-**Decision Before Generation™ — القرار قبل التوليد**
+### AI suggests. Teachers decide.
 
-[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-111111?style=flat-square)](https://zahraa-teacher-decision-lab-ai.vercel.app/)
-[![License](https://img.shields.io/badge/License-Apache%202.0-C9A24B?style=flat-square)](LICENSE)
-[![Status](https://img.shields.io/badge/Status-Hackathon%20Prototype-5A3E2B?style=flat-square)](#prototype-scope)
+ZAHRAA™ Teacher Decision Lab is a human-centered pedagogical decision-support system that helps teachers move from classroom challenges to evidence-grounded instructional decisions.
 
-ZAHRAA™ Teacher Decision Lab is a human-centered educational decision-governance prototype. Instead of generating a lesson plan immediately, it first helps the teacher analyze the instructional situation, review curriculum evidence, compare pedagogically distinct alternatives, approve a decision, and only then generate an implementation plan.
+Instead of asking generative AI to immediately produce a lesson plan, the system introduces a structured decision workflow:
 
-مختبر قرار المعلم ZAHRAA™ هو نموذج أولي لحوكمة القرار التربوي. لا يبدأ بإنشاء خطة درس مباشرة، بل يمر بتحليل الموقف، ومراجعة أدلة المنهج، ومقارنة بدائل تربوية مختلفة، ثم اعتماد المعلم للقرار قبل إنشاء خطة التنفيذ.
+**Situation → Curriculum Evidence → Alternatives → Teacher Approval → Traceable Implementation**
 
-## Why it matters | لماذا هذا المشروع؟
+Curriculum metadata and pedagogical evidence are retrieved through DataHub and incorporated into AI-assisted reasoning before an implementation plan can be generated.
 
-Most AI lesson-planning tools optimize for rapid content generation. That can hide the pedagogical choices behind the output and reduce teacher agency.
+The teacher remains the final decision-maker.
 
-This project introduces a different workflow:
+---
+
+## The Problem
+
+Generative AI can create lesson plans in seconds.
+
+But speed is not the same as pedagogical quality.
+
+In many AI-assisted teaching workflows, a teacher enters a prompt and receives an answer immediately.
+
+What is often missing is:
+
+- evidence from the curriculum,
+- alignment with learning outcomes,
+- comparison of pedagogical alternatives,
+- traceability of the decision,
+- and explicit teacher approval.
+
+This creates a fundamental problem:
+
+> How can AI support teachers without replacing professional pedagogical judgment?
+
+ZAHRAA™ Teacher Decision Lab was built around that question.
+
+---
+
+## Our Solution
+
+The system deliberately separates **reasoning** from **generation**.
+
+Before an implementation plan is created, the teacher moves through a structured decision process:
+
+1. Analyze the teaching situation.
+2. Review curriculum metadata and evidence.
+3. Examine AI-generated pedagogical alternatives.
+4. Compare the alternatives.
+5. Explicitly approve the final decision.
+6. Generate a traceable implementation plan.
+
+AI assists throughout the process — but it cannot make the final pedagogical decision on behalf of the teacher.
+
+## How It Works
+
+ZAHRAA™ Teacher Decision Lab follows a structured pedagogical decision workflow rather than a prompt-to-answer workflow.
+
+### 1. Situation Analysis
+The teacher begins with a real classroom challenge or instructional situation.
+
+### 2. Curriculum Evidence
+The system retrieves relevant curriculum metadata and pedagogical evidence through DataHub, including learning outcomes, teacher guidance, assessment policy, curriculum relationships, and metadata lineage.
+
+### 3. AI-Assisted Reasoning
+Gemini uses the teaching situation together with the retrieved evidence to support pedagogical reasoning and generate relevant instructional alternatives.
+
+### 4. Alternatives
+The teacher reviews and compares pedagogical alternatives rather than receiving a single automatically generated answer.
+
+### 5. Teacher Approval
+The selected pedagogical decision must be explicitly reviewed and approved by the teacher.
+
+The system does not allow the implementation plan to be generated before this approval.
+
+### 6. Traceable Implementation
+After teacher approval, the system generates an implementation plan linked to the decision and its supporting evidence.
+
+The resulting workflow is:
+
+**Situation → Metadata Evidence → AI-Assisted Reasoning → Alternatives → Teacher Approval → Traceable Implementation**
+
+---
+
+## Why DataHub?
+
+DataHub is not used merely as a metadata catalog in ZAHRAA™ Teacher Decision Lab.
+
+It acts as an **evidence layer for pedagogical decision-making**.
+
+The system retrieves and surfaces curriculum evidence such as:
+
+- Learning outcomes
+- Teacher guidance
+- Assessment policy
+- Curriculum relationships
+- Metadata lineage
+
+This evidence can be reviewed by the teacher and incorporated into the AI-assisted reasoning process.
+
+This creates a traceable relationship between:
+
+**Curriculum Metadata → Pedagogical Reasoning → Teacher Decision → Implementation**
+
+In this architecture, DataHub helps transform curriculum metadata from passive documentation into actionable evidence for instructional decision-making.
+
+## Human-in-the-Loop Governance
+
+ZAHRAA™ Teacher Decision Lab is designed around a simple governance principle:
 
 > **AI suggests. Teachers decide.**
 
-The core principle is that a lesson plan should be the result of a reviewed pedagogical decision—not a direct response to a prompt.
+The system intentionally places a human approval gate between AI-assisted reasoning and implementation.
 
-## Core workflow | مسار العمل
+An implementation plan cannot be generated until the teacher:
+
+1. Reviews the proposed pedagogical decision.
+2. Reviews the supporting evidence.
+3. Understands the limitations of the recommendation.
+4. Explicitly approves the decision for implementation.
+
+This creates a clear separation between:
+
+**AI Recommendation → Human Judgment → Authorized Implementation**
+
+The teacher therefore remains accountable for the pedagogical decision, while AI functions as a decision-support system rather than an autonomous decision-maker.
+
+---
+
+## System Architecture
+
+The prototype connects three core layers:
+
+### 1. Curriculum Evidence Layer — DataHub
+
+DataHub provides structured curriculum metadata and evidence used during pedagogical reasoning.
+
+Examples include:
+
+- Learning outcomes
+- Teacher guidance
+- Assessment policy
+- Curriculum relationships
+- Metadata lineage
+
+### 2. Reasoning Layer — Gemini
+
+Gemini supports the reasoning process by combining:
+
+- the classroom situation,
+- curriculum evidence retrieved through DataHub,
+- and pedagogical constraints.
+
+Its role is to help analyze the situation and generate alternatives — not to make the final decision.
+
+### 3. Decision & Governance Layer — Teacher
+
+The teacher reviews the alternatives and supporting evidence before explicitly approving a pedagogical decision.
+
+Only after approval can the system proceed to implementation-plan generation.
+
+### Architecture Flow
 
 ```text
-Situation Analysis
+Classroom Situation
         ↓
-Curriculum Metadata Evidence
+DataHub Curriculum Evidence
+        ↓
+AI-Assisted Pedagogical Reasoning
         ↓
 Pedagogical Alternatives
         ↓
-Teacher Review and Approval
+Teacher Review & Approval
+        ↓
+Traceable Implementation Plan
+...
+This architecture makes curriculum evidence, AI reasoning, and human professional judgment visible as separate but connected components.
+
+## Live Demo
+
+Try the live prototype:
+
+**ZAHRAA™ Teacher Decision Lab**  
+https://zahraa-teacher-decision-lab-ai.vercel.app/
+
+The demo walks through the complete pedagogical decision workflow:
+
+1. Analyze a classroom situation.
+2. Retrieve and review curriculum evidence from DataHub.
+3. Generate evidence-grounded pedagogical alternatives.
+4. Compare the alternatives.
+5. Review the proposed decision.
+6. Explicitly approve the decision as the teacher.
+7. Generate a traceable implementation plan.
+
+> The implementation plan remains locked until teacher approval is completed.
+
+---
+
+## Demo Scenario
+
+The prototype demonstrates a Grade 4 mathematics scenario focused on **Equivalent Fractions**.
+
+The classroom challenge is not sent directly to AI for lesson-plan generation.
+
+Instead, ZAHRAA™ Teacher Decision Lab uses the challenge to initiate a structured decision process in which curriculum evidence is retrieved, pedagogical alternatives are generated and compared, and the teacher remains responsible for approving the final instructional decision.
+
+### Example Decision Path
+
+```text
+Classroom Challenge
+        ↓
+Equivalent Fractions — Grade 4
+        ↓
+DataHub Curriculum Evidence
+        ↓
+AI-Assisted Pedagogical Reasoning
+        ↓
+Pedagogical Alternatives
+        ↓
+Teacher Review
+        ↓
+Teacher Approval
         ↓
 Traceable Implementation Plan
 ```
 
-بالعربية:
+This demonstrates the project's central principle:
+
+**AI suggests. Teachers decide.**
+
+## What Makes This Different
+
+ZAHRAA™ Teacher Decision Lab is not simply an AI lesson-plan generator.
+
+Its core innovation is the introduction of a **decision-governance layer** between AI reasoning and instructional generation.
+
+### Key Design Principles
+
+- **Evidence before generation** — curriculum evidence is reviewed before an implementation plan is created.
+- **Reasoning before output** — AI first analyzes the situation and proposes pedagogical alternatives.
+- **Teacher authority** — the teacher explicitly approves the pedagogical decision.
+- **Traceability** — the final implementation plan can be traced back to the situation, curriculum evidence, alternatives, and teacher decision.
+- **Human-centered AI** — AI supports professional judgment rather than replacing it.
+
+The result is a workflow in which generative AI becomes part of a governed pedagogical decision process rather than a direct content-generation shortcut.
+
+## DataHub Integration
+
+DataHub is a core part of the decision workflow, not just a metadata catalog used for display.
+
+ZAHRAA™ Teacher Decision Lab uses DataHub as an **evidence layer for pedagogical decision-making**.
+
+### Evidence Flow
+
+The prototype retrieves curriculum-related metadata through the DataHub integration and surfaces it before the teacher makes the final pedagogical decision.
+
+Evidence includes:
+
+- Learning outcomes
+- Teacher guidance
+- Assessment policy
+- Curriculum relationships
+- Metadata lineage
+
+The retrieved evidence is then incorporated into the AI-assisted reasoning process so that pedagogical alternatives are grounded in curriculum context rather than generated from the classroom prompt alone.
 
 ```text
-تحليل الموقف
-      ↓
-أدلة البيانات الوصفية للمنهج
-      ↓
-البدائل التربوية
-      ↓
-مراجعة المعلم واعتماده
-      ↓
-خطة تنفيذ قابلة للتتبع
-```
+DataHub
+   ↓
+Curriculum Metadata
+   ↓
+Evidence Retrieval
+   ↓
+AI-Assisted Pedagogical Reasoning
+   ↓
+Pedagogical Alternatives
+   ↓
+Teacher Decision
+   ↓
+Traceable Implementation
+...
 
-## How DataHub fits | دور DataHub
+## Gemini Integration
 
-The prototype models DataHub as the metadata and lineage layer that organizes curriculum assets and their relationships, including:
+Gemini provides the AI-assisted pedagogical reasoning layer of ZAHRAA™ Teacher Decision Lab.
 
-- learning outcomes;
-- teacher guidance;
-- assessment policy;
-- curriculum standards;
-- grade level;
-- conceptual progression;
-- relationships between curriculum entities.
+Rather than receiving only the teacher's classroom prompt, Gemini is provided with structured context that includes the teaching situation and curriculum evidence retrieved through the DataHub layer.
 
-These relationships form the evidence context used to explain why pedagogical alternatives are presented and how an approved decision is connected to the final plan.
+Gemini is used to:
 
-### Important implementation note
+- analyze the instructional situation,
+- reason over relevant curriculum evidence,
+- generate pedagogically distinct alternatives,
+- explain the rationale behind those alternatives,
+- and support generation of the implementation plan after teacher approval.
 
-This repository is a **front-end, metadata-driven prototype** that demonstrates the intended DataHub-powered reasoning and traceability workflow. It does **not** claim a production DataHub deployment, live graph queries, or real-time API retrieval in its current version.
+### Human-in-the-Loop Governance
 
-## Key features
+Gemini does not have authority to finalize the pedagogical decision.
 
-- **Decision before generation:** no implementation plan is produced before teacher approval.
-- **Three pedagogically distinct alternatives:** conceptual, diagnostic, and structured approaches.
-- **Evidence visibility:** curriculum evidence categories are shown alongside each alternative.
-- **Human decision gate:** the teacher reviews the selected decision and explicitly approves it.
-- **Decision lineage:** the workflow connects context, metadata evidence, alternatives, approval, and implementation.
-- **Dynamic plans:** the final plan changes according to the selected alternative.
-- **Arabic-first bilingual interface:** Arabic RTL experience with supporting English labels for evaluators.
-- **Judge view:** a concise explanation of the product logic and DataHub role.
-
-## Decision Journey
-
-1. `scenario.html` — teacher enters grade, subject, lesson, learning outcome, challenge, duration, and notes.
-2. `alternatives.html` — the prototype presents three pedagogically distinct alternatives.
-3. `teacher-approval.html` — the teacher reviews and explicitly approves the decision.
-4. `implementation-plan.html` — a traceable plan is generated from the approved decision.
-
-## Demo scenario
-
-The current demonstration uses a mathematics scenario for Grade 4:
-
-- **Challenge:** students execute procedural steps without understanding.
-- **Alternatives:**
-  1. Visual Conceptual Approach;
-  2. Common-Error Analysis;
-  3. Structured Repartitioning.
-- **Decision:** the teacher reviews one alternative and approves it.
-- **Output:** a lesson implementation plan aligned to that decision.
-
-## Architecture
-
-```mermaid
-flowchart TD
-    A[Teacher / المعلم] --> B[Situation Analysis]
-    B --> C[Curriculum Metadata Layer]
-    C --> D[DataHub Metadata & Lineage Model]
-    D --> E[Pedagogical Reasoning]
-    E --> F[Distinct Alternatives]
-    F --> G[Teacher Review & Approval]
-    G --> H[Traceable Implementation Plan]
-```
-
-A more detailed architecture note is available in [`docs/architecture.md`](docs/architecture.md).
-
-## Technology
-
-- HTML5
-- CSS3
-- Vanilla JavaScript
-- `sessionStorage` for passing the selected alternative through the demo journey
-- Google Fonts (Alexandria)
-- Vercel for static deployment
-- DataHub metadata and lineage concepts represented in the prototype workflow
-
-No front-end framework or build step is required.
-
-## Run locally
-
-### Option 1: Open directly
-
-Open `index.html` in a modern browser.
-
-### Option 2: Use a local server
-
-```bash
-python -m http.server 8000
-```
-
-Then open:
+The system deliberately separates responsibilities:
 
 ```text
-http://localhost:8000
-```
+DataHub → Evidence
+Gemini → Reasoning
+Teacher → Decision
+ZAHRAA™ → Governance Workflow
+...
 
-## Recommended test path
+The implementation plan is generated only after the teacher explicitly reviews and approves the selected pedagogical decision.
 
-1. Open `index.html`.
-2. Select **ابدأ رحلة اتخاذ القرار**.
-3. Review the three alternatives.
-4. Expand one alternative and select it.
-5. Complete the professional decision charter.
-6. Approve the decision.
-7. Generate the implementation plan.
-8. Verify that the final plan matches the selected alternative.
+This architecture combines metadata intelligence, generative reasoning, and human professional judgment while preserving teacher agency.
+---
 
-Repeat the flow with each alternative to see the dynamic plan change.
+## Tech Stack
 
-## Repository structure
+- **DataHub** — curriculum metadata, evidence retrieval, relationships, and lineage
+- **Gemini API** — AI-assisted pedagogical reasoning and generation
+- **JavaScript** — application logic and API integration
+- **HTML / CSS** — interactive teacher decision workflow
+- **Vercel** — deployment and serverless API endpoints
+- **GitHub** — source control and project repository
+
+---
+
+## Repository Structure
 
 ```text
-.
+zahraa-teacher-decision-lab/
+│
+├── api/
+│ ├── datahub.js
+│ └── gemini.js
+│
+├── docs/
+├── examples/
+│
 ├── index.html
+├── scenario.html
 ├── alternatives.html
 ├── teacher-approval.html
 ├── implementation-plan.html
-├── LICENSE
+├── zahraa-datahub.html
+│
+├── app.js
+├── styles.css
 ├── README.md
-├── DEVPOST_SUBMISSION.md
-├── VIDEO_SCRIPT.md
-├── docs/
-│   ├── architecture.md
-│   └── demo-guide.md
-└── examples/
-    ├── README.md
-    ├── curriculum-metadata-example.json
-    ├── decision-trace-example.json
-    └── lesson-plan-output.md
+└── LICENSE
 ```
 
-## Example outputs
+### Key Components
 
-The [`examples`](examples/) folder contains transparent sample artifacts so judges can inspect the intended metadata, lineage, and output quality without running the interface.
+**`api/datahub.js`**  
+Provides the DataHub evidence layer used to retrieve curriculum metadata for the decision workflow.
 
-These examples are illustrative prototype artifacts, not exports from a live production DataHub instance.
+**`api/gemini.js`**  
+Connects the curriculum evidence and classroom context to Gemini for AI-assisted pedagogical reasoning.
 
-## Prototype scope
+**`teacher-approval.html`**  
+Implements the human-in-the-loop governance checkpoint. The teacher must review and explicitly approve the pedagogical decision.
 
-### Implemented
+**`implementation-plan.html`**  
+Generates and displays the implementation plan only after teacher approval.
 
-- complete interactive decision journey;
-- dynamic alternative selection;
-- teacher approval gate;
-- alternative-specific implementation plans;
-- metadata evidence and traceability presentation;
-- responsive static web deployment.
+**`zahraa-datahub.html`**  
+Surfaces the curriculum evidence used in the teacher decision workflow.
+---
 
-### Future work
+## How to Run
 
-- connect to an operational DataHub instance;
-- ingest real curriculum assets and metadata;
-- execute graph-based retrieval and lineage queries;
-- add authentication and teacher workspaces;
-- export a decision report;
-- evaluate decisions with classroom outcome data.
+### 1. Clone the repository
 
-## Live demo
+```bash
+git clone https://github.com/Zahraishag/zahraa-teacher-decision-lab-ai.git
+cd zahraa-teacher-decision-lab-ai
+```
 
-**Vercel:** https://zahraa-teacher-decision-lab-ai.vercel.app/
+### 2. Configure environment variables
 
-## Video
+Create a `.env.local` file in the project root and add the required API credentials.
 
-Add the public or unlisted YouTube/Vimeo demo link here before final Devpost submission:
+```env
+GEMINI_API_KEY=your_gemini_api_key
+```
+
+> Never commit API keys or secrets to the repository.
+
+### 3. Run the project locally
+
+The interface can be opened locally through a development server.
+
+For example, using VS Code Live Server, open:
 
 ```text
-VIDEO_URL_HERE
+index.html
 ```
 
-Test the video in an incognito window to confirm it works without sign-in.
+### 4. Explore the decision workflow
+
+Start with a classroom situation and move through the complete workflow:
+
+```text
+Classroom Situation
+        ↓
+Curriculum Evidence
+        ↓
+AI-Assisted Pedagogical Reasoning
+        ↓
+Pedagogical Alternatives
+        ↓
+Teacher Review
+        ↓
+Teacher Approval
+        ↓
+Traceable Implementation Plan
+```
+
+### Live Demo
+
+The deployed prototype is available on Vercel:
+
+https://zahraa-teacher-decision-lab-ai.vercel.app/
+...
+---
+
+## Hackathon Evaluation
+
+This prototype was developed as a demonstration of a human-centered AI architecture for educational decision-making.
+
+The project highlights four core capabilities:
+
+- **Metadata-grounded reasoning** — curriculum evidence is retrieved and surfaced through DataHub.
+- **AI-assisted pedagogical reasoning** — Gemini analyzes the teaching situation and proposes pedagogically distinct alternatives.
+- **Human-in-the-loop governance** — the teacher must explicitly review and approve the pedagogical decision.
+- **Traceable implementation** — the final implementation plan preserves the reasoning path from curriculum evidence to teacher approval.
+
+### Evaluation Scenario
+
+The prototype demonstrates the workflow using an instructional challenge involving **equivalent fractions**.
+
+Evaluators can follow the complete decision path:
+
+```text
+Teaching Challenge
+        ↓
+Curriculum Evidence
+        ↓
+AI-Assisted Reasoning
+        ↓
+Pedagogical Alternatives
+        ↓
+Teacher Review
+        ↓
+Explicit Teacher Approval
+        ↓
+Traceable Implementation Plan
+```
+
+The central evaluation question is not simply:
+
+> Can AI generate a lesson plan?
+
+It is:
+
+> Can AI support pedagogical reasoning while preserving teacher authority, curriculum evidence, and decision traceability?
+
+---
 
 ## Author
 
-**Dr. Zahra Idris Al-Ansari**  
+**Dr. Zahra Al-Ansari**
+
 Founder, Zahraa Al-Ansari Academy  
-Educational AI, teacher development, and human-centered intelligent education.
+Researcher and educator in AI-enabled education, pedagogical decision-making, and human-centered educational technology.
+
+### Project Vision
+
+**AI suggests. Teachers decide.**
+
+ZAHRAA™ Teacher Decision Lab explores a future in which generative AI strengthens professional teacher judgment rather than replacing it.
+
+---
 
 ## License
 
-Licensed under the [Apache License 2.0](LICENSE).
+This project is released under the license included in this repository.
