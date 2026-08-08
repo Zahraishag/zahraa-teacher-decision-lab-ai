@@ -1180,27 +1180,21 @@ body{padding-bottom:96px!important}
 
 // ===== ZAHRAA™ DataHub Metadata Evidence Link =====
 document.addEventListener("DOMContentLoaded", () => {
-  const evidenceItems = document.querySelectorAll("body *");
-;
+  const evidenceTargets = document.querySelectorAll(
+    ".evidence-strip, .evidence-link, [data-evidence-link]"
+  );
 
-  evidenceItems.forEach((item) => {
-    const text = (item.textContent || "").toLowerCase();
+  evidenceTargets.forEach((item) => {
+    item.style.cursor = "pointer";
+    item.title = "Open DataHub Metadata Evidence";
 
-    if (
-      text.includes("metadata evidence") ||
-      text.includes("أدلة المنهج") ||
-      text.includes("مسار البيانات الوصفية")
-    ) {
-      item.style.cursor = "pointer";
-      item.title = "Open DataHub Metadata Evidence";
-
-      item.addEventListener("click", () => {
-        window.open("zahraa-datahub.html", "_blank");
-      });
-    }
+    item.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      window.open("zahraa-datahub.html", "_blank");
+    });
   });
 });
-
 
 </script>
 
