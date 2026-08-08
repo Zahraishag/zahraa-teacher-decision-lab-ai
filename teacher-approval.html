@@ -1177,6 +1177,31 @@ body{padding-bottom:96px!important}
     // Navigate back to the "بدائل" (Alternatives) screen.
     window.location.href = "alternatives.html";
   });
+
+// ===== ZAHRAA™ DataHub Metadata Evidence Link =====
+document.addEventListener("DOMContentLoaded", () => {
+  const evidenceItems = document.querySelectorAll(".chain-step, .ev-item");
+;
+
+  evidenceItems.forEach((item) => {
+    const text = (item.textContent || "").toLowerCase();
+
+    if (
+      text.includes("metadata evidence") ||
+      text.includes("أدلة المنهج") ||
+      text.includes("مسار البيانات الوصفية")
+    ) {
+      item.style.cursor = "pointer";
+      item.title = "Open DataHub Metadata Evidence";
+
+      item.addEventListener("click", () => {
+        window.open("zahraa-datahub.html", "_blank");
+      });
+    }
+  });
+});
+
+
 </script>
 
 </body>
