@@ -391,6 +391,71 @@
 <footer>
   Powered by DataHub Curriculum Metadata Graph · ZAHRAA™ Teacher Decision Lab
 </footer>
+<script>
+document.addEventListener("DOMContentLoaded", async () => {
+  const payload = {
+    session: {
+      subject: "Mathematics",
+      gradeLevel: "Grade 4",
+      lessonTopic: "Equivalent Fractions",
+      learningGoal: "Students identify and compare equivalent fractions",
+      classChallenge: "Students can perform procedures but struggle to explain why two fractions are equivalent"
+    }
+  };
+
+  try {
+    const response = await fetch("/api/datahub", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await response.json();
+
+    console.log("LIVE DATAHUB RESPONSE:", data);
+
+    if (!response.ok || !data.connected) {
+      console.error("DataHub connection failed:", data);
+      return;
+    }
+
+    const evidence = Array.isArray(data.evidence) ? data.evidence : [];
+
+    const assetId = document.querySelector(".lesson-item strong");
+
+    if (assetId && evidence.length > 0) {
+      const first = evidence[0];
+
+      const urn = first.urn || "";
+      const urnParts = urn.split(",");
+      const extractedId =
+        urnParts.length > 1
+          ? urnParts[urnParts.length - 1].replace(/\)/g, "")
+          : first.name || "DataHub Evidence";
+
+      assetId.textContent = extractedId;
+      assetId.title = first.urn || "";
+    }
+
+    const status = document.createElement("div");
+    status.style.margin = "18px auto";
+    status.style.textAlign = "center";
+    status.style.fontWeight = "700";
+    status.textContent =
+      `LIVE DATAHUB EVIDENCE ✓ | ${data.evidenceCount || evidence.length} evidence item(s)`;
+
+    const evidenceSection = document.querySelector(".evidence-section");
+
+    if (evidenceSection) {
+      evidenceSection.prepend(status);
+    }
+  } catch (error) {
+    console.error("Unable to load live DataHub evidence:", error);
+  }
+});
+</script>
 
 </body>
 </html>
