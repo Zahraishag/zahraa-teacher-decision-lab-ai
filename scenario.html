@@ -78,10 +78,154 @@ body{padding-bottom:96px!important}
 <aside class="card side"><h3>سيقوم النظام بـ</h3><div class="en">WHAT HAPPENS NEXT</div><div class="steps"><div class="s"><span class="ico">1</span><div><strong>تحليل السياق</strong><p>قراءة الصف والمادة والهدف والتحدي.</p></div></div><div class="s"><span class="ico">2</span><div><strong>البحث في بيانات المنهج</strong><p>ربط نواتج التعلم ودليل المعلم وسياسة التقويم.</p></div></div><div class="s"><span class="ico">3</span><div><strong>استخراج الأدلة</strong><p>إظهار مصادر الاستدلال والعلاقات ذات الصلة.</p></div></div><div class="s"><span class="ico">4</span><div><strong>اقتراح ثلاثة بدائل</strong><p>بدائل مختلفة فلسفيًا، مع حدود كل بديل.</p></div></div><div class="s"><span class="ico">5</span><div><strong>إبقاء القرار للمعلم</strong><p>لن تُنشأ خطة التنفيذ قبل المراجعة والاعتماد.</p></div></div></div><div class="datahub"><b>Powered by DataHub Curriculum Metadata Graph</b><p>يُنظم DataHub أصول المنهج وعلاقاتها ومسارها، لتكون البدائل مرتبطة بأدلة تربوية قابلة للتتبع.</p></div></aside>
 </main>
 <script>
-const form=document.getElementById('scenarioForm');
-const previous=JSON.parse(localStorage.getItem('zahraaDecisionContext')||'{}');
-for(const id of ['grade','subject','lesson','duration','outcome','challenge','notes']){if(previous[id]) document.getElementById(id).value=previous[id];}
-if(previous.level){const r=document.querySelector(`input[name="level"][value="${previous.level}"]`);if(r)r.checked=true;}
-form.addEventListener('submit',e=>{e.preventDefault();const data={};for(const id of ['grade','subject','lesson','duration','outcome','challenge','notes'])data[id]=document.getElementById(id).value.trim();data.level=document.querySelector('input[name="level"]:checked')?.value||'متوسط';localStorage.setItem('zahraaDecisionContext',JSON.stringify(data));localStorage.removeItem('zahraaApprovedAlternative');window.location.href='alternatives.html';});
+const form = document.getElementById('scenarioForm');
+
+const previous = JSON.parse(
+  localStorage.getItem('zahraaDecisionContext') || '{}'
+);
+
+for (const id of [
+  'grade',
+  'subject',
+  'lesson',
+  'duration',
+  'outcome',
+  'challenge',
+  'notes'
+]) {
+  if (previous[id]) {
+    document.getElementById(id).value = previous[id];
+  }
+}
+
+if (previous.level) {
+  const r = document.querySelector(
+    `input[name="level"][value="${previous.level}"]`
+  );
+  if (r) r.checked = true;
+}
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const button = form.querySelector('button[type="submit"]');
+  const originalText = button.textContent;
+
+  const data = {};
+
+  for (const id of [
+    'grade',
+    'subject',
+    'lesson',
+    'duration',
+    'outcome',
+    'challenge',
+    'notes'
+  ]) {
+    data[id] = document.getElementById(id).value.trim();
+  }
+
+  data.level =
+    document.querySelector('input[name="level"]:checked')?.value ||
+    'متوسط';
+
+  // نحفظ بيانات المعلم
+  localStorage.setItem(
+    'zahraaDecisionContext',
+    JSON.stringify(data)
+  );
+
+  localStorage.removeItem('zahraaApprovedAlternative');
+
+  // تحويل أسماء الحقول إلى الصيغة التي يتوقعها API
+  const session = {
+    subject: data.subject,
+    gradeLevel: data.grade,
+    lessonTopic: data.lesson,
+    lessonDuration: data.duration,
+    learningGoal: data.outcome || 'غير محدد',
+    classChallenge: data.challenge,
+    additionalConstraints: data.notes || '',
+    challengeLevel: data.level
+  };
+
+  button.disabled = true;
+  button.textContent = 'جاري تحليل الموقف وربط الأدلة...';
+
+  try {
+
+    // 1 — طلب DataHub مباشرة
+    const datahubResponse = await fetch('/api/datahub', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        session
+      })
+    });
+
+    let datahubResult = {};
+
+    try {
+      datahubResult = await datahubResponse.json();
+    } catch (e) {
+      console.warn('DataHub JSON parse error:', e);
+    }
+
+    console.log('DataHub response:', datahubResult);
+
+    // حفظ دليل DataHub لعرضه لاحقاً
+    localStorage.setItem(
+      'zahraaDataHubEvidence',
+      JSON.stringify(datahubResult)
+    );
+
+
+    // 2 — Gemini مع السياق نفسه
+    const geminiResponse = await fetch('/api/gemini', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        task: 'alternatives',
+        session
+      })
+    });
+
+    const geminiResult = await geminiResponse.json();
+
+    if (!geminiResponse.ok) {
+      throw new Error(
+        geminiResult.error ||
+        'تعذر تشغيل محرك الاستدلال.'
+      );
+    }
+
+    console.log('Gemini response:', geminiResult);
+
+    localStorage.setItem(
+      'zahraaGeneratedAlternatives',
+      JSON.stringify(geminiResult)
+    );
+
+    // بعد نجاح الاستدعاء ننتقل للبدائل
+    window.location.href = 'alternatives.html';
+
+  } catch (error) {
+
+    console.error('Decision workflow error:', error);
+
+    alert(
+      'تعذر إكمال تحليل الموقف.\n\n' +
+      error.message
+    );
+
+    button.disabled = false;
+    button.textContent = originalText;
+  }
+});
+
 </script>
 </body></html>
