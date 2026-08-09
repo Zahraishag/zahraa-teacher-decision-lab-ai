@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+         
 <style>
   :root{
     --ivory:#FAF7F0;
@@ -773,6 +774,38 @@
 .smart-toast.show{opacity:1;transform:translateY(0)}
 body{padding-bottom:96px!important}
 @media(max-width:720px){.smart-nav{grid-template-columns:1fr auto}.smart-nav__hint{display:none}.smart-nav__title{max-width:150px}.smart-nav a{padding:9px 11px}.smart-nav-shell{bottom:10px}}
+final-actions{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin:35px 0 25px;
+}
+
+.btn-back,
+.btn-new{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.85rem 1.3rem;
+  border-radius:12px;
+  text-decoration:none;
+  font-weight:700;
+  font-size:.9rem;
+}
+
+.btn-back{
+  border:1px solid #DED7CC;
+  background:#FFFFFF;
+  color:#8A6A52;
+}
+
+.btn-new{
+  border:1px solid #C9A24B;
+  background:#C9A24B;
+  color:#FFFFFF;
+}
 
 </style>
 </head>
@@ -1154,6 +1187,15 @@ body{padding-bottom:96px!important}
     });
   })();
 </script>
+<div class="final-actions">
+  <a href="teacher-approval.html" class="btn-back">
+    ← العودة إلى مراجعة القرار
+  </a>
+
+  <a href="scenario.html" class="btn-new">
+    بدء حالة تعليمية جديدة
+  </a>
+</div>
 
 </body>
 </html>
