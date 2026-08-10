@@ -1246,3 +1246,84 @@ console.log(
       false
   }
 );
+* =========================================================
+   FORCE TOP WORKFLOW NAVIGATION
+   Makes the visible workflow labels clickable
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const routes = [
+    {
+      labels: ["تحليل", "تحليل الموقف"],
+      url: "scenario.html"
+    },
+    {
+      labels: ["سؤال تكيفي", "السؤال التكيفي"],
+      url: "scenario.html"
+    },
+    {
+      labels: ["ملخص", "الملخص"],
+      url: "scenario.html"
+    },
+    {
+      labels: ["بدائل", "البدائل"],
+      url: "alternatives.html"
+    },
+    {
+      labels: [
+        "مراجعة القرار واعتماده",
+        "مراجعة القرار",
+        "اعتماد القرار"
+      ],
+      url: "teacher-approval.html"
+    },
+    {
+      labels: ["خطة التنفيذ", "التنفيذ"],
+      url: "implementation-plan.html"
+    }
+  ];
+
+  const elements = document.querySelectorAll(
+    "a, button, span, div, li"
+  );
+
+  elements.forEach((element) => {
+    const text = (element.textContent || "")
+      .replace(/✓/g, "")
+      .replace(/●/g, "")
+      .replace(/○/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+    if (!text || text.length > 40) return;
+
+    const route = routes.find((item) =>
+      item.labels.some(
+        (label) =>
+          text === label ||
+          text === label + "/" ||
+          text === "/" + label
+      )
+    );
+
+    if (!route) return;
+
+    element.style.cursor = "pointer";
+
+    element.setAttribute(
+      "title",
+      "انتقل إلى " + route.labels[0]
+    );
+
+    element.addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+
+      window.location.href = route.url;
+    });
+  });
+
+  console.log(
+    "ZAHRAA workflow navigation activated."
+  );
+});
