@@ -189,9 +189,11 @@ form.addEventListener('submit', async (e) => {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        task: 'alternatives',
-        session
-      })
+  task: 'alternatives',
+  session,
+  datahubEvidence: datahubResult
+})
+
     });
 
     const geminiResult = await geminiResponse.json();
