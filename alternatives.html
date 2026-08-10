@@ -15,19 +15,22 @@
 
   <style>
     :root{
-      --ink:#5A3E2B;
-      --ink-soft:#8B7F72;
-      --paper:#FAF7F0;
-      --white:#FFFFFF;
-      --gold:#C9A24B;
-      --gold-deep:#B08A3A;
-      --amber:#FAF1DC;
-      --amber-line:#EBD9A8;
-      --line:#EAE2D3;
-      --green:#3F6B50;
-      --green-bg:#EDF6F0;
-      --red:#914B3D;
-      --red-bg:#FFF3EF;
+      --bg:#fbfaf7;
+      --surface:#ffffff;
+      --surface-soft:#f7f3ec;
+      --ink:#2f261f;
+      --ink-soft:#776b60;
+      --line:#e8dfd3;
+      --gold:#b99146;
+      --gold-soft:#f5ecd8;
+      --gold-line:#e5d3a6;
+      --brown:#4a3024;
+      --brown-2:#684636;
+      --success:#406b51;
+      --success-bg:#eef6f1;
+      --error:#934d3d;
+      --error-bg:#fff1ed;
+      --shadow:0 14px 40px rgba(55,42,30,.07);
     }
 
     *{
@@ -36,1819 +39,186 @@
       padding:0;
     }
 
+    html{
+      scroll-behavior:smooth;
+    }
+
     body{
       font-family:"Alexandria",sans-serif;
-      background:var(--paper);
+      background:
+        radial-gradient(circle at top right,rgba(185,145,70,.07),transparent 28%),
+        var(--bg);
       color:var(--ink);
+      min-height:100vh;
       line-height:1.75;
-      padding-bottom:5rem;
     }
 
-    a{
-      color:inherit;
-      text-decoration:none;
-    }
-
-    button{
+    button,
+    input,
+    textarea,
+    select{
       font-family:inherit;
     }
 
-    .topbar{
-      background:#fff;
+    button{
+      cursor:pointer;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    .shell{
+      width:min(1180px,calc(100% - 32px));
+      margin:auto;
+    }
+
+    /* HEADER */
+
+    .site-header{
+      background:rgba(255,255,255,.92);
+      backdrop-filter:blur(12px);
       border-bottom:1px solid var(--line);
+      position:sticky;
+      top:0;
+      z-index:50;
+    }
+
+    .header-inner{
+      min-height:78px;
       display:flex;
-      justify-content:space-between;
       align-items:center;
-      padding:1rem clamp(1rem,4vw,3rem);
+      justify-content:space-between;
+      gap:1rem;
+    }
+
+    .brand-wrap{
+      display:flex;
+      flex-direction:column;
+      gap:.1rem;
     }
 
     .brand{
+      font-size:1rem;
       font-weight:800;
+      letter-spacing:.04em;
     }
 
-    .brand small{
+    .brand .tm{
+      color:var(--gold);
       font-size:.55rem;
-      color:var(--gold-deep);
       vertical-align:super;
     }
 
-    .back-link{
-      font-size:.78rem;
+    .brand-sub{
+      font-size:.64rem;
       color:var(--ink-soft);
+      direction:ltr;
+      text-align:right;
+    }
+
+    .back-btn{
+      background:transparent;
+      border:1px solid var(--line);
+      color:var(--ink-soft);
+      padding:.6rem .9rem;
+      border-radius:10px;
+      font-size:.75rem;
+      transition:.2s ease;
+    }
+
+    .back-btn:hover{
+      border-color:var(--gold);
+      color:var(--brown);
+      transform:translateY(-1px);
+    }
+
+    /* PROGRESS */
+
+    .workflow-wrap{
+      background:var(--surface);
+      border-bottom:1px solid var(--line);
     }
 
     .workflow{
-      background:#fff;
-      border-bottom:1px solid var(--line);
-      padding:.8rem 1rem;
+      min-height:55px;
       display:flex;
+      align-items:center;
       justify-content:center;
-      gap:.4rem;
       flex-wrap:wrap;
-      font-size:.72rem;
+      gap:.35rem;
+      font-size:.69rem;
     }
 
     .workflow a{
-      padding:.3rem .5rem;
-      border-radius:999px;
       color:var(--ink-soft);
+      padding:.35rem .55rem;
+      border-radius:999px;
     }
 
     .workflow .done{
-      color:var(--green);
+      color:var(--success);
     }
 
     .workflow .current{
-      background:var(--amber);
-      border:1px solid var(--amber-line);
-      color:var(--ink);
+      color:var(--brown);
+      background:var(--gold-soft);
+      border:1px solid var(--gold-line);
       font-weight:700;
     }
 
     .sep{
-      color:#D8CEBF;
+      color:#cfc4b7;
     }
 
-    .frame{
-      max-width:1240px;
-      margin:auto;
-      padding:2rem clamp(1rem,4vw,3rem);
+    /* HERO */
+
+    main{
+      padding:2.7rem 0 5rem;
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,1fr) minmax(320px,.7fr);
+      gap:1.6rem;
+      align-items:start;
+      margin-bottom:1.4rem;
+    }
+
+    .hero-copy{
+      padding-top:.3rem;
     }
 
     .eyebrow{
-      font-size:.7rem;
-      color:var(--gold-deep);
-      margin-bottom:.4rem;
-    }
-
-    h1{
-      font-size:clamp(1.7rem,3vw,2.3rem);
-      line-height:1.45;
-      margin-bottom:1.2rem;
-    }
-
-    .context-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:.8rem;
-      margin-bottom:1rem;
-    }
-
-    .context-item{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:7px;
-      padding:.85rem 1rem;
-    }
-
-    .context-label{
-      display:block;
-      font-size:.64rem;
-      color:var(--ink-soft);
-      margin-bottom:.2rem;
-    }
-
-    .context-value{
-      font-size:.83rem;
-      font-weight:500;
-      overflow-wrap:anywhere;
-    }
-
-    .evaluation{
-      direction:ltr;
-      text-align:left;
-      background:var(--amber);
-      border:1px solid var(--amber-line);
-      border-left:4px solid var(--gold);
-      border-radius:7px;
-      padding:.85rem 1rem;
-      font-size:.78rem;
-      color:var(--ink-soft);
-      margin-bottom:1rem;
-    }
-
-    .evaluation strong{
-      display:block;
-      color:var(--gold-deep);
-      font-size:.64rem;
-      margin-bottom:.2rem;
-    }
-
-    .status{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:7px;
-      padding:.85rem 1rem;
-      margin-bottom:1rem;
-      font-size:.78rem;
-      color:var(--ink-soft);
-    }
-
-    .status.success{
-      background:var(--green-bg);
-      border-color:#C8DDCF;
-      color:var(--green);
-    }
-
-    .why{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:7px;
-      padding:.9rem 1rem;
-      font-size:.82rem;
-      color:var(--ink-soft);
-      margin-bottom:1.2rem;
-    }
-
-    .why strong{
-      display:block;
-      color:var(--ink);
-      margin-bottom:.2rem;
-    }
-
-    .loading{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:8px;
-      padding:2rem;
-      text-align:center;
-      margin-top:1rem;
-    }
-
-    .spinner{
-      width:32px;
-      height:32px;
-      border-radius:50%;
-      border:3px solid var(--line);
-      border-top-color:var(--gold);
-      margin:0 auto 1rem;
-      animation:spin .8s linear infinite;
-    }
-
-    @keyframes spin{
-      to{transform:rotate(360deg);}
-    }
-
-    .loading p{
-      margin-top:.4rem;
-      font-size:.72rem;
-      color:var(--ink-soft);
-    }
-
-    .error-box{
-      background:var(--red-bg);
-      border:1px solid #E7C5BA;
-      color:var(--red);
-      border-radius:8px;
-      padding:1rem;
-      margin-top:1rem;
-    }
-
-    .retry-btn{
-      margin-top:.8rem;
-      background:var(--ink);
-      color:#fff;
-      border:0;
-      border-radius:5px;
-      padding:.65rem 1rem;
-      cursor:pointer;
-    }
-
-    .hidden{
-      display:none !important;
-    }
-
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:1.2rem;
-      margin-top:1rem;
-      align-items:start;
-    }
-
-    .card{
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:9px;
-      overflow:hidden;
-      transition:.18s ease;
-    }
-
-    .card:hover:not(.selected):not(.dimmed){
-      transform:translateY(-3px);
-      border-color:var(--gold);
-      box-shadow:0 12px 25px rgba(90,62,43,.09);
-    }
-
-    .card.selected{
-      border:2px solid var(--gold);
-    }
-
-    .card.dimmed{
-      opacity:.4;
-    }
-
-    .card-header{
-      padding:1.2rem;
-      border-bottom:1px solid var(--line);
-    }
-
-    .badge{
-      display:inline-block;
-      background:var(--amber);
-      border:1px solid var(--amber-line);
-      color:var(--gold-deep);
-      padding:.2rem .55rem;
-      border-radius:999px;
-      font-size:.62rem;
+      display:flex;
+      align-items:center;
+      gap:.6rem;
+      color:var(--gold);
+      font-size:.68rem;
+      font-weight:700;
       margin-bottom:.7rem;
     }
 
-    .card-title{
-      font-size:1.06rem;
-      font-weight:700;
-      line-height:1.5;
+    .eyebrow::before{
+      content:"";
+      width:30px;
+      height:1px;
+      background:var(--gold);
     }
 
-    .card-body{
-      padding:1.1rem 1.2rem;
+    h1{
+      font-size:clamp(2rem,4vw,3.5rem);
+      line-height:1.25;
+      max-width:740px;
+      margin-bottom:.9rem;
+      letter-spacing:-.03em;
     }
 
-    .field{
-      margin-bottom:.85rem;
-    }
-
-    .field-label{
-      display:block;
-      font-size:.65rem;
+    .hero-desc{
       color:var(--ink-soft);
-      margin-bottom:.18rem;
+      font-size:.9rem;
+      max-width:700px;
     }
 
-    .field-value{
-      font-size:.82rem;
-      white-space:pre-line;
-    }
-
-    .more{
-      display:none;
-      border-top:1px dashed var(--line);
-      margin-top:.8rem;
-      padding-top:.9rem;
-    }
-
-    .card.open .more{
-      display:block;
-    }
-
-    .actions{
-      padding:0 1.2rem 1.2rem;
-    }
-
-    .details-btn,
-    .select-btn{
-      width:100%;
-      padding:.7rem;
-      border-radius:5px;
-      cursor:pointer;
-      font-size:.8rem;
-    }
-
-    .details-btn{
-      background:#fff;
-      border:1px solid var(--ink-soft);
-      color:var(--ink);
-      margin-bottom:.55rem;
-    }
-
-    .select-btn{
-      background:var(--ink);
-      border:0;
-      color:#fff;
-      font-weight:600;
-    }
-
-    .selected-panel{
-      display:none;
-      background:var(--amber);
-      border-top:1px solid var(--amber-line);
-      padding:1rem;
-      text-align:center;
-      color:var(--gold-deep);
-      font-size:.78rem;
-    }
-
-    .card.selected .selected-panel{
-      display:block;
-    }
-
-    .continue-btn{
-      width:100%;
-      margin-top:.7rem;
-      border:0;
-      border-radius:5px;
-      background:var(--ink);
-      color:#fff;
-      padding:.72rem;
-      cursor:pointer;
-      font-weight:700;
-    }
-
-    .change-btn{
-      margin-top:.5rem;
-      border:0;
-      background:transparent;
-      color:var(--ink-soft);
-      text-decoration:underline;
-      cursor:pointer;
-      font-size:.72rem;
-    }
-
-    .raw{
-      margin-top:2rem;
-      background:#fff;
-      border:1px solid var(--line);
-      border-radius:7px;
-      padding:.8rem 1rem;
-    }
-
-    .raw summary{
-      font-size:.72rem;
-      color:var(--ink-soft);
-      cursor:pointer;
-    }
-
-    .raw pre{
-      margin-top:.8rem;
-      font-family:inherit;
-      font-size:.68rem;
-      white-space:pre-wrap;
-      color:var(--ink-soft);
-    }
-
-    @media(max-width:900px){
-      .context-grid{
-        grid-template-columns:1fr 1fr;
-      }
-
-      .cards{
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media(max-width:600px){
-      .context-grid{
-        grid-template-columns:1fr;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <header class="topbar">
-    <div class="brand">
-      ZAHRAA<small>™</small>
-    </div>
-
-    <a href="scenario.html" class="back-link">
-      ← تعديل بيانات الموقف
-    </a>
-  </header>
-
-  <nav class="workflow">
-    <a href="scenario.html" class="done">✓ تحليل</a>
-    <span class="sep">/</span>
-
-    <a href="scenario.html" class="done">✓ سؤال تكيفي</a>
-    <span class="sep">/</span>
-
-    <a href="scenario.html" class="done">✓ ملخص</a>
-    <span class="sep">/</span>
-
-    <a href="alternatives.html" class="current">● بدائل</a>
-    <span class="sep">/</span>
-
-    <a href="teacher-approval.html">○ مراجعة القرار واعتماده</a>
-    <span class="sep">/</span>
-
-    <a href="implementation-plan.html" id="planNav">○ خطة التنفيذ</a>
-  </nav>
-
-  <main class="frame">
-
-    <div class="eyebrow">
-      البدائل التربوية
-    </div>
-
-    <h1>
-      قارن بين البدائل قبل اعتماد القرار
-    </h1>
-
-    <section class="context-grid">
-
-      <div class="context-item">
-        <span class="context-label">الصف / المرحلة</span>
-        <div class="context-value" id="ctxGrade">—</div>
-      </div>
-
-      <div class="context-item">
-        <span class="context-label">المادة</span>
-        <div class="context-value" id="ctxSubject">—</div>
-      </div>
-
-      <div class="context-item">
-        <span class="context-label">عنوان الدرس</span>
-        <div class="context-value" id="ctxLesson">—</div>
-      </div>
-
-      <div class="context-item">
-        <span class="context-label">ناتج التعلم</span>
-        <div class="context-value" id="ctxGoal">—</div>
-      </div>
-
-      <div class="context-item">
-        <span class="context-label">التحدي التربوي</span>
-        <div class="context-value" id="ctxChallenge">—</div>
-      </div>
-
-      <div class="context-item">
-        <span class="context-label">مستوى الطلاب</span>
-        <div class="context-value" id="ctxLevel">—</div>
-      </div>
-
-    </section>
-
-    <div class="evaluation">
-      <strong>For Evaluation</strong>
-      The alternatives below are generated from the current teacher context.
-      DataHub evidence is retrieved internally by the Gemini reasoning endpoint.
-      The teacher—not the AI—makes the final pedagogical decision.
-    </div>
-
-    <div class="status" id="sourceStatus">
-      جارٍ قراءة بيانات الجلسة الحالية...
-    </div>
-
-    <div class="why">
-      <strong>لماذا يعرض النظام ثلاثة بدائل؟</strong>
-      لأن كل بديل يمثل مسارًا تربويًا مختلفًا، وليس ترتيبًا من الأفضل إلى الأسوأ.
-      يختار المعلم القرار النهائي بعد المقارنة.
-    </div>
-
-    <section id="loadingBox" class="loading">
-      <div class="spinner"></div>
-
-      <strong>
-        جارٍ بناء البدائل من الموقف الحالي...
-      </strong>
-
-      <p id="loadingDetail">
-        يتم تجهيز سياق المعلم.
-      </p>
-    </section>
-
-    <section id="errorBox" class="error-box hidden">
-      <strong>تعذر إنشاء البدائل</strong>
-      <div id="errorText" style="margin-top:.4rem;"></div>
-
-      <button
-        class="retry-btn"
-        type="button"
-        onclick="generateAlternatives(true)"
-      >
-        إعادة المحاولة
-      </button>
-    </section>
-
-    <section id="cards" class="cards hidden"></section>
-
-    <details id="rawOutput" class="raw hidden">
-      <summary>
-        عرض الاستجابة الأصلية لمحرك Gemini
-      </summary>
-
-      <pre id="rawText"></pre>
-    </details>
-
-  </main>
-
-<script>
-
-/* =========================================================
-   STORAGE
-========================================================= */
-
-const SESSION_KEY =
-  "zahraaDecisionSession";
-
-const CONTEXT_KEY =
-  "zahraaDecisionContext";
-
-const GENERATED_KEY =
-  "zahraaGeneratedAlternatives";
-
-const HISTORY_KEY =
-  "zahraaDecisionSessionsHistory";
-
-
-/* =========================================================
-   STATE
-========================================================= */
-
-let currentAlternatives = [];
-let generating = false;
-
-
-/* =========================================================
-   HELPERS
-========================================================= */
-
-function $(id){
-  return document.getElementById(id);
-}
-
-
-function safeParse(value,fallback = {}){
-
-  try{
-    return JSON.parse(value);
-  }catch{
-    return fallback;
-  }
-
-}
-
-
-function esc(value = ""){
-
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-
-}
-
-
-/* =========================================================
-   UNIFIED SESSION READER
-========================================================= */
-
-function getSession(){
-
-  const modern =
-    safeParse(
-      localStorage.getItem(SESSION_KEY) || "{}",
-      {}
-    );
-
-  const legacy =
-    safeParse(
-      localStorage.getItem(CONTEXT_KEY) || "{}",
-      {}
-    );
-
-  /*
-    دمج التخزينين.
-    modern له الأولوية إذا كان الحقل موجودًا.
-  */
-
-  const session = {
-    ...legacy,
-    ...modern
-  };
-
-
-  /*
-    توحيد أسماء الحقول القديمة والجديدة.
-  */
-
-  session.gradeLevel =
-    modern.gradeLevel ||
-    legacy.gradeLevel ||
-    legacy.grade ||
-    legacy.stage ||
-    legacy.educationLevel ||
-    "";
-
-  session.subject =
-    modern.subject ||
-    legacy.subject ||
-    legacy.course ||
-    legacy.material ||
-    "";
-
-  session.lessonTopic =
-    modern.lessonTopic ||
-    legacy.lessonTopic ||
-    legacy.lesson ||
-    legacy.topic ||
-    legacy.title ||
-    "";
-
-  session.lessonDuration =
-    modern.lessonDuration ||
-    legacy.lessonDuration ||
-    legacy.duration ||
-    legacy.classDuration ||
-    "";
-
-  session.studentCount =
-    modern.studentCount ||
-    legacy.studentCount ||
-    legacy.students ||
-    "";
-
-  session.studentLevel =
-    modern.studentLevel ||
-    legacy.studentLevel ||
-    legacy.level ||
-    legacy.challengeLevel ||
-    "";
-
-  session.learningGoal =
-    modern.learningGoal ||
-    legacy.learningGoal ||
-    legacy.outcome ||
-    legacy.learningOutcome ||
-    legacy.goal ||
-    "";
-
-  session.classChallenge =
-    modern.classChallenge ||
-    legacy.classChallenge ||
-    legacy.challenge ||
-    legacy.educationalChallenge ||
-    "";
-
-  session.availableResources =
-    modern.availableResources ||
-    legacy.availableResources ||
-    legacy.resources ||
-    "";
-
-  session.additionalConstraints =
-    modern.additionalConstraints ||
-    legacy.additionalConstraints ||
-    legacy.notes ||
-    legacy.constraints ||
-    "";
-
-  session.adaptiveAnswer =
-    modern.adaptiveAnswer ||
-    legacy.adaptiveAnswer ||
-    "";
-
-  /*
-    أنشئ معرف جلسة إذا لم يوجد.
-  */
-
-  if(!session.sessionId){
-    session.sessionId =
-      crypto.randomUUID?.() ||
-      String(Date.now());
-  }
-
-  /*
-    احفظ النسخة الموحدة.
-  */
-
-  localStorage.setItem(
-    SESSION_KEY,
-    JSON.stringify(session)
-  );
-
-  return session;
-}
-
-
-/* =========================================================
-   SAVE SESSION
-========================================================= */
-
-function saveSession(session){
-
-  localStorage.setItem(
-    SESSION_KEY,
-    JSON.stringify(session)
-  );
-
-  const history =
-    safeParse(
-      localStorage.getItem(HISTORY_KEY) || "[]",
-      []
-    );
-
-  const updated = {
-    ...session,
-    updatedAt:new Date().toISOString()
-  };
-
-  const index =
-    history.findIndex(
-      item =>
-        item.sessionId ===
-        session.sessionId
-    );
-
-  if(index >= 0){
-    history[index] = updated;
-  }else{
-    history.unshift(updated);
-  }
-
-  localStorage.setItem(
-    HISTORY_KEY,
-    JSON.stringify(
-      history.slice(0,20)
-    )
-  );
-
-}
-
-
-/* =========================================================
-   CONTEXT RENDER
-========================================================= */
-
-function renderContext(){
-
-  const session =
-    getSession();
-
-  $("ctxGrade").textContent =
-    session.gradeLevel || "غير محدد";
-
-  $("ctxSubject").textContent =
-    session.subject || "غير محدد";
-
-  $("ctxLesson").textContent =
-    session.lessonTopic || "غير محدد";
-
-  $("ctxGoal").textContent =
-    session.learningGoal || "غير محدد";
-
-  $("ctxChallenge").textContent =
-    session.classChallenge || "غير محدد";
-
-  $("ctxLevel").textContent =
-    session.studentLevel || "غير محدد";
-
-  return session;
-}
-
-
-/* =========================================================
-   CONTEXT VALIDATION
-========================================================= */
-
-function hasContext(session){
-
-  return Boolean(
-    session.subject &&
-    session.lessonTopic
-  );
-
-}
-
-
-/* =========================================================
-   GEMINI CALL
-========================================================= */
-
-async function callGemini(
-  task,
-  session
-){
-
-  const controller =
-    new AbortController();
-
-  const timeout =
-    setTimeout(
-      () => controller.abort(),
-      90000
-    );
-
-  try{
-
-    const response =
-      await fetch(
-        "/api/gemini",
-        {
-          method:"POST",
-
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-
-          body:JSON.stringify({
-            task,
-            session
-          }),
-
-          signal:
-            controller.signal
-        }
-      );
-
-    let data;
-
-    try{
-      data = await response.json();
-    }catch{
-      throw new Error(
-        "الخادم لم يُرجع استجابة JSON صحيحة."
-      );
-    }
-
-    if(!response.ok){
-      throw new Error(
-        data?.error ||
-        "تعذر الاتصال بمحرك Gemini."
-      );
-    }
-
-    if(!data?.text){
-      throw new Error(
-        "لم يُرجع Gemini نصًا."
-      );
-    }
-
-    return data.text;
-
-  }catch(error){
-
-    if(error?.name === "AbortError"){
-      throw new Error(
-        "استغرق إنشاء البدائل وقتًا أطول من المتوقع."
-      );
-    }
-
-    throw error;
-
-  }finally{
-
-    clearTimeout(timeout);
-
-  }
-
-}
-
-
-/* =========================================================
-   NORMALIZE
-========================================================= */
-
-function normalizeText(text){
-
-  return String(text || "")
-    .replace(/\r/g,"")
-    .replace(/#{1,6}\s*/g,"")
-    .replace(/\*\*/g,"")
-    .replace(/^\s*[-•]\s*/gm,"")
-    .replace(/\n{3,}/g,"\n\n")
-    .trim();
-
-}
-
-
-/* =========================================================
-   PARSING CONFIG
-========================================================= */
-
-const FIELD_ALIASES = {
-
-  name:[
-    "اسم القرار",
-    "اسم البديل"
-  ],
-
-  gap:[
-    "الفجوة التي يعالجها",
-    "الفجوة"
-  ],
-
-  rationale:[
-    "منطق التدريس",
-    "المنطق التربوي",
-    "منطق التعليم"
-  ],
-
-  start:[
-    "نقطة البداية"
-  ],
-
-  sequence:[
-    "تسلسل بناء المفهوم",
-    "تسلسل التعلم"
-  ],
-
-  teacher:[
-    "دور المعلم"
-  ],
-
-  student:[
-    "دور الطالب"
-  ],
-
-  assessment:[
-    "نوع التقويم",
-    "التقويم"
-  ],
-
-  differentiation:[
-    "نوع التمايز",
-    "التمايز"
-  ],
-
-  strongest:[
-    "المخرج الأقوى",
-    "أقوى مخرج متوقع",
-    "المخرج الأساسي"
-  ],
-
-  limitation:[
-    "ما قد لا يتحقق بصورة كافية",
-    "ما قد لا يتحقق",
-    "ما الذي قد لا يتحقق"
-  ],
-
-  constraint:[
-    "القيد الذي قد يمنع اختياره",
-    "القيد المحتمل",
-    "القيد"
-  ]
-
-};
-
-
-/* =========================================================
-   FIELD EXTRACTOR
-========================================================= */
-
-function extractField(
-  block,
-  aliases
-){
-
-  const lines =
-    block
-      .split("\n")
-      .map(line=>line.trim())
-      .filter(Boolean);
-
-  for(let i=0;i<lines.length;i++){
-
-    for(const alias of aliases){
-
-      const escaped =
-        alias.replace(
-          /[.*+?^${}()|[\]\\]/g,
-          "\\$&"
-        );
-
-      const regex =
-        new RegExp(
-          "^\\s*" +
-          escaped +
-          "\\s*[:：]\\s*(.*)$",
-          "i"
-        );
-
-      const match =
-        lines[i].match(regex);
-
-      if(match){
-
-        let value =
-          (match[1] || "").trim();
-
-        if(
-          !value &&
-          lines[i+1]
-        ){
-          value =
-            lines[i+1].trim();
-        }
-
-        return value;
-      }
-    }
-  }
-
-  return "";
-}
-
-
-/* =========================================================
-   SPLIT THREE ALTERNATIVES
-========================================================= */
-
-function splitAlternativeBlocks(text){
-
-  const normalized =
-    normalizeText(text);
-
-  let blocks =
-    normalized
-      .split(
-        /(?=اسم\s+(?:القرار|البديل)\s*[:：])/g
-      )
-      .map(item=>item.trim())
-      .filter(
-        item =>
-          /اسم\s+(?:القرار|البديل)\s*[:：]/.test(item)
-      );
-
-  if(blocks.length < 3){
-
-    const second =
-      normalized
-        .split(
-          /(?=(?:البديل|بديل)\s+(?:الأول|الثاني|الثالث|1|2|3|A|B|C|أ|ب|ج)\s*[:：\-–]?)/g
-        )
-        .map(item=>item.trim())
-        .filter(item=>item.length > 40);
-
-    if(second.length >= 3){
-      blocks = second;
-    }
-  }
-
-  return blocks.slice(0,3);
-}
-
-
-/* =========================================================
-   PARSE ONE ALTERNATIVE
-========================================================= */
-
-function parseAlternative(
-  block,
-  index
-){
-
-  const get =
-    key =>
-      extractField(
-        block,
-        FIELD_ALIASES[key]
-      );
-
-  return {
-
-    id:
-      `alternative-${index+1}`,
-
-    name:
-      get("name") ||
-      `البديل التربوي ${index+1}`,
-
-    gap:
-      get("gap"),
-
-    rationale:
-      get("rationale"),
-
-    start:
-      get("start"),
-
-    sequence:
-      get("sequence"),
-
-    teacher:
-      get("teacher"),
-
-    student:
-      get("student"),
-
-    assessment:
-      get("assessment"),
-
-    differentiation:
-      get("differentiation"),
-
-    strongest:
-      get("strongest"),
-
-    limitation:
-      get("limitation"),
-
-    constraint:
-      get("constraint"),
-
-    raw:block
-  };
-}
-
-
-/* =========================================================
-   FALLBACK
-========================================================= */
-
-function fallbackAlternatives(text){
-
-  const paragraphs =
-    normalizeText(text)
-      .split(/\n{2,}/)
-      .map(p=>p.trim())
-      .filter(p=>p.length>20);
-
-  const groups = [[],[],[]];
-
-  paragraphs.forEach(
-    (paragraph,index)=>{
-      groups[index%3].push(paragraph);
-    }
-  );
-
-  return groups.map(
-    (group,index)=>({
-
-      id:`alternative-${index+1}`,
-
-      name:`البديل التربوي ${index+1}`,
-
-      gap:"",
-
-      rationale:
-        group.join("\n\n"),
-
-      start:"",
-      sequence:"",
-      teacher:"",
-      student:"",
-      assessment:"",
-      differentiation:"",
-      strongest:"",
-      limitation:"",
-      constraint:"",
-
-      raw:
-        group.join("\n\n")
-
-    })
-  );
-}
-
-
-/* =========================================================
-   FIELD HTML
-========================================================= */
-
-function fieldHTML(label,value){
-
-  if(!value){
-    return "";
-  }
-
-  return `
-    <div class="field">
-      <span class="field-label">
-        ${esc(label)}
-      </span>
-
-      <div class="field-value">
-        ${esc(value)}
-      </div>
-    </div>
-  `;
-}
-
-
-/* =========================================================
-   RENDER CARDS
-========================================================= */
-
-function renderAlternatives(
-  alternatives
-){
-
-  const letters = ["A","B","C"];
-
-  $("cards").innerHTML =
-    alternatives.map(
-      (alt,index)=>`
-
-      <article
-        class="card"
-        id="${alt.id}"
-      >
-
-        <div class="card-header">
-
-          <span class="badge">
-            البديل ${letters[index]} · Generated
-          </span>
-
-          <div class="card-title">
-            ${esc(alt.name)}
-          </div>
-
-        </div>
-
-        <div class="card-body">
-
-          ${fieldHTML(
-            "الفجوة التي يعالجها",
-            alt.gap
-          )}
-
-          ${fieldHTML(
-            "منطق التدريس",
-            alt.rationale
-          )}
-
-          ${fieldHTML(
-            "المخرج الأقوى",
-            alt.strongest
-          )}
-
-          ${fieldHTML(
-            "ما قد لا يتحقق بصورة كافية",
-            alt.limitation
-          )}
-
-          <div class="more">
-
-            ${fieldHTML(
-              "نقطة البداية",
-              alt.start
-            )}
-
-            ${fieldHTML(
-              "تسلسل بناء المفهوم",
-              alt.sequence
-            )}
-
-            ${fieldHTML(
-              "دور المعلم",
-              alt.teacher
-            )}
-
-            ${fieldHTML(
-              "دور الطالب",
-              alt.student
-            )}
-
-            ${fieldHTML(
-              "نوع التقويم",
-              alt.assessment
-            )}
-
-            ${fieldHTML(
-              "نوع التمايز",
-              alt.differentiation
-            )}
-
-            ${fieldHTML(
-              "القيد المحتمل",
-              alt.constraint
-            )}
-
-          </div>
-
-        </div>
-
-        <div class="actions">
-
-          <button
-            class="details-btn"
-            type="button"
-            onclick="
-              toggleDetails(
-                '${alt.id}',
-                this
-              )
-            "
-          >
-            عرض التحليل الكامل
-          </button>
-
-          <button
-            class="select-btn"
-            type="button"
-            onclick="
-              selectAlternative(
-                ${index}
-              )
-            "
-          >
-            اختيار هذا البديل
-          </button>
-
-        </div>
-
-        <div class="selected-panel">
-
-          ✓ تم اختيار هذا البديل للمراجعة النهائية
-
-          <button
-            class="continue-btn"
-            type="button"
-            onclick="goToApproval()"
-          >
-            الانتقال إلى مراجعة القرار ←
-          </button>
-
-          <button
-            class="change-btn"
-            type="button"
-            onclick="clearSelection()"
-          >
-            تغيير القرار
-          </button>
-
-        </div>
-
-      </article>
-    `
-    ).join("");
-
-  $("cards")
-    .classList.remove("hidden");
-}
-
-
-/* =========================================================
-   DETAILS
-========================================================= */
-
-function toggleDetails(
-  id,
-  button
-){
-
-  const card =
-    document.getElementById(id);
-
-  if(!card){
-    return;
-  }
-
-  card.classList.toggle("open");
-
-  button.textContent =
-    card.classList.contains("open")
-      ? "إخفاء التحليل"
-      : "عرض التحليل الكامل";
-}
-
-
-/* =========================================================
-   SELECT
-========================================================= */
-
-function selectAlternative(index){
-
-  const alt =
-    currentAlternatives[index];
-
-  if(!alt){
-    return;
-  }
-
-  document
-    .querySelectorAll(".card")
-    .forEach(
-      (card,cardIndex)=>{
-
-        if(cardIndex === index){
-
-          card.classList.add("selected");
-          card.classList.remove("dimmed");
-
-        }else{
-
-          card.classList.remove("selected");
-          card.classList.add("dimmed");
-
-        }
-      }
-    );
-
-  const session =
-    getSession();
-
-  session.selectedAlternative =
-    alt.id;
-
-  session.selectedAlternativeData =
-    alt;
-
-  session.approvedDecision =
-    alt.name;
-
-  session.teacherApproval =
-    false;
-
-  session.sessionStatus =
-    "ALTERNATIVE_SELECTED";
-
-  saveSession(session);
-}
-
-
-/* =========================================================
-   CLEAR
-========================================================= */
-
-function clearSelection(){
-
-  document
-    .querySelectorAll(".card")
-    .forEach(
-      card =>
-        card.classList.remove(
-          "selected",
-          "dimmed"
-        )
-    );
-
-  const session =
-    getSession();
-
-  delete session.selectedAlternative;
-  delete session.selectedAlternativeData;
-  delete session.approvedDecision;
-
-  session.teacherApproval =
-    false;
-
-  session.sessionStatus =
-    "ALTERNATIVES_GENERATED";
-
-  saveSession(session);
-}
-
-
-/* =========================================================
-   APPROVAL
-========================================================= */
-
-function goToApproval(){
-
-  const session =
-    getSession();
-
-  if(
-    !session.selectedAlternative
-  ){
-
-    alert(
-      "اختاري أحد البدائل أولًا."
-    );
-
-    return;
-  }
-
-  window.location.href =
-    "teacher-approval.html";
-}
-
-
-/* =========================================================
-   CACHE
-========================================================= */
-
-function readCache(session){
-
-  const raw =
-    localStorage.getItem(
-      GENERATED_KEY
-    );
-
-  if(!raw){
-    return null;
-  }
-
-  const cached =
-    safeParse(raw,null);
-
-  if(!cached){
-    return null;
-  }
-
-  const same =
-    String(cached.subject||"") ===
-      String(session.subject||"")
-    &&
-    String(cached.lessonTopic||"") ===
-      String(session.lessonTopic||"")
-    &&
-    String(cached.learningGoal||"") ===
-      String(session.learningGoal||"");
-
-  if(
-    same &&
-    cached.text
-  ){
-    return cached.text;
-  }
-
-  return null;
-}
-
-
-function saveCache(
-  session,
-  text
-){
-
-  localStorage.setItem(
-    GENERATED_KEY,
-    JSON.stringify({
-
-      subject:
-        session.subject || "",
-
-      lessonTopic:
-        session.lessonTopic || "",
-
-      learningGoal:
-        session.learningGoal || "",
-
-      text,
-
-      generatedAt:
-        new Date().toISOString()
-    })
-  );
-}
-
-
-/* =========================================================
-   PROCESS GEMINI
-========================================================= */
-
-function processOutput(
-  session,
-  text
-){
-
-  const normalized =
-    normalizeText(text);
-
-  $("rawText").textContent =
-    normalized;
-
-  $("rawOutput")
-    .classList.remove("hidden");
-
-  const blocks =
-    splitAlternativeBlocks(
-      normalized
-    );
-
-  let alternatives;
-
-  if(blocks.length >= 3){
-
-    alternatives =
-      blocks.map(
-        (block,index)=>
-          parseAlternative(
-            block,
-            index
-          )
-      );
-
-  }else{
-
-    alternatives =
-      fallbackAlternatives(
-        normalized
-      );
-  }
-
-  currentAlternatives =
-    alternatives;
-
-  session.generatedAlternatives =
-    alternatives;
-
-  session.alternativesRaw =
-    normalized;
-
-  session.sessionStatus =
-    "ALTERNATIVES_GENERATED";
-
-  session.teacherApproval =
-    false;
-
-  delete session.selectedAlternative;
-  delete session.selectedAlternativeData;
-  delete session.approvedDecision;
-
-  saveSession(session);
-
-  renderAlternatives(
-    alternatives
-  );
-}
-
-
-/* =========================================================
-   GENERATE
-========================================================= */
-
-async function generateAlternatives(
-  force = false
-){
-
-  if(generating){
-    return;
-  }
-
-  generating = true;
-
-  $("loadingBox")
-    .classList.remove("hidden");
-
-  $("errorBox")
-    .classList.add("hidden");
-
-  $("cards")
-    .classList.add("hidden");
-
-  $("rawOutput")
-    .classList.add("hidden");
-
-  try{
-
-    const session =
-      renderContext();
-
-    if(
-      !hasContext(session)
-    ){
-
-      throw new Error(
-        "لم أجد المادة أو عنوان الدرس في التخزين المحلي. عودي إلى صفحة تحليل الموقف وأدخلي الجلسة ثم تابعي المسار."
-      );
-    }
-
-    $("sourceStatus").textContent =
-      "✓ تم العثور على بيانات الجلسة الحالية.";
-
-    $("sourceStatus")
-      .classList.add("success");
-
-
-    if(!force){
-
-      const cached =
-        readCache(session);
-
-      if(cached){
-
-        $("loadingDetail").textContent =
-          "تم العثور على بدائل محفوظة لنفس الموقف.";
-
-        processOutput(
-          session,
-          cached
-        );
-
-        return;
-      }
-    }
-
-
-    $("loadingDetail").textContent =
-      "يتم إرسال الجلسة إلى Gemini؛ DataHub يُستدعى داخليًا مرة واحدة فقط.";
-
-
-    const text =
-      await callGemini(
-        "alternatives",
-        session
-      );
-
-
-    $("loadingDetail").textContent =
-      "تم استلام البدائل، جارٍ عرضها...";
-
-
-    saveCache(
-      session,
-      text
-    );
-
-
-    processOutput(
-      session,
-      text
-    );
-
-
-  }catch(error){
-
-    console.error(error);
-
-    $("errorText").textContent =
-      error?.message ||
-      "حدث خطأ أثناء إنشاء البدائل.";
-
-    $("errorBox")
-      .classList.remove("hidden");
-
-  }finally{
-
-    $("loadingBox")
-      .classList.add("hidden");
-
-    generating = false;
-  }
-}
-
-
-/* =========================================================
-   PLAN PROTECTION
-========================================================= */
-
-$("planNav")
-  .addEventListener(
-    "click",
-    event=>{
-
-      const session =
-        getSession();
-
-      if(
-        session.teacherApproval !== true
-      ){
-
-        event.preventDefault();
-
-        alert(
-          "يجب اعتماد القرار من المعلم أولًا."
-        );
-      }
-    }
-  );
-
-
-/* =========================================================
-   START
-========================================================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  ()=>{
-
-    renderContext();
-
-    generateAlternatives();
-
-  }
-);
-
-</script>
-
-</body>
-</html>
+    .hero
