@@ -47,7 +47,8 @@ if (!apiKey || apiKey.length < 20) {
         ? JSON.parse(request.body)
         : request.body;
 
-    const { task, session } = body || {};
+    const { task, session, datahubEvidence } = body || {};
+
 
     if (!task || !session) {
       return response.status(400).json({
