@@ -36,10 +36,6 @@
       padding:0;
     }
 
-    html{
-      scroll-behavior:smooth;
-    }
-
     body{
       font-family:"Alexandria",sans-serif;
       background:var(--paper);
@@ -48,40 +44,31 @@
       padding-bottom:5rem;
     }
 
-    button,
-    input,
-    textarea{
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    button{
       font-family:inherit;
     }
-
-    a{
-      text-decoration:none;
-      color:inherit;
-    }
-
-    /* =========================
-       TOP BAR
-    ========================= */
 
     .topbar{
       background:#fff;
       border-bottom:1px solid var(--line);
       display:flex;
-      align-items:center;
       justify-content:space-between;
-      gap:1rem;
+      align-items:center;
       padding:1rem clamp(1rem,4vw,3rem);
     }
 
     .brand{
       font-weight:800;
-      letter-spacing:.02em;
-      color:var(--ink);
     }
 
-    .brand .tm{
-      color:var(--gold-deep);
+    .brand small{
       font-size:.55rem;
+      color:var(--gold-deep);
       vertical-align:super;
     }
 
@@ -90,30 +77,18 @@
       color:var(--ink-soft);
     }
 
-    .back-link:hover{
-      color:var(--gold-deep);
-    }
-
-    /* =========================
-       WORKFLOW
-    ========================= */
-
     .workflow{
       background:#fff;
       border-bottom:1px solid var(--line);
       padding:.8rem 1rem;
-
       display:flex;
       justify-content:center;
-      align-items:center;
       gap:.4rem;
-
       flex-wrap:wrap;
       font-size:.72rem;
     }
 
-    .workflow a,
-    .workflow span.step{
+    .workflow a{
       padding:.3rem .5rem;
       border-radius:999px;
       color:var(--ink-soft);
@@ -130,13 +105,9 @@
       font-weight:700;
     }
 
-    .workflow .sep{
-      color:#D5CABA;
+    .sep{
+      color:#D8CEBF;
     }
-
-    /* =========================
-       PAGE
-    ========================= */
 
     .frame{
       max-width:1240px;
@@ -147,19 +118,14 @@
     .eyebrow{
       font-size:.7rem;
       color:var(--gold-deep);
-      letter-spacing:.07em;
-      margin-bottom:.35rem;
+      margin-bottom:.4rem;
     }
 
     h1{
-      font-size:clamp(1.7rem,3vw,2.35rem);
+      font-size:clamp(1.7rem,3vw,2.3rem);
       line-height:1.45;
-      margin-bottom:1.3rem;
+      margin-bottom:1.2rem;
     }
-
-    /* =========================
-       CONTEXT
-    ========================= */
 
     .context-grid{
       display:grid;
@@ -177,8 +143,8 @@
 
     .context-label{
       display:block;
+      font-size:.64rem;
       color:var(--ink-soft);
-      font-size:.65rem;
       margin-bottom:.2rem;
     }
 
@@ -188,24 +154,16 @@
       overflow-wrap:anywhere;
     }
 
-    /* =========================
-       EVALUATION NOTE
-    ========================= */
-
     .evaluation{
       direction:ltr;
       text-align:left;
-
       background:var(--amber);
       border:1px solid var(--amber-line);
       border-left:4px solid var(--gold);
-
       border-radius:7px;
       padding:.85rem 1rem;
-
       font-size:.78rem;
       color:var(--ink-soft);
-
       margin-bottom:1rem;
     }
 
@@ -213,141 +171,86 @@
       display:block;
       color:var(--gold-deep);
       font-size:.64rem;
-      letter-spacing:.08em;
-      text-transform:uppercase;
       margin-bottom:.2rem;
     }
 
-    /* =========================
-       SOURCE STATUS
-    ========================= */
-
-    .source-status{
+    .status{
       background:#fff;
       border:1px solid var(--line);
       border-radius:7px;
-
       padding:.85rem 1rem;
       margin-bottom:1rem;
-
       font-size:.78rem;
       color:var(--ink-soft);
-
-      display:flex;
-      align-items:center;
-      gap:.55rem;
     }
 
-    .status-dot{
-      width:9px;
-      height:9px;
-      border-radius:50%;
-      background:var(--gold);
-      flex-shrink:0;
-    }
-
-    .source-status.success{
+    .status.success{
       background:var(--green-bg);
       border-color:#C8DDCF;
       color:var(--green);
     }
 
-    .source-status.success .status-dot{
-      background:var(--green);
-    }
-
-    /* =========================
-       WHY
-    ========================= */
-
     .why{
       background:#fff;
       border:1px solid var(--line);
       border-radius:7px;
-      padding:.85rem 1rem;
-
-      color:var(--ink-soft);
+      padding:.9rem 1rem;
       font-size:.82rem;
-
+      color:var(--ink-soft);
       margin-bottom:1.2rem;
     }
 
     .why strong{
-      color:var(--ink);
       display:block;
+      color:var(--ink);
       margin-bottom:.2rem;
     }
 
-    /* =========================
-       LOADING
-    ========================= */
-
-    .loading-box{
+    .loading{
       background:#fff;
       border:1px solid var(--line);
-      border-radius:9px;
-      padding:2.4rem 1.5rem;
+      border-radius:8px;
+      padding:2rem;
       text-align:center;
       margin-top:1rem;
     }
 
     .spinner{
-      width:34px;
-      height:34px;
-      margin:0 auto 1rem;
-
+      width:32px;
+      height:32px;
       border-radius:50%;
       border:3px solid var(--line);
       border-top-color:var(--gold);
-
+      margin:0 auto 1rem;
       animation:spin .8s linear infinite;
     }
 
     @keyframes spin{
-      to{
-        transform:rotate(360deg);
-      }
+      to{transform:rotate(360deg);}
     }
 
-    .loading-box strong{
-      display:block;
-      font-size:.95rem;
-    }
-
-    .loading-box p{
-      margin-top:.45rem;
-      color:var(--ink-soft);
+    .loading p{
+      margin-top:.4rem;
       font-size:.72rem;
+      color:var(--ink-soft);
     }
-
-    .loading-detail{
-      margin-top:.8rem !important;
-      color:var(--gold-deep) !important;
-    }
-
-    /* =========================
-       ERROR
-    ========================= */
 
     .error-box{
       background:var(--red-bg);
       border:1px solid #E7C5BA;
       color:var(--red);
-
       border-radius:8px;
       padding:1rem;
-
       margin-top:1rem;
     }
 
     .retry-btn{
       margin-top:.8rem;
-      border:0;
       background:var(--ink);
       color:#fff;
-
-      padding:.65rem 1rem;
+      border:0;
       border-radius:5px;
+      padding:.65rem 1rem;
       cursor:pointer;
     }
 
@@ -355,16 +258,12 @@
       display:none !important;
     }
 
-    /* =========================
-       CARDS
-    ========================= */
-
     .cards{
       display:grid;
       grid-template-columns:repeat(3,1fr);
       gap:1.2rem;
-      align-items:start;
       margin-top:1rem;
+      align-items:start;
     }
 
     .card{
@@ -372,25 +271,17 @@
       border:1px solid var(--line);
       border-radius:9px;
       overflow:hidden;
-
-      transition:
-        transform .18s ease,
-        border-color .18s ease,
-        box-shadow .18s ease,
-        opacity .18s ease;
-
-      min-width:0;
+      transition:.18s ease;
     }
 
     .card:hover:not(.selected):not(.dimmed){
       transform:translateY(-3px);
       border-color:var(--gold);
-      box-shadow:0 12px 26px rgba(90,62,43,.09);
+      box-shadow:0 12px 25px rgba(90,62,43,.09);
     }
 
     .card.selected{
       border:2px solid var(--gold);
-      box-shadow:0 12px 28px rgba(201,162,75,.16);
     }
 
     .card.dimmed{
@@ -402,33 +293,21 @@
       border-bottom:1px solid var(--line);
     }
 
-    .alt-badge{
-      display:inline-flex;
-      border-radius:999px;
+    .badge{
+      display:inline-block;
       background:var(--amber);
       border:1px solid var(--amber-line);
       color:var(--gold-deep);
-
       padding:.2rem .55rem;
+      border-radius:999px;
       font-size:.62rem;
-
       margin-bottom:.7rem;
     }
 
     .card-title{
-      font-size:1.08rem;
-      line-height:1.5;
+      font-size:1.06rem;
       font-weight:700;
-    }
-
-    .ai-label{
-      display:block;
-      direction:ltr;
-      text-align:left;
-
-      color:var(--ink-soft);
-      font-size:.62rem;
-      margin-top:.25rem;
+      line-height:1.5;
     }
 
     .card-body{
@@ -439,90 +318,64 @@
       margin-bottom:.85rem;
     }
 
-    .field:last-child{
-      margin-bottom:0;
-    }
-
     .field-label{
       display:block;
-      color:var(--ink-soft);
       font-size:.65rem;
+      color:var(--ink-soft);
       margin-bottom:.18rem;
     }
 
     .field-value{
-      color:var(--ink);
       font-size:.82rem;
       white-space:pre-line;
-      overflow-wrap:anywhere;
     }
 
-    .primary-summary{
-      padding-bottom:.5rem;
-    }
-
-    .more-details{
+    .more{
       display:none;
+      border-top:1px dashed var(--line);
       margin-top:.8rem;
       padding-top:.9rem;
-      border-top:1px dashed var(--line);
     }
 
-    .card.open .more-details{
+    .card.open .more{
       display:block;
     }
 
-    .card-actions{
+    .actions{
       padding:0 1.2rem 1.2rem;
     }
 
     .details-btn,
     .select-btn{
       width:100%;
+      padding:.7rem;
       border-radius:5px;
-      padding:.7rem .8rem;
       cursor:pointer;
-      font-size:.82rem;
+      font-size:.8rem;
     }
 
     .details-btn{
+      background:#fff;
       border:1px solid var(--ink-soft);
       color:var(--ink);
-      background:#fff;
       margin-bottom:.55rem;
     }
 
-    .details-btn:hover{
-      border-color:var(--gold-deep);
-      color:var(--gold-deep);
-    }
-
     .select-btn{
-      border:0;
       background:var(--ink);
+      border:0;
       color:#fff;
       font-weight:600;
     }
 
-    .select-btn:hover{
-      opacity:.94;
-    }
-
-    /* =========================
-       SELECTION
-    ========================= */
-
     .selected-panel{
       display:none;
-
       background:var(--amber);
       border-top:1px solid var(--amber-line);
-
       padding:1rem;
       text-align:center;
-
-      font-size:.78rem;
       color:var(--gold-deep);
+      font-size:.78rem;
     }
 
     .card.selected .selected-panel{
@@ -532,99 +385,26 @@
     .continue-btn{
       width:100%;
       margin-top:.7rem;
-
       border:0;
       border-radius:5px;
-
       background:var(--ink);
       color:#fff;
-
-      padding:.72rem .8rem;
+      padding:.72rem;
       cursor:pointer;
-
       font-weight:700;
     }
 
     .change-btn{
+      margin-top:.5rem;
       border:0;
       background:transparent;
       color:var(--ink-soft);
-
-      margin-top:.5rem;
-      cursor:pointer;
-
       text-decoration:underline;
+      cursor:pointer;
       font-size:.72rem;
     }
 
-    /* =========================
-       TRACE
-    ========================= */
-
-    .trace{
-      margin-top:2.5rem;
-      padding-top:1.4rem;
-      border-top:1px solid var(--line);
-    }
-
-    .trace-heading{
-      color:var(--gold-deep);
-      font-size:.68rem;
-      margin-bottom:.8rem;
-    }
-
-    .trace-step{
-      display:flex;
-      align-items:center;
-      gap:.55rem;
-      margin:.48rem 0;
-
-      font-size:.78rem;
-      color:var(--ink-soft);
-    }
-
-    .trace-dot{
-      width:18px;
-      height:18px;
-      border-radius:50%;
-
-      display:flex;
-      align-items:center;
-      justify-content:center;
-
-      border:1px solid var(--line);
-      background:#fff;
-
-      font-size:.56rem;
-      flex-shrink:0;
-    }
-
-    .trace-step.done{
-      color:var(--green);
-    }
-
-    .trace-step.done .trace-dot{
-      background:var(--green);
-      border-color:var(--green);
-      color:#fff;
-    }
-
-    .trace-step.current{
-      color:var(--ink);
-      font-weight:700;
-    }
-
-    .trace-step.current .trace-dot{
-      background:var(--gold);
-      border-color:var(--gold);
-      color:#fff;
-    }
-
-    /* =========================
-       RAW OUTPUT
-    ========================= */
-
-    .raw-output{
+    .raw{
       margin-top:2rem;
       background:#fff;
       border:1px solid var(--line);
@@ -632,24 +412,19 @@
       padding:.8rem 1rem;
     }
 
-    .raw-output summary{
-      cursor:pointer;
-      color:var(--ink-soft);
+    .raw summary{
       font-size:.72rem;
+      color:var(--ink-soft);
+      cursor:pointer;
     }
 
-    .raw-output pre{
+    .raw pre{
       margin-top:.8rem;
-      white-space:pre-wrap;
-      overflow-wrap:anywhere;
-      font-family:"Alexandria",sans-serif;
+      font-family:inherit;
       font-size:.68rem;
+      white-space:pre-wrap;
       color:var(--ink-soft);
     }
-
-    /* =========================
-       RESPONSIVE
-    ========================= */
 
     @media(max-width:900px){
       .context-grid{
@@ -665,105 +440,40 @@
       .context-grid{
         grid-template-columns:1fr;
       }
-
-      .workflow{
-        justify-content:flex-start;
-        flex-wrap:nowrap;
-        overflow-x:auto;
-      }
-
-      .workflow a,
-      .workflow span{
-        white-space:nowrap;
-      }
     }
-
   </style>
 </head>
 
 <body>
 
-  <!-- =========================
-       HEADER
-  ========================== -->
-
   <header class="topbar">
-
     <div class="brand">
-      ZAHRAA<span class="tm">™</span>
+      ZAHRAA<small>™</small>
     </div>
 
-    <a
-      href="scenario.html"
-      class="back-link"
-    >
+    <a href="scenario.html" class="back-link">
       ← تعديل بيانات الموقف
     </a>
-
   </header>
 
-
-  <!-- =========================
-       WORKFLOW NAVIGATION
-  ========================== -->
-
   <nav class="workflow">
-
-    <a
-      href="scenario.html"
-      class="done"
-    >
-      ✓ تحليل
-    </a>
-
+    <a href="scenario.html" class="done">✓ تحليل</a>
     <span class="sep">/</span>
 
-    <a
-      href="scenario.html"
-      class="done"
-    >
-      ✓ سؤال تكيفي
-    </a>
-
+    <a href="scenario.html" class="done">✓ سؤال تكيفي</a>
     <span class="sep">/</span>
 
-    <a
-      href="scenario.html"
-      class="done"
-    >
-      ✓ ملخص
-    </a>
-
+    <a href="scenario.html" class="done">✓ ملخص</a>
     <span class="sep">/</span>
 
-    <a
-      href="alternatives.html"
-      class="current"
-    >
-      ● بدائل
-    </a>
-
+    <a href="alternatives.html" class="current">● بدائل</a>
     <span class="sep">/</span>
 
-    <a href="teacher-approval.html">
-      ○ مراجعة القرار واعتماده
-    </a>
-
+    <a href="teacher-approval.html">○ مراجعة القرار واعتماده</a>
     <span class="sep">/</span>
 
-    <a
-      href="implementation-plan.html"
-      id="planNav"
-    >
-      ○ خطة التنفيذ
-    </a>
-
+    <a href="implementation-plan.html" id="planNav">○ خطة التنفيذ</a>
   </nav>
-
-
-  <!-- =========================
-       PAGE
-  ========================== -->
 
   <main class="frame">
 
@@ -775,185 +485,72 @@
       قارن بين البدائل قبل اعتماد القرار
     </h1>
 
-
-    <!-- Teacher Context -->
-
     <section class="context-grid">
 
       <div class="context-item">
-        <span class="context-label">
-          الصف / المرحلة
-        </span>
-
-        <div
-          class="context-value"
-          id="ctxGrade"
-        >
-          —
-        </div>
+        <span class="context-label">الصف / المرحلة</span>
+        <div class="context-value" id="ctxGrade">—</div>
       </div>
 
-
       <div class="context-item">
-        <span class="context-label">
-          المادة
-        </span>
-
-        <div
-          class="context-value"
-          id="ctxSubject"
-        >
-          —
-        </div>
+        <span class="context-label">المادة</span>
+        <div class="context-value" id="ctxSubject">—</div>
       </div>
 
-
       <div class="context-item">
-        <span class="context-label">
-          عنوان الدرس
-        </span>
-
-        <div
-          class="context-value"
-          id="ctxLesson"
-        >
-          —
-        </div>
+        <span class="context-label">عنوان الدرس</span>
+        <div class="context-value" id="ctxLesson">—</div>
       </div>
 
-
       <div class="context-item">
-        <span class="context-label">
-          ناتج التعلم
-        </span>
-
-        <div
-          class="context-value"
-          id="ctxGoal"
-        >
-          —
-        </div>
+        <span class="context-label">ناتج التعلم</span>
+        <div class="context-value" id="ctxGoal">—</div>
       </div>
 
-
       <div class="context-item">
-        <span class="context-label">
-          التحدي التربوي
-        </span>
-
-        <div
-          class="context-value"
-          id="ctxChallenge"
-        >
-          —
-        </div>
+        <span class="context-label">التحدي التربوي</span>
+        <div class="context-value" id="ctxChallenge">—</div>
       </div>
 
-
       <div class="context-item">
-        <span class="context-label">
-          مستوى الطلاب
-        </span>
-
-        <div
-          class="context-value"
-          id="ctxLevel"
-        >
-          —
-        </div>
+        <span class="context-label">مستوى الطلاب</span>
+        <div class="context-value" id="ctxLevel">—</div>
       </div>
 
     </section>
 
-
-    <!-- Evaluation -->
-
     <div class="evaluation">
-
-      <strong>
-        For Evaluation
-      </strong>
-
-      The alternatives below are generated from the current teacher
-      context. The Gemini reasoning endpoint retrieves relevant DataHub
-      curriculum evidence internally before producing pedagogically
-      distinct alternatives. The teacher—not the AI—makes the final decision.
-
+      <strong>For Evaluation</strong>
+      The alternatives below are generated from the current teacher context.
+      DataHub evidence is retrieved internally by the Gemini reasoning endpoint.
+      The teacher—not the AI—makes the final pedagogical decision.
     </div>
 
-
-    <!-- Source status -->
-
-    <div
-      id="sourceStatus"
-      class="source-status"
-    >
-      <span class="status-dot"></span>
-
-      <span>
-        سيتم استدعاء محرك Gemini، وسيقوم المحرك داخليًا بالبحث في DataHub مرة واحدة فقط.
-      </span>
-
+    <div class="status" id="sourceStatus">
+      جارٍ قراءة بيانات الجلسة الحالية...
     </div>
-
-
-    <!-- Why -->
 
     <div class="why">
-
-      <strong>
-        لماذا يعرض النظام ثلاثة بدائل؟
-      </strong>
-
-      لأن كل بديل يجب أن يمثل مسارًا تربويًا مختلفًا جوهريًا.
-      الذكاء الاصطناعي لا يعتمد القرار، وإنما يقدم بدائل يمكن
-      للمعلم تحليلها ومقارنتها قبل الاعتماد.
-
+      <strong>لماذا يعرض النظام ثلاثة بدائل؟</strong>
+      لأن كل بديل يمثل مسارًا تربويًا مختلفًا، وليس ترتيبًا من الأفضل إلى الأسوأ.
+      يختار المعلم القرار النهائي بعد المقارنة.
     </div>
 
-
-    <!-- Loading -->
-
-    <section
-      id="loadingBox"
-      class="loading-box"
-    >
-
+    <section id="loadingBox" class="loading">
       <div class="spinner"></div>
 
       <strong>
         جارٍ بناء البدائل من الموقف الحالي...
       </strong>
 
-      <p>
-        Teacher Context → DataHub Evidence → Gemini Reasoning → Alternatives
-      </p>
-
-      <p
-        class="loading-detail"
-        id="loadingDetail"
-      >
+      <p id="loadingDetail">
         يتم تجهيز سياق المعلم.
       </p>
-
     </section>
 
-
-    <!-- Error -->
-
-    <section
-      id="errorBox"
-      class="error-box hidden"
-    >
-
-      <strong>
-        تعذر إنشاء البدائل
-      </strong>
-
-      <div
-        id="errorText"
-        style="margin-top:.35rem;"
-      ></div>
+    <section id="errorBox" class="error-box hidden">
+      <strong>تعذر إنشاء البدائل</strong>
+      <div id="errorText" style="margin-top:.4rem;"></div>
 
       <button
         class="retry-btn"
@@ -962,98 +559,37 @@
       >
         إعادة المحاولة
       </button>
-
     </section>
 
+    <section id="cards" class="cards hidden"></section>
 
-    <!-- Cards -->
-
-    <section
-      id="cards"
-      class="cards hidden"
-    ></section>
-
-
-    <!-- Raw Gemini output -->
-
-    <details
-      id="rawOutput"
-      class="raw-output hidden"
-    >
-
+    <details id="rawOutput" class="raw hidden">
       <summary>
         عرض الاستجابة الأصلية لمحرك Gemini
       </summary>
 
       <pre id="rawText"></pre>
-
     </details>
 
-
-    <!-- Decision Trace -->
-
-    <section class="trace">
-
-      <div class="trace-heading">
-        Decision Trace — مسار القرار
-      </div>
-
-      <div class="trace-step done">
-        <span class="trace-dot">✓</span>
-        تحليل الموقف
-      </div>
-
-      <div class="trace-step done">
-        <span class="trace-dot">✓</span>
-        السؤال التكيفي والملخص
-      </div>
-
-      <div class="trace-step done">
-        <span class="trace-dot">✓</span>
-        Metadata Evidence / أدلة DataHub
-      </div>
-
-      <div class="trace-step current">
-        <span class="trace-dot">●</span>
-        البدائل التربوية
-      </div>
-
-      <div class="trace-step">
-        <span class="trace-dot">○</span>
-        مراجعة واعتماد المعلم
-      </div>
-
-      <div class="trace-step">
-        <span class="trace-dot">○</span>
-        خطة التنفيذ
-      </div>
-
-    </section>
-
   </main>
-
 
 <script>
 
 /* =========================================================
-   ZAHRAA™ Teacher Decision Lab
-   Dynamic Alternatives Page
-   DataHub lookup happens ONLY inside /api/gemini
-========================================================= */
-
-
-/* =========================================================
-   STORAGE KEYS
+   STORAGE
 ========================================================= */
 
 const SESSION_KEY =
   "zahraaDecisionSession";
 
-const HISTORY_KEY =
-  "zahraaDecisionSessionsHistory";
+const CONTEXT_KEY =
+  "zahraaDecisionContext";
 
 const GENERATED_KEY =
   "zahraaGeneratedAlternatives";
+
+const HISTORY_KEY =
+  "zahraaDecisionSessionsHistory";
 
 
 /* =========================================================
@@ -1061,8 +597,7 @@ const GENERATED_KEY =
 ========================================================= */
 
 let currentAlternatives = [];
-
-let isGenerating = false;
+let generating = false;
 
 
 /* =========================================================
@@ -1074,19 +609,12 @@ function $(id){
 }
 
 
-function safeParse(
-  value,
-  fallback = null
-){
+function safeParse(value,fallback = {}){
 
   try{
-
     return JSON.parse(value);
-
   }catch{
-
     return fallback;
-
   }
 
 }
@@ -1095,56 +623,150 @@ function safeParse(
 function esc(value = ""){
 
   return String(value)
-
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
-
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
-
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
-
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
-
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
 
 }
 
 
 /* =========================================================
-   SESSION
+   UNIFIED SESSION READER
 ========================================================= */
 
 function getSession(){
 
-  const stored =
-    localStorage.getItem(
-      SESSION_KEY
+  const modern =
+    safeParse(
+      localStorage.getItem(SESSION_KEY) || "{}",
+      {}
     );
 
-  const session =
+  const legacy =
     safeParse(
-      stored || "{}",
+      localStorage.getItem(CONTEXT_KEY) || "{}",
       {}
-    ) || {};
+    );
+
+  /*
+    دمج التخزينين.
+    modern له الأولوية إذا كان الحقل موجودًا.
+  */
+
+  const session = {
+    ...legacy,
+    ...modern
+  };
+
+
+  /*
+    توحيد أسماء الحقول القديمة والجديدة.
+  */
+
+  session.gradeLevel =
+    modern.gradeLevel ||
+    legacy.gradeLevel ||
+    legacy.grade ||
+    legacy.stage ||
+    legacy.educationLevel ||
+    "";
+
+  session.subject =
+    modern.subject ||
+    legacy.subject ||
+    legacy.course ||
+    legacy.material ||
+    "";
+
+  session.lessonTopic =
+    modern.lessonTopic ||
+    legacy.lessonTopic ||
+    legacy.lesson ||
+    legacy.topic ||
+    legacy.title ||
+    "";
+
+  session.lessonDuration =
+    modern.lessonDuration ||
+    legacy.lessonDuration ||
+    legacy.duration ||
+    legacy.classDuration ||
+    "";
+
+  session.studentCount =
+    modern.studentCount ||
+    legacy.studentCount ||
+    legacy.students ||
+    "";
+
+  session.studentLevel =
+    modern.studentLevel ||
+    legacy.studentLevel ||
+    legacy.level ||
+    legacy.challengeLevel ||
+    "";
+
+  session.learningGoal =
+    modern.learningGoal ||
+    legacy.learningGoal ||
+    legacy.outcome ||
+    legacy.learningOutcome ||
+    legacy.goal ||
+    "";
+
+  session.classChallenge =
+    modern.classChallenge ||
+    legacy.classChallenge ||
+    legacy.challenge ||
+    legacy.educationalChallenge ||
+    "";
+
+  session.availableResources =
+    modern.availableResources ||
+    legacy.availableResources ||
+    legacy.resources ||
+    "";
+
+  session.additionalConstraints =
+    modern.additionalConstraints ||
+    legacy.additionalConstraints ||
+    legacy.notes ||
+    legacy.constraints ||
+    "";
+
+  session.adaptiveAnswer =
+    modern.adaptiveAnswer ||
+    legacy.adaptiveAnswer ||
+    "";
+
+  /*
+    أنشئ معرف جلسة إذا لم يوجد.
+  */
+
+  if(!session.sessionId){
+    session.sessionId =
+      crypto.randomUUID?.() ||
+      String(Date.now());
+  }
+
+  /*
+    احفظ النسخة الموحدة.
+  */
+
+  localStorage.setItem(
+    SESSION_KEY,
+    JSON.stringify(session)
+  );
 
   return session;
-
 }
 
+
+/* =========================================================
+   SAVE SESSION
+========================================================= */
 
 function saveSession(session){
 
@@ -1153,25 +775,15 @@ function saveSession(session){
     JSON.stringify(session)
   );
 
-  if(
-    !session.sessionId
-  ){
-    return;
-  }
-
   const history =
     safeParse(
-      localStorage.getItem(
-        HISTORY_KEY
-      ) || "[]",
+      localStorage.getItem(HISTORY_KEY) || "[]",
       []
-    ) || [];
+    );
 
   const updated = {
     ...session,
-    updatedAt:
-      new Date()
-        .toISOString()
+    updatedAt:new Date().toISOString()
   };
 
   const index =
@@ -1181,19 +793,10 @@ function saveSession(session){
         session.sessionId
     );
 
-  if(
-    index >= 0
-  ){
-
-    history[index] =
-      updated;
-
+  if(index >= 0){
+    history[index] = updated;
   }else{
-
-    history.unshift(
-      updated
-    );
-
+    history.unshift(updated);
   }
 
   localStorage.setItem(
@@ -1207,7 +810,7 @@ function saveSession(session){
 
 
 /* =========================================================
-   CONTEXT
+   CONTEXT RENDER
 ========================================================= */
 
 function renderContext(){
@@ -1216,64 +819,44 @@ function renderContext(){
     getSession();
 
   $("ctxGrade").textContent =
-    session.gradeLevel ||
-    "غير محدد";
+    session.gradeLevel || "غير محدد";
 
   $("ctxSubject").textContent =
-    session.subject ||
-    "غير محدد";
+    session.subject || "غير محدد";
 
   $("ctxLesson").textContent =
-    session.lessonTopic ||
-    "غير محدد";
+    session.lessonTopic || "غير محدد";
 
   $("ctxGoal").textContent =
-    session.learningGoal ||
-    "غير محدد";
+    session.learningGoal || "غير محدد";
 
   $("ctxChallenge").textContent =
-    session.classChallenge ||
-    "غير محدد";
+    session.classChallenge || "غير محدد";
 
   $("ctxLevel").textContent =
-    session.studentLevel ||
-    "غير محدد";
+    session.studentLevel || "غير محدد";
 
   return session;
-
 }
 
 
-function hasRequiredContext(session){
+/* =========================================================
+   CONTEXT VALIDATION
+========================================================= */
+
+function hasContext(session){
 
   return Boolean(
-
-    session &&
-    (
-      session.subject ||
-      session.lessonTopic ||
-      session.learningGoal ||
-      session.classChallenge
-    )
-
+    session.subject &&
+    session.lessonTopic
   );
 
 }
 
 
 /* =========================================================
-   GEMINI
+   GEMINI CALL
 ========================================================= */
-
-/*
-  IMPORTANT:
-
-  لا يوجد fetch إلى /api/datahub هنا.
-
-  /api/gemini يقوم داخليًا باستدعاء /api/datahub.
-
-  وبالتالي DataHub يتم استدعاؤه مرة واحدة فقط.
-*/
 
 async function callGemini(
   task,
@@ -1283,18 +866,9 @@ async function callGemini(
   const controller =
     new AbortController();
 
-  /*
-    حد أقصى منطقي للانتظار.
-    إذا تعطل endpoint بالكامل لن تبقى الصفحة معلقة إلى الأبد.
-  */
-
   const timeout =
     setTimeout(
-      () => {
-
-        controller.abort();
-
-      },
+      () => controller.abort(),
       90000
     );
 
@@ -1311,11 +885,10 @@ async function callGemini(
               "application/json"
           },
 
-          body:
-            JSON.stringify({
-              task,
-              session
-            }),
+          body:JSON.stringify({
+            task,
+            session
+          }),
 
           signal:
             controller.signal
@@ -1325,61 +898,41 @@ async function callGemini(
     let data;
 
     try{
-
-      data =
-        await response.json();
-
+      data = await response.json();
     }catch{
-
       throw new Error(
-        "لم يُرجع الخادم استجابة JSON صحيحة."
+        "الخادم لم يُرجع استجابة JSON صحيحة."
       );
-
     }
 
-    if(
-      !response.ok
-    ){
-
+    if(!response.ok){
       throw new Error(
         data?.error ||
         "تعذر الاتصال بمحرك Gemini."
       );
-
     }
 
-    if(
-      !data?.text
-    ){
-
+    if(!data?.text){
       throw new Error(
-        "لم يُرجع Gemini نص البدائل."
+        "لم يُرجع Gemini نصًا."
       );
-
     }
 
     return data.text;
 
   }catch(error){
 
-    if(
-      error?.name ===
-      "AbortError"
-    ){
-
+    if(error?.name === "AbortError"){
       throw new Error(
-        "استغرق إنشاء البدائل وقتًا أطول من المتوقع. أعيدي المحاولة."
+        "استغرق إنشاء البدائل وقتًا أطول من المتوقع."
       );
-
     }
 
     throw error;
 
   }finally{
 
-    clearTimeout(
-      timeout
-    );
+    clearTimeout(timeout);
 
   }
 
@@ -1387,44 +940,24 @@ async function callGemini(
 
 
 /* =========================================================
-   NORMALIZE GEMINI OUTPUT
+   NORMALIZE
 ========================================================= */
 
 function normalizeText(text){
 
-  return String(
-    text || ""
-  )
-
+  return String(text || "")
     .replace(/\r/g,"")
-
-    .replace(
-      /#{1,6}\s*/g,
-      ""
-    )
-
-    .replace(
-      /\*\*/g,
-      ""
-    )
-
-    .replace(
-      /^\s*[-•]\s*/gm,
-      ""
-    )
-
-    .replace(
-      /\n{3,}/g,
-      "\n\n"
-    )
-
+    .replace(/#{1,6}\s*/g,"")
+    .replace(/\*\*/g,"")
+    .replace(/^\s*[-•]\s*/gm,"")
+    .replace(/\n{3,}/g,"\n\n")
     .trim();
 
 }
 
 
 /* =========================================================
-   FIELD CONFIG
+   PARSING CONFIG
 ========================================================= */
 
 const FIELD_ALIASES = {
@@ -1504,31 +1037,15 @@ function extractField(
 
   const lines =
     block
-
       .split("\n")
-
-      .map(
-        line =>
-          line.trim()
-      )
-
+      .map(line=>line.trim())
       .filter(Boolean);
 
-  for(
-    let i = 0;
-    i < lines.length;
-    i++
-  ){
+  for(let i=0;i<lines.length;i++){
 
-    const line =
-      lines[i];
+    for(const alias of aliases){
 
-    for(
-      const alias
-      of aliases
-    ){
-
-      const escapedAlias =
+      const escaped =
         alias.replace(
           /[.*+?^${}()|[\]\\]/g,
           "\\$&"
@@ -1537,42 +1054,33 @@ function extractField(
       const regex =
         new RegExp(
           "^\\s*" +
-          escapedAlias +
+          escaped +
           "\\s*[:：]\\s*(.*)$",
           "i"
         );
 
       const match =
-        line.match(regex);
+        lines[i].match(regex);
 
       if(match){
 
         let value =
-          (
-            match[1] ||
-            ""
-          ).trim();
+          (match[1] || "").trim();
 
         if(
           !value &&
           lines[i+1]
         ){
-
           value =
-            lines[i+1];
-
+            lines[i+1].trim();
         }
 
-        return value.trim();
-
+        return value;
       }
-
     }
-
   }
 
   return "";
-
 }
 
 
@@ -1585,40 +1093,762 @@ function splitAlternativeBlocks(text){
   const normalized =
     normalizeText(text);
 
-  /*
-    Preferred structure from our Gemini prompt:
-    اسم القرار: ...
-  */
-
   let blocks =
     normalized
-
       .split(
         /(?=اسم\s+(?:القرار|البديل)\s*[:：])/g
       )
-
-      .map(
-        item =>
-          item.trim()
-      )
-
+      .map(item=>item.trim())
       .filter(
         item =>
-          /اسم\s+(?:القرار|البديل)\s*[:：]/.test(
-            item
+          /اسم\s+(?:القرار|البديل)\s*[:：]/.test(item)
+      );
+
+  if(blocks.length < 3){
+
+    const second =
+      normalized
+        .split(
+          /(?=(?:البديل|بديل)\s+(?:الأول|الثاني|الثالث|1|2|3|A|B|C|أ|ب|ج)\s*[:：\-–]?)/g
+        )
+        .map(item=>item.trim())
+        .filter(item=>item.length > 40);
+
+    if(second.length >= 3){
+      blocks = second;
+    }
+  }
+
+  return blocks.slice(0,3);
+}
+
+
+/* =========================================================
+   PARSE ONE ALTERNATIVE
+========================================================= */
+
+function parseAlternative(
+  block,
+  index
+){
+
+  const get =
+    key =>
+      extractField(
+        block,
+        FIELD_ALIASES[key]
+      );
+
+  return {
+
+    id:
+      `alternative-${index+1}`,
+
+    name:
+      get("name") ||
+      `البديل التربوي ${index+1}`,
+
+    gap:
+      get("gap"),
+
+    rationale:
+      get("rationale"),
+
+    start:
+      get("start"),
+
+    sequence:
+      get("sequence"),
+
+    teacher:
+      get("teacher"),
+
+    student:
+      get("student"),
+
+    assessment:
+      get("assessment"),
+
+    differentiation:
+      get("differentiation"),
+
+    strongest:
+      get("strongest"),
+
+    limitation:
+      get("limitation"),
+
+    constraint:
+      get("constraint"),
+
+    raw:block
+  };
+}
+
+
+/* =========================================================
+   FALLBACK
+========================================================= */
+
+function fallbackAlternatives(text){
+
+  const paragraphs =
+    normalizeText(text)
+      .split(/\n{2,}/)
+      .map(p=>p.trim())
+      .filter(p=>p.length>20);
+
+  const groups = [[],[],[]];
+
+  paragraphs.forEach(
+    (paragraph,index)=>{
+      groups[index%3].push(paragraph);
+    }
+  );
+
+  return groups.map(
+    (group,index)=>({
+
+      id:`alternative-${index+1}`,
+
+      name:`البديل التربوي ${index+1}`,
+
+      gap:"",
+
+      rationale:
+        group.join("\n\n"),
+
+      start:"",
+      sequence:"",
+      teacher:"",
+      student:"",
+      assessment:"",
+      differentiation:"",
+      strongest:"",
+      limitation:"",
+      constraint:"",
+
+      raw:
+        group.join("\n\n")
+
+    })
+  );
+}
+
+
+/* =========================================================
+   FIELD HTML
+========================================================= */
+
+function fieldHTML(label,value){
+
+  if(!value){
+    return "";
+  }
+
+  return `
+    <div class="field">
+      <span class="field-label">
+        ${esc(label)}
+      </span>
+
+      <div class="field-value">
+        ${esc(value)}
+      </div>
+    </div>
+  `;
+}
+
+
+/* =========================================================
+   RENDER CARDS
+========================================================= */
+
+function renderAlternatives(
+  alternatives
+){
+
+  const letters = ["A","B","C"];
+
+  $("cards").innerHTML =
+    alternatives.map(
+      (alt,index)=>`
+
+      <article
+        class="card"
+        id="${alt.id}"
+      >
+
+        <div class="card-header">
+
+          <span class="badge">
+            البديل ${letters[index]} · Generated
+          </span>
+
+          <div class="card-title">
+            ${esc(alt.name)}
+          </div>
+
+        </div>
+
+        <div class="card-body">
+
+          ${fieldHTML(
+            "الفجوة التي يعالجها",
+            alt.gap
+          )}
+
+          ${fieldHTML(
+            "منطق التدريس",
+            alt.rationale
+          )}
+
+          ${fieldHTML(
+            "المخرج الأقوى",
+            alt.strongest
+          )}
+
+          ${fieldHTML(
+            "ما قد لا يتحقق بصورة كافية",
+            alt.limitation
+          )}
+
+          <div class="more">
+
+            ${fieldHTML(
+              "نقطة البداية",
+              alt.start
+            )}
+
+            ${fieldHTML(
+              "تسلسل بناء المفهوم",
+              alt.sequence
+            )}
+
+            ${fieldHTML(
+              "دور المعلم",
+              alt.teacher
+            )}
+
+            ${fieldHTML(
+              "دور الطالب",
+              alt.student
+            )}
+
+            ${fieldHTML(
+              "نوع التقويم",
+              alt.assessment
+            )}
+
+            ${fieldHTML(
+              "نوع التمايز",
+              alt.differentiation
+            )}
+
+            ${fieldHTML(
+              "القيد المحتمل",
+              alt.constraint
+            )}
+
+          </div>
+
+        </div>
+
+        <div class="actions">
+
+          <button
+            class="details-btn"
+            type="button"
+            onclick="
+              toggleDetails(
+                '${alt.id}',
+                this
+              )
+            "
+          >
+            عرض التحليل الكامل
+          </button>
+
+          <button
+            class="select-btn"
+            type="button"
+            onclick="
+              selectAlternative(
+                ${index}
+              )
+            "
+          >
+            اختيار هذا البديل
+          </button>
+
+        </div>
+
+        <div class="selected-panel">
+
+          ✓ تم اختيار هذا البديل للمراجعة النهائية
+
+          <button
+            class="continue-btn"
+            type="button"
+            onclick="goToApproval()"
+          >
+            الانتقال إلى مراجعة القرار ←
+          </button>
+
+          <button
+            class="change-btn"
+            type="button"
+            onclick="clearSelection()"
+          >
+            تغيير القرار
+          </button>
+
+        </div>
+
+      </article>
+    `
+    ).join("");
+
+  $("cards")
+    .classList.remove("hidden");
+}
+
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+function toggleDetails(
+  id,
+  button
+){
+
+  const card =
+    document.getElementById(id);
+
+  if(!card){
+    return;
+  }
+
+  card.classList.toggle("open");
+
+  button.textContent =
+    card.classList.contains("open")
+      ? "إخفاء التحليل"
+      : "عرض التحليل الكامل";
+}
+
+
+/* =========================================================
+   SELECT
+========================================================= */
+
+function selectAlternative(index){
+
+  const alt =
+    currentAlternatives[index];
+
+  if(!alt){
+    return;
+  }
+
+  document
+    .querySelectorAll(".card")
+    .forEach(
+      (card,cardIndex)=>{
+
+        if(cardIndex === index){
+
+          card.classList.add("selected");
+          card.classList.remove("dimmed");
+
+        }else{
+
+          card.classList.remove("selected");
+          card.classList.add("dimmed");
+
+        }
+      }
+    );
+
+  const session =
+    getSession();
+
+  session.selectedAlternative =
+    alt.id;
+
+  session.selectedAlternativeData =
+    alt;
+
+  session.approvedDecision =
+    alt.name;
+
+  session.teacherApproval =
+    false;
+
+  session.sessionStatus =
+    "ALTERNATIVE_SELECTED";
+
+  saveSession(session);
+}
+
+
+/* =========================================================
+   CLEAR
+========================================================= */
+
+function clearSelection(){
+
+  document
+    .querySelectorAll(".card")
+    .forEach(
+      card =>
+        card.classList.remove(
+          "selected",
+          "dimmed"
+        )
+    );
+
+  const session =
+    getSession();
+
+  delete session.selectedAlternative;
+  delete session.selectedAlternativeData;
+  delete session.approvedDecision;
+
+  session.teacherApproval =
+    false;
+
+  session.sessionStatus =
+    "ALTERNATIVES_GENERATED";
+
+  saveSession(session);
+}
+
+
+/* =========================================================
+   APPROVAL
+========================================================= */
+
+function goToApproval(){
+
+  const session =
+    getSession();
+
+  if(
+    !session.selectedAlternative
+  ){
+
+    alert(
+      "اختاري أحد البدائل أولًا."
+    );
+
+    return;
+  }
+
+  window.location.href =
+    "teacher-approval.html";
+}
+
+
+/* =========================================================
+   CACHE
+========================================================= */
+
+function readCache(session){
+
+  const raw =
+    localStorage.getItem(
+      GENERATED_KEY
+    );
+
+  if(!raw){
+    return null;
+  }
+
+  const cached =
+    safeParse(raw,null);
+
+  if(!cached){
+    return null;
+  }
+
+  const same =
+    String(cached.subject||"") ===
+      String(session.subject||"")
+    &&
+    String(cached.lessonTopic||"") ===
+      String(session.lessonTopic||"")
+    &&
+    String(cached.learningGoal||"") ===
+      String(session.learningGoal||"");
+
+  if(
+    same &&
+    cached.text
+  ){
+    return cached.text;
+  }
+
+  return null;
+}
+
+
+function saveCache(
+  session,
+  text
+){
+
+  localStorage.setItem(
+    GENERATED_KEY,
+    JSON.stringify({
+
+      subject:
+        session.subject || "",
+
+      lessonTopic:
+        session.lessonTopic || "",
+
+      learningGoal:
+        session.learningGoal || "",
+
+      text,
+
+      generatedAt:
+        new Date().toISOString()
+    })
+  );
+}
+
+
+/* =========================================================
+   PROCESS GEMINI
+========================================================= */
+
+function processOutput(
+  session,
+  text
+){
+
+  const normalized =
+    normalizeText(text);
+
+  $("rawText").textContent =
+    normalized;
+
+  $("rawOutput")
+    .classList.remove("hidden");
+
+  const blocks =
+    splitAlternativeBlocks(
+      normalized
+    );
+
+  let alternatives;
+
+  if(blocks.length >= 3){
+
+    alternatives =
+      blocks.map(
+        (block,index)=>
+          parseAlternative(
+            block,
+            index
           )
       );
 
+  }else{
 
-  /*
-    Alternative format:
-    البديل الأول:
-    البديل الثاني:
-    البديل الثالث:
-  */
+    alternatives =
+      fallbackAlternatives(
+        normalized
+      );
+  }
 
-  if(
-    blocks.length < 3
-  ){
+  currentAlternatives =
+    alternatives;
 
-    const
+  session.generatedAlternatives =
+    alternatives;
+
+  session.alternativesRaw =
+    normalized;
+
+  session.sessionStatus =
+    "ALTERNATIVES_GENERATED";
+
+  session.teacherApproval =
+    false;
+
+  delete session.selectedAlternative;
+  delete session.selectedAlternativeData;
+  delete session.approvedDecision;
+
+  saveSession(session);
+
+  renderAlternatives(
+    alternatives
+  );
+}
+
+
+/* =========================================================
+   GENERATE
+========================================================= */
+
+async function generateAlternatives(
+  force = false
+){
+
+  if(generating){
+    return;
+  }
+
+  generating = true;
+
+  $("loadingBox")
+    .classList.remove("hidden");
+
+  $("errorBox")
+    .classList.add("hidden");
+
+  $("cards")
+    .classList.add("hidden");
+
+  $("rawOutput")
+    .classList.add("hidden");
+
+  try{
+
+    const session =
+      renderContext();
+
+    if(
+      !hasContext(session)
+    ){
+
+      throw new Error(
+        "لم أجد المادة أو عنوان الدرس في التخزين المحلي. عودي إلى صفحة تحليل الموقف وأدخلي الجلسة ثم تابعي المسار."
+      );
+    }
+
+    $("sourceStatus").textContent =
+      "✓ تم العثور على بيانات الجلسة الحالية.";
+
+    $("sourceStatus")
+      .classList.add("success");
+
+
+    if(!force){
+
+      const cached =
+        readCache(session);
+
+      if(cached){
+
+        $("loadingDetail").textContent =
+          "تم العثور على بدائل محفوظة لنفس الموقف.";
+
+        processOutput(
+          session,
+          cached
+        );
+
+        return;
+      }
+    }
+
+
+    $("loadingDetail").textContent =
+      "يتم إرسال الجلسة إلى Gemini؛ DataHub يُستدعى داخليًا مرة واحدة فقط.";
+
+
+    const text =
+      await callGemini(
+        "alternatives",
+        session
+      );
+
+
+    $("loadingDetail").textContent =
+      "تم استلام البدائل، جارٍ عرضها...";
+
+
+    saveCache(
+      session,
+      text
+    );
+
+
+    processOutput(
+      session,
+      text
+    );
+
+
+  }catch(error){
+
+    console.error(error);
+
+    $("errorText").textContent =
+      error?.message ||
+      "حدث خطأ أثناء إنشاء البدائل.";
+
+    $("errorBox")
+      .classList.remove("hidden");
+
+  }finally{
+
+    $("loadingBox")
+      .classList.add("hidden");
+
+    generating = false;
+  }
+}
+
+
+/* =========================================================
+   PLAN PROTECTION
+========================================================= */
+
+$("planNav")
+  .addEventListener(
+    "click",
+    event=>{
+
+      const session =
+        getSession();
+
+      if(
+        session.teacherApproval !== true
+      ){
+
+        event.preventDefault();
+
+        alert(
+          "يجب اعتماد القرار من المعلم أولًا."
+        );
+      }
+    }
+  );
+
+
+/* =========================================================
+   START
+========================================================= */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  ()=>{
+
+    renderContext();
+
+    generateAlternatives();
+
+  }
+);
+
+</script>
+
+</body>
+</html>
