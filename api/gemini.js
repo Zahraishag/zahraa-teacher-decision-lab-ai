@@ -1,7 +1,8 @@
 const PRIMARY_MODEL = "gemini-3.6-flash";
 const FALLBACK_MODEL = "gemini-3.5-flash-lite";
 
-export default async function handler(request, response) {
+emodule.exports = async function handler(request, response) {
+ {
 <<<<<<< HEAD
   // =========================================================
   // 1) السماح بطلب POST فقط
