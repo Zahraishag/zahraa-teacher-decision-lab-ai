@@ -32,7 +32,6 @@ export default async function handler(req, res) {
         ? JSON.parse(req.body)
         : req.body || {};
 
-    // نقبل بيانات الجلسة مباشرة أو داخل session
     const session = body.session || body;
 
     const subject = String(session.subject || "").trim();
@@ -48,10 +47,6 @@ export default async function handler(req, res) {
       });
     }
 
-    /*
-      نبدأ بموضوع الدرس لأنه أدق مفتاح بحث.
-      إذا لم يوجد، نستخدم الهدف ثم المادة.
-    */
     const searchTerm =
       lessonTopic ||
       learningGoal ||
@@ -118,7 +113,6 @@ export default async function handler(req, res) {
       });
     }
 
-    // GraphQL قد يرجع HTTP 200 ومع ذلك يحتوي errors.
     if (data?.errors?.length) {
       return res.status(502).json({
         connected: false,
@@ -131,10 +125,6 @@ export default async function handler(req, res) {
     const results =
       data?.data?.search?.searchResults || [];
 
-    /*
-      نفضّل بيانات ZAHRAA فقط.
-      datasets التي رفعناها تستخدم platform = zahraa_curriculum
-    */
     const zahraaResults = results.filter((item) => {
       const platform =
         item?.entity?.platform?.name || "";
@@ -183,11 +173,68 @@ export default async function handler(req, res) {
       }
     );
 
+    const evidenceUrns = evidence
+      .map((item) => item.urn)
+      .filter(Boolean);
+
+    const evidenceNames = evidence
+      .map((item) => item.name)
+      .filter(Boolean);
+
+    const decisionTrace = [
+      {
+        step: 1,
+        stage: "Teacher Context",
+        detail: {
+          subject,
+          gradeLevel,
+          lessonTopic,
+          learningGoal,
+          classChallenge
+        }
+      },
+      {
+        step: 2,
+        stage: "DataHub Metadata Search",
+        detail: {
+          searchTerm
+        }
+      },
+      {
+        step: 3,
+        stage: "Curriculum Evidence Retrieved",
+        detail: {
+          count: evidence.length,
+          urns: evidenceUrns,
+          names: evidenceNames
+        }
+      },
+      {
+        step: 4,
+        stage: "Pedagogical Reasoning",
+        detail:
+          "Retrieved DataHub evidence is passed to the reasoning workflow."
+      },
+      {
+        step: 5,
+        stage: "Teacher Decision",
+        detail:
+          "The teacher remains the final authority before implementation."
+      }
+    ];
+
+    console.log("DataHub evidence trace:", {
+      searchTerm,
+      evidenceCount: evidence.length,
+      evidenceUrns
+    });
+
     return res.status(200).json({
       connected: true,
       source: "DataHub",
       searchTerm,
       evidenceCount: evidence.length,
+
       teacherContext: {
         subject,
         gradeLevel,
@@ -195,15 +242,15 @@ export default async function handler(req, res) {
         learningGoal,
         classChallenge
       },
+
       evidence,
-      trace: [
-        "Teacher Context",
-        "DataHub Metadata Search",
-        "ZAHRAA Curriculum Metadata",
-        "Metadata Evidence",
-        "Pedagogical Reasoning",
-        "Teacher Decision"
-      ]
+
+      evidenceReferences: {
+        urns: evidenceUrns,
+        names: evidenceNames
+      },
+
+      trace: decisionTrace
     });
   } catch (error) {
     console.error("DataHub endpoint error:", error);
@@ -216,6 +263,3 @@ export default async function handler(req, res) {
     });
   }
 }
-
-
-
