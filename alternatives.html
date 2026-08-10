@@ -1,1011 +1,1624 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>البدائل التربوية — ZAHRAA™ Teacher Decision Lab</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link
-  href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap"
-  rel="stylesheet"
-/>
-
-<style>
-
-:root{
-  --ink:#5A3E2B;
-  --ink-soft:#8B7F72;
-  --paper:#FAF7F0;
-  --raised:#FFFFFF;
-  --gold:#C9A24B;
-  --gold-deep:#B08A3A;
-  --amber:#FAF1DC;
-  --amber-line:#EBD9A8;
-  --line:#EAE2D3;
-  --green:#456B55;
-  --green-bg:#EEF6F0;
-  --danger:#8A4A3A;
-}
-
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
-
-body{
-  font-family:"Alexandria",sans-serif;
-  background:var(--paper);
-  color:var(--ink);
-  line-height:1.8;
-}
-
-a{
-  color:inherit;
-  text-decoration:none;
-}
-
-/* Header */
-
-.topbar{
-  background:#fff;
-  border-bottom:1px solid var(--line);
-  padding:1rem clamp(1rem,4vw,3rem);
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-.brand{
-  font-weight:800;
-  letter-spacing:.02em;
-}
-
-.brand small{
-  color:var(--gold-deep);
-  font-size:.55rem;
-  vertical-align:super;
-}
-
-.edit-context{
-  color:var(--ink-soft);
-  font-size:.8rem;
-}
-
-.edit-context:hover{
-  color:var(--gold-deep);
-}
-
-/* Native workflow links */
-
-.workflow{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:.35rem;
-  padding:.9rem 1rem;
-  background:#fff;
-  border-bottom:1px solid var(--line);
-  font-size:.73rem;
-}
-
-.workflow a{
-  padding:.35rem .55rem;
-  border-radius:999px;
-  color:var(--ink-soft);
-}
-
-.workflow a:hover{
-  background:var(--amber);
-  color:var(--gold-deep);
-}
-
-.workflow .done{
-  color:var(--gold-deep);
-}
-
-.workflow .current{
-  background:var(--amber);
-  color:var(--ink);
-  border:1px solid var(--amber-line);
-  font-weight:700;
-}
-
-.sep{
-  color:#d8cebf;
-}
-
-/* Layout */
-
-.frame{
-  max-width:1220px;
-  margin:auto;
-  padding:2rem clamp(1rem,4vw,3rem) 6rem;
-}
-
-.eyebrow{
-  color:var(--gold-deep);
-  font-size:.72rem;
-  letter-spacing:.08em;
-  margin-bottom:.5rem;
-}
-
-h1{
-  font-size:clamp(1.65rem,3vw,2.2rem);
-  line-height:1.4;
-  margin-bottom:1.2rem;
-}
-
-.context{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
-  gap:.8rem 1.2rem;
-
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:8px;
-
-  padding:1.1rem;
-  margin-bottom:1rem;
-
-  font-size:.86rem;
-}
-
-.context strong{
-  display:block;
-  font-size:.68rem;
-  color:var(--ink-soft);
-  margin-bottom:.15rem;
-}
-
-.eval{
-  direction:ltr;
-  text-align:left;
-
-  background:var(--amber);
-  border:1px solid var(--amber-line);
-  border-inline-start:4px solid var(--gold);
-
-  padding:.85rem 1rem;
-  border-radius:6px;
-
-  color:var(--ink-soft);
-  font-size:.8rem;
-
-  margin-bottom:1rem;
-}
-
-.eval strong{
-  display:block;
-  color:var(--gold-deep);
-  font-size:.68rem;
-  text-transform:uppercase;
-  margin-bottom:.2rem;
-}
-
-/* DataHub */
-
-.datahub{
-  background:#fff;
-  border:1px solid var(--line);
-  padding:.8rem 1rem;
-  border-radius:6px;
-  margin-bottom:1.2rem;
-  font-size:.78rem;
-  color:var(--ink-soft);
-}
-
-.datahub.connected{
-  border-color:#bed5c5;
-  background:var(--green-bg);
-  color:var(--green);
-}
-
-.datahub strong{
-  color:inherit;
-}
-
-/* Loading */
-
-.loading{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:8px;
-  padding:2rem;
-  text-align:center;
-  margin-top:1.4rem;
-}
-
-.loader{
-  width:30px;
-  height:30px;
-  border-radius:50%;
-  border:3px solid var(--line);
-  border-top-color:var(--gold);
-  margin:0 auto 1rem;
-  animation:spin .8s linear infinite;
-}
-
-@keyframes spin{
-  to{transform:rotate(360deg);}
-}
-
-.hidden{
-  display:none !important;
-}
-
-/* Error */
-
-.error-box{
-  background:#fff4f1;
-  border:1px solid #e8c5bb;
-  color:var(--danger);
-  border-radius:7px;
-  padding:1rem;
-  margin-top:1rem;
-}
-
-.retry{
-  margin-top:.8rem;
-  border:none;
-  background:var(--ink);
-  color:#fff;
-  font-family:inherit;
-  padding:.65rem 1rem;
-  border-radius:5px;
-  cursor:pointer;
-}
-
-/* Why */
-
-.why{
-  background:#fff;
-  border:1px solid var(--line);
-  padding:.9rem 1rem;
-  border-radius:7px;
-  margin:1rem 0 1.2rem;
-  color:var(--ink-soft);
-  font-size:.84rem;
-}
-
-.why strong{
-  color:var(--ink);
-}
-
-/* Cards */
-
-.cards{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:1.2rem;
-}
-
-.card{
-  background:#fff;
-  border:1px solid var(--line);
-  border-radius:8px;
-  overflow:hidden;
-
-  display:flex;
-  flex-direction:column;
-
-  transition:
-    transform .18s,
-    border-color .18s,
-    box-shadow .18s,
-    opacity .18s;
-}
-
-.card:hover:not(.selected):not(.dimmed){
-  transform:translateY(-3px);
-  border-color:var(--gold);
-  box-shadow:0 12px 28px rgba(96,70,42,.10);
-}
-
-.card.dimmed{
-  opacity:.38;
-}
-
-.card.selected{
-  border:2px solid var(--gold);
-}
-
-.card-head{
-  padding:1.2rem;
-  border-bottom:1px solid var(--line);
-}
-
-.badge{
-  display:inline-block;
-  font-size:.63rem;
-  background:var(--amber);
-  color:var(--gold-deep);
-  border:1px solid var(--amber-line);
-  border-radius:999px;
-  padding:.2rem .55rem;
-  margin-bottom:.7rem;
-}
-
-.card h2{
-  font-size:1.08rem;
-  line-height:1.5;
-}
-
-.card-body{
-  padding:1.1rem 1.2rem;
-  flex:1;
-}
-
-.field{
-  margin-bottom:.85rem;
-}
-
-.field-label{
-  display:block;
-  color:var(--ink-soft);
-  font-size:.67rem;
-  margin-bottom:.18rem;
-}
-
-.field-value{
-  font-size:.86rem;
-}
-
-.more{
-  display:none;
-  padding-top:.5rem;
-  border-top:1px dashed var(--line);
-}
-
-.card.open .more{
-  display:block;
-}
-
-.actions{
-  padding:0 1.2rem 1.2rem;
-}
-
-.details-btn,
-.select-btn{
-  width:100%;
-  font-family:inherit;
-  cursor:pointer;
-  border-radius:5px;
-  padding:.68rem .8rem;
-}
-
-.details-btn{
-  background:transparent;
-  color:var(--ink);
-  border:1px solid var(--ink-soft);
-  margin-bottom:.55rem;
-}
-
-.select-btn{
-  background:var(--ink);
-  color:#fff;
-  border:none;
-  font-weight:600;
-}
-
-.selected-panel{
-  display:none;
-  background:var(--amber);
-  border-top:1px solid var(--amber-line);
-  padding:1rem;
-  text-align:center;
-  color:var(--gold-deep);
-  font-size:.82rem;
-}
-
-.card.selected .selected-panel{
-  display:block;
-}
-
-.continue-btn{
-  display:block;
-  width:100%;
-  margin-top:.8rem;
-  background:var(--ink);
-  color:#fff;
-  border:none;
-  padding:.75rem;
-  border-radius:5px;
-  font-family:inherit;
-  font-weight:700;
-  cursor:pointer;
-}
-
-.change-btn{
-  margin-top:.55rem;
-  border:none;
-  background:transparent;
-  color:var(--ink-soft);
-  font-family:inherit;
-  text-decoration:underline;
-  cursor:pointer;
-}
-
-/* Raw AI trace */
-
-.raw-trace{
-  margin-top:2rem;
-  padding:1rem;
-  border:1px solid var(--line);
-  border-radius:7px;
-  background:#fff;
-}
-
-.raw-trace summary{
-  cursor:pointer;
-  color:var(--ink-soft);
-  font-size:.78rem;
-}
-
-.raw-trace pre{
-  margin-top:.8rem;
-  white-space:pre-wrap;
-  font-family:inherit;
-  font-size:.72rem;
-  color:var(--ink-soft);
-  direction:rtl;
-}
-
-/* Decision trace */
-
-.trace{
-  margin-top:2.5rem;
-  border-top:1px solid var(--line);
-  padding-top:1.4rem;
-}
-
-.trace-title{
-  font-size:.72rem;
-  color:var(--gold-deep);
-  margin-bottom:.8rem;
-}
-
-.trace-row{
-  display:flex;
-  align-items:center;
-  gap:.55rem;
-  margin:.5rem 0;
-  font-size:.8rem;
-  color:var(--ink-soft);
-}
-
-.dot{
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  border:1px solid var(--line);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:.58rem;
-}
-
-.trace-row.done{
-  color:var(--gold-deep);
-}
-
-.trace-row.done .dot{
-  background:var(--gold-deep);
-  color:#fff;
-}
-
-.trace-row.current{
-  color:var(--ink);
-  font-weight:700;
-}
-
-.trace-row.current .dot{
-  background:var(--gold);
-  color:#fff;
-}
-
-@media(max-width:900px){
-  .cards{
-    grid-template-columns:1fr;
-  }
-}
-
-@media(max-width:650px){
-  .workflow{
-    justify-content:flex-start;
-    overflow-x:auto;
-    flex-wrap:nowrap;
-  }
-
-  .workflow a{
-    white-space:nowrap;
-  }
-}
-
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>البدائل التربوية — ZAHRAA™ Teacher Decision Lab</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root{
+      --ink:#5A3E2B;
+      --ink-soft:#8B7F72;
+      --paper:#FAF7F0;
+      --white:#FFFFFF;
+      --gold:#C9A24B;
+      --gold-deep:#B08A3A;
+      --amber:#FAF1DC;
+      --amber-line:#EBD9A8;
+      --line:#EAE2D3;
+      --green:#3F6B50;
+      --green-bg:#EDF6F0;
+      --red:#914B3D;
+      --red-bg:#FFF3EF;
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:"Alexandria",sans-serif;
+      background:var(--paper);
+      color:var(--ink);
+      line-height:1.75;
+      padding-bottom:5rem;
+    }
+
+    button,
+    input,
+    textarea{
+      font-family:inherit;
+    }
+
+    a{
+      text-decoration:none;
+      color:inherit;
+    }
+
+    /* =========================
+       TOP BAR
+    ========================= */
+
+    .topbar{
+      background:#fff;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:1rem;
+      padding:1rem clamp(1rem,4vw,3rem);
+    }
+
+    .brand{
+      font-weight:800;
+      letter-spacing:.02em;
+      color:var(--ink);
+    }
+
+    .brand .tm{
+      color:var(--gold-deep);
+      font-size:.55rem;
+      vertical-align:super;
+    }
+
+    .back-link{
+      font-size:.78rem;
+      color:var(--ink-soft);
+    }
+
+    .back-link:hover{
+      color:var(--gold-deep);
+    }
+
+    /* =========================
+       WORKFLOW
+    ========================= */
+
+    .workflow{
+      background:#fff;
+      border-bottom:1px solid var(--line);
+      padding:.8rem 1rem;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:.4rem;
+
+      flex-wrap:wrap;
+      font-size:.72rem;
+    }
+
+    .workflow a,
+    .workflow span.step{
+      padding:.3rem .5rem;
+      border-radius:999px;
+      color:var(--ink-soft);
+    }
+
+    .workflow .done{
+      color:var(--green);
+    }
+
+    .workflow .current{
+      background:var(--amber);
+      border:1px solid var(--amber-line);
+      color:var(--ink);
+      font-weight:700;
+    }
+
+    .workflow .sep{
+      color:#D5CABA;
+    }
+
+    /* =========================
+       PAGE
+    ========================= */
+
+    .frame{
+      max-width:1240px;
+      margin:auto;
+      padding:2rem clamp(1rem,4vw,3rem);
+    }
+
+    .eyebrow{
+      font-size:.7rem;
+      color:var(--gold-deep);
+      letter-spacing:.07em;
+      margin-bottom:.35rem;
+    }
+
+    h1{
+      font-size:clamp(1.7rem,3vw,2.35rem);
+      line-height:1.45;
+      margin-bottom:1.3rem;
+    }
+
+    /* =========================
+       CONTEXT
+    ========================= */
+
+    .context-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:.8rem;
+      margin-bottom:1rem;
+    }
+
+    .context-item{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:7px;
+      padding:.85rem 1rem;
+    }
+
+    .context-label{
+      display:block;
+      color:var(--ink-soft);
+      font-size:.65rem;
+      margin-bottom:.2rem;
+    }
+
+    .context-value{
+      font-size:.83rem;
+      font-weight:500;
+      overflow-wrap:anywhere;
+    }
+
+    /* =========================
+       EVALUATION NOTE
+    ========================= */
+
+    .evaluation{
+      direction:ltr;
+      text-align:left;
+
+      background:var(--amber);
+      border:1px solid var(--amber-line);
+      border-left:4px solid var(--gold);
+
+      border-radius:7px;
+      padding:.85rem 1rem;
+
+      font-size:.78rem;
+      color:var(--ink-soft);
+
+      margin-bottom:1rem;
+    }
+
+    .evaluation strong{
+      display:block;
+      color:var(--gold-deep);
+      font-size:.64rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:.2rem;
+    }
+
+    /* =========================
+       SOURCE STATUS
+    ========================= */
+
+    .source-status{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:7px;
+
+      padding:.85rem 1rem;
+      margin-bottom:1rem;
+
+      font-size:.78rem;
+      color:var(--ink-soft);
+
+      display:flex;
+      align-items:center;
+      gap:.55rem;
+    }
+
+    .status-dot{
+      width:9px;
+      height:9px;
+      border-radius:50%;
+      background:var(--gold);
+      flex-shrink:0;
+    }
+
+    .source-status.success{
+      background:var(--green-bg);
+      border-color:#C8DDCF;
+      color:var(--green);
+    }
+
+    .source-status.success .status-dot{
+      background:var(--green);
+    }
+
+    /* =========================
+       WHY
+    ========================= */
+
+    .why{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:7px;
+      padding:.85rem 1rem;
+
+      color:var(--ink-soft);
+      font-size:.82rem;
+
+      margin-bottom:1.2rem;
+    }
+
+    .why strong{
+      color:var(--ink);
+      display:block;
+      margin-bottom:.2rem;
+    }
+
+    /* =========================
+       LOADING
+    ========================= */
+
+    .loading-box{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:9px;
+      padding:2.4rem 1.5rem;
+      text-align:center;
+      margin-top:1rem;
+    }
+
+    .spinner{
+      width:34px;
+      height:34px;
+      margin:0 auto 1rem;
+
+      border-radius:50%;
+      border:3px solid var(--line);
+      border-top-color:var(--gold);
+
+      animation:spin .8s linear infinite;
+    }
+
+    @keyframes spin{
+      to{
+        transform:rotate(360deg);
+      }
+    }
+
+    .loading-box strong{
+      display:block;
+      font-size:.95rem;
+    }
+
+    .loading-box p{
+      margin-top:.45rem;
+      color:var(--ink-soft);
+      font-size:.72rem;
+    }
+
+    .loading-detail{
+      margin-top:.8rem !important;
+      color:var(--gold-deep) !important;
+    }
+
+    /* =========================
+       ERROR
+    ========================= */
+
+    .error-box{
+      background:var(--red-bg);
+      border:1px solid #E7C5BA;
+      color:var(--red);
+
+      border-radius:8px;
+      padding:1rem;
+
+      margin-top:1rem;
+    }
+
+    .retry-btn{
+      margin-top:.8rem;
+      border:0;
+      background:var(--ink);
+      color:#fff;
+
+      padding:.65rem 1rem;
+      border-radius:5px;
+      cursor:pointer;
+    }
+
+    .hidden{
+      display:none !important;
+    }
+
+    /* =========================
+       CARDS
+    ========================= */
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.2rem;
+      align-items:start;
+      margin-top:1rem;
+    }
+
+    .card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:9px;
+      overflow:hidden;
+
+      transition:
+        transform .18s ease,
+        border-color .18s ease,
+        box-shadow .18s ease,
+        opacity .18s ease;
+
+      min-width:0;
+    }
+
+    .card:hover:not(.selected):not(.dimmed){
+      transform:translateY(-3px);
+      border-color:var(--gold);
+      box-shadow:0 12px 26px rgba(90,62,43,.09);
+    }
+
+    .card.selected{
+      border:2px solid var(--gold);
+      box-shadow:0 12px 28px rgba(201,162,75,.16);
+    }
+
+    .card.dimmed{
+      opacity:.4;
+    }
+
+    .card-header{
+      padding:1.2rem;
+      border-bottom:1px solid var(--line);
+    }
+
+    .alt-badge{
+      display:inline-flex;
+      border-radius:999px;
+      background:var(--amber);
+      border:1px solid var(--amber-line);
+      color:var(--gold-deep);
+
+      padding:.2rem .55rem;
+      font-size:.62rem;
+
+      margin-bottom:.7rem;
+    }
+
+    .card-title{
+      font-size:1.08rem;
+      line-height:1.5;
+      font-weight:700;
+    }
+
+    .ai-label{
+      display:block;
+      direction:ltr;
+      text-align:left;
+
+      color:var(--ink-soft);
+      font-size:.62rem;
+      margin-top:.25rem;
+    }
+
+    .card-body{
+      padding:1.1rem 1.2rem;
+    }
+
+    .field{
+      margin-bottom:.85rem;
+    }
+
+    .field:last-child{
+      margin-bottom:0;
+    }
+
+    .field-label{
+      display:block;
+      color:var(--ink-soft);
+      font-size:.65rem;
+      margin-bottom:.18rem;
+    }
+
+    .field-value{
+      color:var(--ink);
+      font-size:.82rem;
+      white-space:pre-line;
+      overflow-wrap:anywhere;
+    }
+
+    .primary-summary{
+      padding-bottom:.5rem;
+    }
+
+    .more-details{
+      display:none;
+      margin-top:.8rem;
+      padding-top:.9rem;
+      border-top:1px dashed var(--line);
+    }
+
+    .card.open .more-details{
+      display:block;
+    }
+
+    .card-actions{
+      padding:0 1.2rem 1.2rem;
+    }
+
+    .details-btn,
+    .select-btn{
+      width:100%;
+      border-radius:5px;
+      padding:.7rem .8rem;
+      cursor:pointer;
+      font-size:.82rem;
+    }
+
+    .details-btn{
+      border:1px solid var(--ink-soft);
+      color:var(--ink);
+      background:#fff;
+      margin-bottom:.55rem;
+    }
+
+    .details-btn:hover{
+      border-color:var(--gold-deep);
+      color:var(--gold-deep);
+    }
+
+    .select-btn{
+      border:0;
+      background:var(--ink);
+      color:#fff;
+      font-weight:600;
+    }
+
+    .select-btn:hover{
+      opacity:.94;
+    }
+
+    /* =========================
+       SELECTION
+    ========================= */
+
+    .selected-panel{
+      display:none;
+
+      background:var(--amber);
+      border-top:1px solid var(--amber-line);
+
+      padding:1rem;
+      text-align:center;
+
+      font-size:.78rem;
+      color:var(--gold-deep);
+    }
+
+    .card.selected .selected-panel{
+      display:block;
+    }
+
+    .continue-btn{
+      width:100%;
+      margin-top:.7rem;
+
+      border:0;
+      border-radius:5px;
+
+      background:var(--ink);
+      color:#fff;
+
+      padding:.72rem .8rem;
+      cursor:pointer;
+
+      font-weight:700;
+    }
+
+    .change-btn{
+      border:0;
+      background:transparent;
+      color:var(--ink-soft);
+
+      margin-top:.5rem;
+      cursor:pointer;
+
+      text-decoration:underline;
+      font-size:.72rem;
+    }
+
+    /* =========================
+       TRACE
+    ========================= */
+
+    .trace{
+      margin-top:2.5rem;
+      padding-top:1.4rem;
+      border-top:1px solid var(--line);
+    }
+
+    .trace-heading{
+      color:var(--gold-deep);
+      font-size:.68rem;
+      margin-bottom:.8rem;
+    }
+
+    .trace-step{
+      display:flex;
+      align-items:center;
+      gap:.55rem;
+      margin:.48rem 0;
+
+      font-size:.78rem;
+      color:var(--ink-soft);
+    }
+
+    .trace-dot{
+      width:18px;
+      height:18px;
+      border-radius:50%;
+
+      display:flex;
+      align-items:center;
+      justify-content:center;
+
+      border:1px solid var(--line);
+      background:#fff;
+
+      font-size:.56rem;
+      flex-shrink:0;
+    }
+
+    .trace-step.done{
+      color:var(--green);
+    }
+
+    .trace-step.done .trace-dot{
+      background:var(--green);
+      border-color:var(--green);
+      color:#fff;
+    }
+
+    .trace-step.current{
+      color:var(--ink);
+      font-weight:700;
+    }
+
+    .trace-step.current .trace-dot{
+      background:var(--gold);
+      border-color:var(--gold);
+      color:#fff;
+    }
+
+    /* =========================
+       RAW OUTPUT
+    ========================= */
+
+    .raw-output{
+      margin-top:2rem;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:7px;
+      padding:.8rem 1rem;
+    }
+
+    .raw-output summary{
+      cursor:pointer;
+      color:var(--ink-soft);
+      font-size:.72rem;
+    }
+
+    .raw-output pre{
+      margin-top:.8rem;
+      white-space:pre-wrap;
+      overflow-wrap:anywhere;
+      font-family:"Alexandria",sans-serif;
+      font-size:.68rem;
+      color:var(--ink-soft);
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================= */
+
+    @media(max-width:900px){
+      .context-grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .cards{
+        grid-template-columns:1fr;
+      }
+    }
+
+    @media(max-width:600px){
+      .context-grid{
+        grid-template-columns:1fr;
+      }
+
+      .workflow{
+        justify-content:flex-start;
+        flex-wrap:nowrap;
+        overflow-x:auto;
+      }
+
+      .workflow a,
+      .workflow span{
+        white-space:nowrap;
+      }
+    }
+
+  </style>
 </head>
 
 <body>
 
-<header class="topbar">
+  <!-- =========================
+       HEADER
+  ========================== -->
 
-  <div class="brand">
-    ZAHRAA<small>™</small>
-  </div>
+  <header class="topbar">
 
-  <a
-    href="scenario.html"
-    class="edit-context"
-  >
-    ← تعديل بيانات الموقف
-  </a>
+    <div class="brand">
+      ZAHRAA<span class="tm">™</span>
+    </div>
 
-</header>
+    <a
+      href="scenario.html"
+      class="back-link"
+    >
+      ← تعديل بيانات الموقف
+    </a>
 
-<nav
-  class="workflow"
-  aria-label="مسار القرار التربوي"
->
+  </header>
 
-  <a
-    class="done"
-    href="scenario.html"
-  >
-    ✓ تحليل
-  </a>
 
-  <span class="sep">/</span>
+  <!-- =========================
+       WORKFLOW NAVIGATION
+  ========================== -->
 
-  <a
-    class="done"
-    href="scenario.html"
-  >
-    ✓ سؤال تكيفي
-  </a>
+  <nav class="workflow">
 
-  <span class="sep">/</span>
+    <a
+      href="scenario.html"
+      class="done"
+    >
+      ✓ تحليل
+    </a>
 
-  <a
-    class="done"
-    href="scenario.html"
-  >
-    ✓ ملخص
-  </a>
+    <span class="sep">/</span>
 
-  <span class="sep">/</span>
+    <a
+      href="scenario.html"
+      class="done"
+    >
+      ✓ سؤال تكيفي
+    </a>
 
-  <a
-    class="current"
-    href="alternatives.html"
-  >
-    ● بدائل
-  </a>
+    <span class="sep">/</span>
 
-  <span class="sep">/</span>
+    <a
+      href="scenario.html"
+      class="done"
+    >
+      ✓ ملخص
+    </a>
 
-  <a
-    href="teacher-approval.html"
-  >
-    ○ مراجعة القرار واعتماده
-  </a>
+    <span class="sep">/</span>
 
-  <span class="sep">/</span>
+    <a
+      href="alternatives.html"
+      class="current"
+    >
+      ● بدائل
+    </a>
 
-  <a
-    id="planNav"
-    href="implementation-plan.html"
-  >
-    ○ خطة التنفيذ
-  </a>
+    <span class="sep">/</span>
 
-</nav>
+    <a href="teacher-approval.html">
+      ○ مراجعة القرار واعتماده
+    </a>
 
-<main class="frame">
+    <span class="sep">/</span>
 
-  <div class="eyebrow">
-    البدائل التربوية
-  </div>
+    <a
+      href="implementation-plan.html"
+      id="planNav"
+    >
+      ○ خطة التنفيذ
+    </a>
 
-  <h1>
-    قارن بين البدائل قبل اعتماد القرار
-  </h1>
+  </nav>
 
-  <section class="context">
 
-    <div>
-      <strong>الصف / المرحلة</strong>
-      <span id="ctxGrade">
-        جارٍ القراءة...
-      </span>
-    </div>
+  <!-- =========================
+       PAGE
+  ========================== -->
 
-    <div>
-      <strong>المادة</strong>
-      <span id="ctxSubject">
-        جارٍ القراءة...
-      </span>
-    </div>
+  <main class="frame">
 
-    <div>
-      <strong>عنوان الدرس</strong>
-      <span id="ctxLesson">
-        جارٍ القراءة...
-      </span>
-    </div>
+    <div class="eyebrow">
+      البدائل التربوية
+    </div>
 
-    <div>
-      <strong>ناتج التعلم</strong>
-      <span id="ctxGoal">
-        جارٍ القراءة...
-      </span>
-    </div>
+    <h1>
+      قارن بين البدائل قبل اعتماد القرار
+    </h1>
 
-    <div>
-      <strong>التحدي التربوي</strong>
-      <span id="ctxChallenge">
-        جارٍ القراءة...
-      </span>
-    </div>
 
-    <div>
-      <strong>مستوى الطلاب</strong>
-      <span id="ctxLevel">
-        جارٍ القراءة...
-      </span>
-    </div>
+    <!-- Teacher Context -->
 
-  </section>
+    <section class="context-grid">
 
-  <div class="eval">
+      <div class="context-item">
+        <span class="context-label">
+          الصف / المرحلة
+        </span>
 
-    <strong>
-      For Evaluation
-    </strong>
+        <div
+          class="context-value"
+          id="ctxGrade"
+        >
+          —
+        </div>
+      </div>
 
-    The alternatives below are generated from the
-    current teacher context and curriculum evidence.
-    The teacher—not the AI—selects the final
-    pedagogical decision.
 
-  </div>
+      <div class="context-item">
+        <span class="context-label">
+          المادة
+        </span>
 
-  <div
-    id="datahubStatus"
-    class="datahub"
-  >
-    <strong>DataHub:</strong>
-    جارٍ التحقق من أدلة المنهج...
-  </div>
+        <div
+          class="context-value"
+          id="ctxSubject"
+        >
+          —
+        </div>
+      </div>
 
-  <div class="why">
 
-    <strong>
-      لماذا يعرض النظام ثلاثة بدائل؟
-    </strong>
+      <div class="context-item">
+        <span class="context-label">
+          عنوان الدرس
+        </span>
 
-    لأن الهدف ليس أن يختار الذكاء الاصطناعي
-    نيابة عن المعلم، بل أن يقدم بدائل تربوية
-    مختلفة جوهريًا يمكن للمعلم مقارنتها
-    قبل اتخاذ القرار.
+        <div
+          class="context-value"
+          id="ctxLesson"
+        >
+          —
+        </div>
+      </div>
 
-  </div>
 
-  <div
-    id="loading"
-    class="loading"
-  >
+      <div class="context-item">
+        <span class="context-label">
+          ناتج التعلم
+        </span>
 
-    <div class="loader"></div>
+        <div
+          class="context-value"
+          id="ctxGoal"
+        >
+          —
+        </div>
+      </div>
 
-    <strong>
-      جارٍ بناء البدائل من الموقف الحالي...
-    </strong>
 
-    <p style="font-size:.78rem;color:var(--ink-soft);margin-top:.4rem;">
-      Teacher Context → DataHub Evidence →
-      Gemini Reasoning → Alternatives
-    </p>
+      <div class="context-item">
+        <span class="context-label">
+          التحدي التربوي
+        </span>
 
-  </div>
+        <div
+          class="context-value"
+          id="ctxChallenge"
+        >
+          —
+        </div>
+      </div>
 
-  <div
-    id="errorBox"
-    class="error-box hidden"
-  >
 
-    <strong>
-      تعذر تحميل البدائل.
-    </strong>
+      <div class="context-item">
+        <span class="context-label">
+          مستوى الطلاب
+        </span>
 
-    <div
-      id="errorText"
-      style="margin-top:.3rem;"
-    ></div>
+        <div
+          class="context-value"
+          id="ctxLevel"
+        >
+          —
+        </div>
+      </div>
 
-    <button
-      class="retry"
-      type="button"
-      onclick="generateAlternatives(true)"
-    >
-      إعادة المحاولة
-    </button>
+    </section>
 
-  </div>
 
-  <section
-    id="cards"
-    class="cards hidden"
-  ></section>
+    <!-- Evaluation -->
 
-  <details
-    id="rawTrace"
-    class="raw-trace hidden"
-  >
+    <div class="evaluation">
 
-    <summary>
-      عرض الاستجابة الأصلية لمحرك الاستدلال
-      — Reasoning Output
-    </summary>
+      <strong>
+        For Evaluation
+      </strong>
 
-    <pre id="rawText"></pre>
+      The alternatives below are generated from the current teacher
+      context. The Gemini reasoning endpoint retrieves relevant DataHub
+      curriculum evidence internally before producing pedagogically
+      distinct alternatives. The teacher—not the AI—makes the final decision.
 
-  </details>
+    </div>
 
-  <section class="trace">
 
-    <div class="trace-title">
-      Decision Trace — مسار القرار
-    </div>
+    <!-- Source status -->
 
-    <div class="trace-row done">
-      <span class="dot">✓</span>
-      تحليل الموقف
-    </div>
+    <div
+      id="sourceStatus"
+      class="source-status"
+    >
+      <span class="status-dot"></span>
 
-    <div class="trace-row done">
-      <span class="dot">✓</span>
-      أدلة المنهج / Metadata Evidence
-    </div>
+      <span>
+        سيتم استدعاء محرك Gemini، وسيقوم المحرك داخليًا بالبحث في DataHub مرة واحدة فقط.
+      </span>
 
-    <div class="trace-row current">
-      <span class="dot">●</span>
-      البدائل التربوية
-    </div>
+    </div>
 
-    <div class="trace-row">
-      <span class="dot">○</span>
-      اعتماد المعلم
-    </div>
 
-    <div class="trace-row">
-      <span class="dot">○</span>
-      خطة التنفيذ
-    </div>
+    <!-- Why -->
 
-  </section>
+    <div class="why">
 
-</main>
+      <strong>
+        لماذا يعرض النظام ثلاثة بدائل؟
+      </strong>
+
+      لأن كل بديل يجب أن يمثل مسارًا تربويًا مختلفًا جوهريًا.
+      الذكاء الاصطناعي لا يعتمد القرار، وإنما يقدم بدائل يمكن
+      للمعلم تحليلها ومقارنتها قبل الاعتماد.
+
+    </div>
+
+
+    <!-- Loading -->
+
+    <section
+      id="loadingBox"
+      class="loading-box"
+    >
+
+      <div class="spinner"></div>
+
+      <strong>
+        جارٍ بناء البدائل من الموقف الحالي...
+      </strong>
+
+      <p>
+        Teacher Context → DataHub Evidence → Gemini Reasoning → Alternatives
+      </p>
+
+      <p
+        class="loading-detail"
+        id="loadingDetail"
+      >
+        يتم تجهيز سياق المعلم.
+      </p>
+
+    </section>
+
+
+    <!-- Error -->
+
+    <section
+      id="errorBox"
+      class="error-box hidden"
+    >
+
+      <strong>
+        تعذر إنشاء البدائل
+      </strong>
+
+      <div
+        id="errorText"
+        style="margin-top:.35rem;"
+      ></div>
+
+      <button
+        class="retry-btn"
+        type="button"
+        onclick="generateAlternatives(true)"
+      >
+        إعادة المحاولة
+      </button>
+
+    </section>
+
+
+    <!-- Cards -->
+
+    <section
+      id="cards"
+      class="cards hidden"
+    ></section>
+
+
+    <!-- Raw Gemini output -->
+
+    <details
+      id="rawOutput"
+      class="raw-output hidden"
+    >
+
+      <summary>
+        عرض الاستجابة الأصلية لمحرك Gemini
+      </summary>
+
+      <pre id="rawText"></pre>
+
+    </details>
+
+
+    <!-- Decision Trace -->
+
+    <section class="trace">
+
+      <div class="trace-heading">
+        Decision Trace — مسار القرار
+      </div>
+
+      <div class="trace-step done">
+        <span class="trace-dot">✓</span>
+        تحليل الموقف
+      </div>
+
+      <div class="trace-step done">
+        <span class="trace-dot">✓</span>
+        السؤال التكيفي والملخص
+      </div>
+
+      <div class="trace-step done">
+        <span class="trace-dot">✓</span>
+        Metadata Evidence / أدلة DataHub
+      </div>
+
+      <div class="trace-step current">
+        <span class="trace-dot">●</span>
+        البدائل التربوية
+      </div>
+
+      <div class="trace-step">
+        <span class="trace-dot">○</span>
+        مراجعة واعتماد المعلم
+      </div>
+
+      <div class="trace-step">
+        <span class="trace-dot">○</span>
+        خطة التنفيذ
+      </div>
+
+    </section>
+
+  </main>
+
 
 <script>
 
 /* =========================================================
-   ZAHRAA™ DYNAMIC ALTERNATIVES CONTROLLER
+   ZAHRAA™ Teacher Decision Lab
+   Dynamic Alternatives Page
+   DataHub lookup happens ONLY inside /api/gemini
+========================================================= */
+
+
+/* =========================================================
+   STORAGE KEYS
 ========================================================= */
 
 const SESSION_KEY =
-  "zahraaDecisionSession";
-
-const LEGACY_CONTEXT_KEY =
-  "zahraaDecisionContext";
-
-const GENERATED_KEY =
-  "zahraaGeneratedAlternatives";
+  "zahraaDecisionSession";
 
 const HISTORY_KEY =
-  "zahraaDecisionSessionsHistory";
+  "zahraaDecisionSessionsHistory";
+
+const GENERATED_KEY =
+  "zahraaGeneratedAlternatives";
 
 
 /* =========================================================
-   HELPERS
+   STATE
+========================================================= */
+
+let currentAlternatives = [];
+
+let isGenerating = false;
+
+
+/* =========================================================
+   HELPERS
 ========================================================= */
 
 function $(id){
-  return document.getElementById(id);
+  return document.getElementById(id);
 }
+
+
+function safeParse(
+  value,
+  fallback = null
+){
+
+  try{
+
+    return JSON.parse(value);
+
+  }catch{
+
+    return fallback;
+
+  }
+
+}
+
 
 function esc(value = ""){
 
-  return String(value)
+  return String(value)
 
-    .replaceAll(
-      "&",
-      "&amp;"
-    )
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
 
-    .replaceAll(
-      "<",
-      "&lt;"
-    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
 
-    .replaceAll(
-      ">",
-      "&gt;"
-    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
 
-    .replaceAll(
-      '"',
-      "&quot;"
-    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
 
-    .replaceAll(
-      "'",
-      "&#039;"
-    );
-
-}
-
-function safeJSON(
-  raw,
-  fallback = {}
-){
-
-  try{
-
-    return JSON.parse(raw);
-
-  }catch{
-
-    return fallback;
-
-  }
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
 
 }
 
 
 /* =========================================================
-   READ CURRENT CONTEXT
+   SESSION
 ========================================================= */
 
 function getSession(){
 
-  const modern =
-    safeJSON(
-      localStorage.getItem(
-        SESSION_KEY
-      ) || "{}",
-      {}
-    );
+  const stored =
+    localStorage.getItem(
+      SESSION_KEY
+    );
 
-  const legacy =
-    safeJSON(
-      localStorage.getItem(
-        LEGACY_CONTEXT_KEY
-      ) || "{}",
-      {}
-    );
+  const session =
+    safeParse(
+      stored || "{}",
+      {}
+    ) || {};
 
-  /*
-    ندعم أسماء الحقول في النسختين القديمة والجديدة.
-  */
+  return session;
 
-  const session = {
+}
 
-    ...legacy,
-    ...modern
 
-  };
+function saveSession(session){
 
-  session.gradeLevel =
-    session.gradeLevel ||
-    legacy.grade ||
-    legacy.gradeLevel ||
-    "";
+  localStorage.setItem(
+    SESSION_KEY,
+    JSON.stringify(session)
+  );
 
-  session.subject =
-    session.subject ||
-    legacy.subject ||
-    "";
+  if(
+    !session.sessionId
+  ){
+    return;
+  }
 
-  session.lessonTopic =
-    session.lessonTopic ||
-    legacy.lesson ||
-    legacy.lessonTopic ||
-    "";
+  const history =
+    safeParse(
+      localStorage.getItem(
+        HISTORY_KEY
+      ) || "[]",
+      []
+    ) || [];
 
-  session.learningGoal =
-    session.learningGoal ||
-    legacy.outcome ||
-    legacy.learningGoal ||
-    "";
+  const updated = {
+    ...session,
+    updatedAt:
+      new Date()
+        .toISOString()
+  };
 
-  session.classChallenge =
-    session.classChallenge ||
-    legacy.challenge ||
-    legacy.classChallenge ||
-    "";
+  const index =
+    history.findIndex(
+      item =>
+        item.sessionId ===
+        session.sessionId
+    );
 
-  session.studentLevel =
-    session.studentLevel ||
-    legacy.level ||
-    legacy.studentLevel ||
-    "";
+  if(
+    index >= 0
+  ){
 
-  session.lessonDuration =
-    session.lessonDuration ||
-    legacy.duration ||
-    legacy.lessonDuration ||
-    "";
+    history[index] =
+      updated;
 
-  session.studentCount =
-    session.studentCount ||
-    legacy.studentCount ||
-    "";
+  }else{
 
-  session.availableResources =
-    session.availableResources ||
-    legacy.resources ||
-    legacy.availableResources ||
-    "";
+    history.unshift(
+      updated
+    );
 
-  session.additionalConstraints =
-    session.additionalConstraints ||
-    legacy.notes ||
-    legacy.additionalConstraints ||
-    "";
+  }
 
-  /*
-    احفظ نسخة موحدة حتى تستخدمها
-    teacher-approval.html
-    و implementation-plan.html.
-  */
-
-  localStorage.setItem(
-    SESSION_KEY,
-    JSON.stringify(session)
-  );
-
-  return session;
+  localStorage.setItem(
+    HISTORY_KEY,
+    JSON.stringify(
+      history.slice(0,20)
+    )
+  );
 
 }
 
 
 /* =========================================================
-   SAVE SESSION + HISTORY
+   CONTEXT
 ========================================================= */
 
-function saveSession(
-  session
+function renderContext(){
+
+  const session =
+    getSession();
+
+  $("ctxGrade").textContent =
+    session.gradeLevel ||
+    "غير محدد";
+
+  $("ctxSubject").textContent =
+    session.subject ||
+    "غير محدد";
+
+  $("ctxLesson").textContent =
+    session.lessonTopic ||
+    "غير محدد";
+
+  $("ctxGoal").textContent =
+    session.learningGoal ||
+    "غير محدد";
+
+  $("ctxChallenge").textContent =
+    session.classChallenge ||
+    "غير محدد";
+
+  $("ctxLevel").textContent =
+    session.studentLevel ||
+    "غير محدد";
+
+  return session;
+
+}
+
+
+function hasRequiredContext(session){
+
+  return Boolean(
+
+    session &&
+    (
+      session.subject ||
+      session.lessonTopic ||
+      session.learningGoal ||
+      session.classChallenge
+    )
+
+  );
+
+}
+
+
+/* =========================================================
+   GEMINI
+========================================================= */
+
+/*
+  IMPORTANT:
+
+  لا يوجد fetch إلى /api/datahub هنا.
+
+  /api/gemini يقوم داخليًا باستدعاء /api/datahub.
+
+  وبالتالي DataHub يتم استدعاؤه مرة واحدة فقط.
+*/
+
+async function callGemini(
+  task,
+  session
 ){
 
-  localStorage.setItem(
-    SESSION_KEY,
-    JSON.stringify(session)
-  );
+  const controller =
+    new AbortController();
 
-  if(
-    !session.sessionId
-  ){
-    return;
-  }
+  /*
+    حد أقصى منطقي للانتظار.
+    إذا تعطل endpoint بالكامل لن تبقى الصفحة معلقة إلى الأبد.
+  */
 
-  const history =
-    safeJSON(
-      localStorage.getItem(
-        HISTORY_KEY
-      ) || "[]",
-      []
-    );
+  const timeout =
+    setTimeout(
+      () => {
 
-  const updated = {
-    ...session,
-    updatedAt:
-      new Date().toISOString()
-  };
+        controller.abort();
 
-  const
+      },
+      90000
+    );
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/gemini",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify({
+              task,
+              session
+            }),
+
+          signal:
+            controller.signal
+        }
+      );
+
+    let data;
+
+    try{
+
+      data =
+        await response.json();
+
+    }catch{
+
+      throw new Error(
+        "لم يُرجع الخادم استجابة JSON صحيحة."
+      );
+
+    }
+
+    if(
+      !response.ok
+    ){
+
+      throw new Error(
+        data?.error ||
+        "تعذر الاتصال بمحرك Gemini."
+      );
+
+    }
+
+    if(
+      !data?.text
+    ){
+
+      throw new Error(
+        "لم يُرجع Gemini نص البدائل."
+      );
+
+    }
+
+    return data.text;
+
+  }catch(error){
+
+    if(
+      error?.name ===
+      "AbortError"
+    ){
+
+      throw new Error(
+        "استغرق إنشاء البدائل وقتًا أطول من المتوقع. أعيدي المحاولة."
+      );
+
+    }
+
+    throw error;
+
+  }finally{
+
+    clearTimeout(
+      timeout
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   NORMALIZE GEMINI OUTPUT
+========================================================= */
+
+function normalizeText(text){
+
+  return String(
+    text || ""
+  )
+
+    .replace(/\r/g,"")
+
+    .replace(
+      /#{1,6}\s*/g,
+      ""
+    )
+
+    .replace(
+      /\*\*/g,
+      ""
+    )
+
+    .replace(
+      /^\s*[-•]\s*/gm,
+      ""
+    )
+
+    .replace(
+      /\n{3,}/g,
+      "\n\n"
+    )
+
+    .trim();
+
+}
+
+
+/* =========================================================
+   FIELD CONFIG
+========================================================= */
+
+const FIELD_ALIASES = {
+
+  name:[
+    "اسم القرار",
+    "اسم البديل"
+  ],
+
+  gap:[
+    "الفجوة التي يعالجها",
+    "الفجوة"
+  ],
+
+  rationale:[
+    "منطق التدريس",
+    "المنطق التربوي",
+    "منطق التعليم"
+  ],
+
+  start:[
+    "نقطة البداية"
+  ],
+
+  sequence:[
+    "تسلسل بناء المفهوم",
+    "تسلسل التعلم"
+  ],
+
+  teacher:[
+    "دور المعلم"
+  ],
+
+  student:[
+    "دور الطالب"
+  ],
+
+  assessment:[
+    "نوع التقويم",
+    "التقويم"
+  ],
+
+  differentiation:[
+    "نوع التمايز",
+    "التمايز"
+  ],
+
+  strongest:[
+    "المخرج الأقوى",
+    "أقوى مخرج متوقع",
+    "المخرج الأساسي"
+  ],
+
+  limitation:[
+    "ما قد لا يتحقق بصورة كافية",
+    "ما قد لا يتحقق",
+    "ما الذي قد لا يتحقق"
+  ],
+
+  constraint:[
+    "القيد الذي قد يمنع اختياره",
+    "القيد المحتمل",
+    "القيد"
+  ]
+
+};
+
+
+/* =========================================================
+   FIELD EXTRACTOR
+========================================================= */
+
+function extractField(
+  block,
+  aliases
+){
+
+  const lines =
+    block
+
+      .split("\n")
+
+      .map(
+        line =>
+          line.trim()
+      )
+
+      .filter(Boolean);
+
+  for(
+    let i = 0;
+    i < lines.length;
+    i++
+  ){
+
+    const line =
+      lines[i];
+
+    for(
+      const alias
+      of aliases
+    ){
+
+      const escapedAlias =
+        alias.replace(
+          /[.*+?^${}()|[\]\\]/g,
+          "\\$&"
+        );
+
+      const regex =
+        new RegExp(
+          "^\\s*" +
+          escapedAlias +
+          "\\s*[:：]\\s*(.*)$",
+          "i"
+        );
+
+      const match =
+        line.match(regex);
+
+      if(match){
+
+        let value =
+          (
+            match[1] ||
+            ""
+          ).trim();
+
+        if(
+          !value &&
+          lines[i+1]
+        ){
+
+          value =
+            lines[i+1];
+
+        }
+
+        return value.trim();
+
+      }
+
+    }
+
+  }
+
+  return "";
+
+}
+
+
+/* =========================================================
+   SPLIT THREE ALTERNATIVES
+========================================================= */
+
+function splitAlternativeBlocks(text){
+
+  const normalized =
+    normalizeText(text);
+
+  /*
+    Preferred structure from our Gemini prompt:
+    اسم القرار: ...
+  */
+
+  let blocks =
+    normalized
+
+      .split(
+        /(?=اسم\s+(?:القرار|البديل)\s*[:：])/g
+      )
+
+      .map(
+        item =>
+          item.trim()
+      )
+
+      .filter(
+        item =>
+          /اسم\s+(?:القرار|البديل)\s*[:：]/.test(
+            item
+          )
+      );
+
+
+  /*
+    Alternative format:
+    البديل الأول:
+    البديل الثاني:
+    البديل الثالث:
+  */
+
+  if(
+    blocks.length < 3
+  ){
+
+    const
