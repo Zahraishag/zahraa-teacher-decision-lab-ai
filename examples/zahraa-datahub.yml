@@ -1,0 +1,10 @@
+source:
+  type: csv
+  config:
+    filename: "./examples/zahraa-curriculum.csv"
+
+sink:
+  type: datahub-rest
+  config:
+    server: "${DATAHUB_GMS_URL}"
+    token: "${DATAHUB_TOKEN}"
