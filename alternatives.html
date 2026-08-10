@@ -3,734 +3,1896 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>البدائل التربوية — ZAHRAA™ Teacher Decision Lab</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link
+  href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap"
+  rel="stylesheet"
+/>
+
 <style>
-  :root{
-    --ink:#5A3E2B;
-    --ink-soft:#8B7F72;
-    --paper:#FAF7F0;
-    --paper-raised:#FFFFFF;
-    --gold:#C9A24B;
-    --gold-deep:#B08A3A;
-    --amber-bg:#faf1dc;
-    --amber-line:#EBD9A8;
-    --line:#EAE2D3;
-    --white:#FFFFFF;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Alexandria', sans-serif;
-    line-height:1.7;
-    -webkit-font-smoothing:antialiased;
-  }
-  h1,h2,h3{font-family:'Alexandria', sans-serif; font-weight:700; color:var(--ink);}
-  a{color:inherit; text-decoration:none;}
 
-  .eyebrow{
-    font-family:'Alexandria', sans-serif;
-    font-size:.72rem; letter-spacing:.14em;
-    color:var(--gold-deep); text-transform:uppercase;
-    display:flex; align-items:center; gap:.6em;
-  }
-  .eyebrow::before{content:""; width:26px; height:1px; background:var(--gold-deep); display:inline-block;}
+:root{
+  --ink:#5A3E2B;
+  --ink-soft:#8B7F72;
+  --paper:#FAF7F0;
+  --paper-raised:#FFFFFF;
+  --gold:#C9A24B;
+  --gold-deep:#B08A3A;
+  --amber-bg:#FAF1DC;
+  --amber-line:#EBD9A8;
+  --line:#EAE2D3;
+  --white:#FFFFFF;
+}
 
-  .topbar{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:1.1rem clamp(1.25rem,4vw,3.5rem);
-    border-bottom:1px solid var(--line);
-  }
-  .mark .name{font-family:'Alexandria',sans-serif; font-weight:700; font-size:1.15rem;}
-  .mark .tm{font-size:.6rem; vertical-align:super; color:var(--gold-deep);}
-  .btn{
-    font-size:.88rem; font-weight:500; padding:.55rem 1.1rem;
-    border-radius:3px; cursor:pointer; border:1px solid var(--ink-soft);
-    background:transparent; color:var(--ink);
-    transition:all .15s ease;
-  }
-  .btn:hover{border-color:var(--gold-deep); color:var(--gold-deep);}
-  .btn:focus-visible{outline:2px solid var(--gold); outline-offset:2px;}
-  .back-btn{
-    border-color:transparent;
-    padding:.45rem .2rem;
-    background:transparent;
-    color:var(--ink-soft);
-  }
-  .back-btn:hover{
-    border-color:transparent;
-    color:var(--gold-deep);
-  }
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
 
-  .frame{max-width:1280px; margin:0 auto; padding:1.6rem clamp(1.25rem,4vw,3.5rem) 5rem;}
+html{
+  scroll-behavior:smooth;
+}
 
-  .question-head{max-width:62ch; margin-bottom:1.3rem;}
-  .question-head h1{font-size:clamp(1.5rem,2.6vw,2rem); margin-top:.7rem; line-height:1.4;}
-  .question-head .context-line{
-    margin-top:1rem; font-size:.92rem; color:var(--ink-soft);
-    background:var(--paper-raised); border:1px solid var(--line);
-    border-radius:4px; padding:.9rem 1.1rem;
-  }
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Alexandria',sans-serif;
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
 
-  .progress{
-    display:flex; align-items:center; gap:.5rem;
-    padding:.9rem clamp(1.25rem,4vw,3.5rem);
-    border-bottom:1px solid var(--line);
-    background:var(--paper-raised);
-    font-family:'Alexandria',sans-serif;
-    font-size:.74rem;
-    flex-wrap:wrap;
-  }
-  .progress .step{color:var(--ink-soft); display:flex; align-items:center; gap:.5rem;}
-  .progress .step.done{color:var(--gold-deep);}
-  .progress .step.current{color:var(--ink); font-weight:600;}
-  .progress .sep{color:var(--line);}
+h1,h2,h3{
+  font-family:'Alexandria',sans-serif;
+  font-weight:700;
+  color:var(--ink);
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* =========================================================
+   TOP BAR
+========================================================= */
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:1.1rem clamp(1.25rem,4vw,3.5rem);
+  border-bottom:1px solid var(--line);
+  background:var(--paper-raised);
+}
+
+.mark .name{
+  font-weight:700;
+  font-size:1.15rem;
+}
+
+.mark .tm{
+  font-size:.6rem;
+  vertical-align:super;
+  color:var(--gold-deep);
+}
+
+.back-btn{
+  font-family:'Alexandria',sans-serif;
+  border:none;
+  background:transparent;
+  color:var(--ink-soft);
+  cursor:pointer;
+  font-size:.86rem;
+}
+
+.back-btn:hover{
+  color:var(--gold-deep);
+}
+
+/* =========================================================
+   REAL WORKFLOW NAVIGATION
+   هذه روابط HTML حقيقية ولا تعتمد على app.js
+========================================================= */
+
+.workflow-nav{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:.42rem;
+
+  padding:.9rem clamp(1rem,4vw,3.5rem);
+
+  border-bottom:1px solid var(--line);
+  background:var(--paper-raised);
+
+  font-size:.74rem;
+}
+
+.workflow-link{
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+
+  padding:.42rem .62rem;
+
+  border-radius:999px;
+
+  color:var(--ink-soft);
+
+  cursor:pointer;
+
+  transition:
+    background .15s ease,
+    color .15s ease,
+    transform .15s ease;
+}
+
+.workflow-link:hover{
+  background:var(--amber-bg);
+  color:var(--gold-deep);
+  transform:translateY(-1px);
+}
+
+.workflow-link.done{
+  color:var(--gold-deep);
+}
+
+.workflow-link.current{
+  color:var(--ink);
+  background:var(--amber-bg);
+  border:1px solid var(--amber-line);
+  font-weight:700;
+}
+
+.workflow-link.locked{
+  color:#b7aa96;
+}
+
+.workflow-sep{
+  color:var(--line);
+}
+
+/* =========================================================
+   LAYOUT
+========================================================= */
+
+.frame{
+  max-width:1280px;
+  margin:0 auto;
+  padding:
+    1.8rem
+    clamp(1.25rem,4vw,3.5rem)
+    6rem;
+}
+
+.eyebrow{
+  font-size:.72rem;
+  letter-spacing:.14em;
+  color:var(--gold-deep);
+  text-transform:uppercase;
+  display:flex;
+  align-items:center;
+  gap:.6em;
+}
+
+.eyebrow::before{
+  content:"";
+  width:26px;
+  height:1px;
+  background:var(--gold-deep);
+}
+
+.question-head{
+  max-width:74ch;
+  margin-bottom:1.3rem;
+}
+
+.question-head h1{
+  font-size:clamp(1.5rem,2.6vw,2rem);
+  margin-top:.7rem;
+  line-height:1.4;
+}
+
+.context-line{
+  margin-top:1rem;
+  font-size:.92rem;
+  color:var(--ink-soft);
+
+  background:var(--paper-raised);
+  border:1px solid var(--line);
+
+  border-radius:5px;
+
+  padding:1rem 1.1rem;
+
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fit,minmax(170px,1fr));
+
+  gap:.8rem 1.4rem;
+}
+
+.context-line strong{
+  color:var(--ink);
+}
+
+/* =========================================================
+   EVALUATION NOTE
+========================================================= */
+
+.eval-note{
+  display:flex;
+  gap:.7rem;
+  align-items:flex-start;
+
+  margin-bottom:1rem;
+
+  padding:.85rem 1rem;
+
+  border:1px solid var(--amber-line);
+  border-inline-start:3px solid var(--gold);
+
+  background:var(--amber-bg);
+
+  color:var(--ink-soft);
+
+  border-radius:4px;
+
+  direction:ltr;
+  text-align:left;
+
+  font-size:.86rem;
+  line-height:1.55;
+}
+
+.eval-note .label{
+  font-size:.68rem;
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--gold-deep);
+  display:block;
+  margin-bottom:.3rem;
+}
+
+.context-why{
+  display:flex;
+  gap:.9rem;
+  align-items:flex-start;
+
+  background:var(--paper-raised);
+
+  border:1px solid var(--line);
+
+  border-radius:5px;
+
+  padding:.9rem 1.2rem;
+
+  margin-bottom:1rem;
+
+  font-size:.86rem;
+
+  color:var(--ink-soft);
+}
+
+.context-why strong{
+  display:block;
+  color:var(--ink);
+  margin-bottom:.3rem;
+}
+
+.en-label{
+  display:block;
+
+  direction:ltr;
+  text-align:left;
+
+  font-size:.62rem;
+  letter-spacing:.03em;
+
+  color:var(--gold-deep);
+
+  margin-top:.18rem;
+
+  text-transform:uppercase;
+}
+
+/* =========================================================
+   WORKSHOP
+========================================================= */
+
+.workshop-card{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+
+  gap:.6rem 1rem;
+
+  background:var(--paper-raised);
+
+  border:1px solid var(--amber-line);
+
+  border-radius:5px;
+
+  padding:.7rem 1.1rem;
+
+  margin-bottom:1.2rem;
+}
+
+.workshop-title{
+  display:flex;
+  align-items:baseline;
+  gap:.5rem;
+}
+
+.workshop-title .ar{
+  font-weight:700;
+  font-size:.85rem;
+}
+
+.workshop-title .en{
+  font-size:.62rem;
+  color:var(--gold-deep);
+  direction:ltr;
+}
+
+.workshop-steps{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem;
+}
+
+.wstep{
+  display:flex;
+  align-items:center;
+  gap:.35rem;
+
+  font-size:.76rem;
+
+  background:var(--white);
+
+  border:1px solid var(--line);
+
+  border-radius:999px;
+
+  padding:.22rem .65rem;
+}
+
+.wdot{
+  width:15px;
+  height:15px;
+
+  border-radius:50%;
+
+  background:var(--gold);
+
+  color:#fff;
+
+  font-size:.58rem;
+  font-weight:700;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.4rem;
+  align-items:start;
+}
+
+.card{
+  background:var(--paper-raised);
+
+  border:1px solid var(--line);
+
+  border-radius:6px;
+
+  display:flex;
+  flex-direction:column;
+
+  overflow:hidden;
+
+  transition:
+    border-color .2s ease,
+    box-shadow .2s ease,
+    transform .25s ease,
+    opacity .25s ease;
+}
+
+.card:hover:not(.approved):not(.dimmed){
+  border-color:var(--gold);
+  box-shadow:0 10px 26px rgba(201,162,75,.16);
+  transform:translateY(-3px);
+}
+
+.card-head{
+  padding:1.4rem 1.4rem 1.1rem;
+
+  border-bottom:1px solid var(--line);
+}
+
+.card-kicker{
+  font-size:.66rem;
+  letter-spacing:.08em;
+
+  color:var(--gold-deep);
+
+  background:var(--amber-bg);
+
+  border:1px solid var(--amber-line);
+
+  display:inline-flex;
+
+  padding:.28rem .65rem;
+
+  border-radius:999px;
+
+  margin-bottom:.8rem;
+}
+
+.card-head h2{
+  font-size:1.15rem;
+  line-height:1.45;
+}
+
+.card-title-en{
+  display:block;
+
+  direction:ltr;
+  text-align:left;
+
+  font-size:.72rem;
+  font-weight:500;
+
+  color:var(--ink-soft);
+
+  margin-top:.25rem;
+}
+
+.card-body{
+  padding:1.2rem 1.4rem 1.4rem;
+
+  flex:1;
+
+  display:flex;
+  flex-direction:column;
+
+  gap:1rem;
+}
+
+.field .label{
+  font-size:.68rem;
+  letter-spacing:.05em;
+
+  color:var(--ink-soft);
+
+  margin-bottom:.3rem;
+
+  display:block;
+}
+
+.field .value{
+  font-size:.94rem;
+}
+
+.field .value.strong{
+  font-weight:600;
+}
+
+.constraint-box{
+  border:1px solid var(--line);
+
+  border-inline-start:2px solid var(--amber-line);
+
+  border-radius:4px;
+
+  padding:.85rem 1rem;
+}
+
+.constraint-box .label{
+  font-size:.68rem;
+
+  color:var(--ink-soft);
+
+  margin-bottom:.35rem;
+
+  display:block;
+}
+
+.constraint-box .value{
+  font-size:.9rem;
+
+  color:var(--ink-soft);
+}
+
+/* =========================================================
+   EXPAND
+========================================================= */
+
+.expand-toggle{
+  width:100%;
+
+  background:transparent;
+
+  border:1px solid var(--ink-soft);
+
+  color:var(--ink);
+
+  padding:.7rem 1rem;
+
+  border-radius:3px;
+
+  font-family:'Alexandria',sans-serif;
+
+  font-size:.9rem;
+
+  cursor:pointer;
+}
+
+.expand-toggle:hover{
+  border-color:var(--gold-deep);
+  color:var(--gold-deep);
+}
+
+.details{
+  display:none;
+
+  padding:1.2rem 1.4rem 1.4rem;
+
+  border-top:1px dashed var(--line);
+}
+
+.card.open .details{
+  display:block;
+}
+
+.details .field{
+  margin-bottom:1rem;
+}
+
+/* =========================================================
+   APPROVAL
+========================================================= */
+
+.approve-btn{
+  width:100%;
+
+  background:var(--ink);
+
+  color:var(--white);
+
+  border:none;
+
+  border-radius:3px;
+
+  padding:.9rem 1rem;
+
+  font-family:'Alexandria',sans-serif;
+
+  font-size:.96rem;
+
+  font-weight:600;
+
+  cursor:pointer;
+}
+
+.approve-btn:hover{
+  transform:translateY(-1px);
+
+  box-shadow:
+    0 8px 18px
+    rgba(90,62,43,.25);
+}
+
+.approved-badge{
+  display:none;
+
+  margin:0 1.4rem 1.4rem;
+
+  text-align:center;
+
+  color:var(--gold-deep);
+
+  padding:.9rem 1rem;
+
+  border:1px solid var(--gold);
+
+  border-radius:4px;
+
+  background:var(--amber-bg);
+}
+
+.card.approved{
+  outline:2px solid var(--gold);
+  outline-offset:-1px;
+}
+
+.card.approved .approved-badge{
+  display:block;
+}
+
+.card.approved .approve-btn{
+  display:none;
+}
+
+.card.dimmed{
+  opacity:.35;
+}
+
+.go-next{
+  width:100%;
+
+  margin-top:.8rem;
+
+  background:var(--ink);
+
+  color:#fff;
+
+  border:none;
+
+  border-radius:3px;
+
+  padding:.85rem 1rem;
+
+  font-family:'Alexandria',sans-serif;
+
+  font-weight:600;
+
+  cursor:pointer;
+}
+
+.change-decision{
+  display:block;
+
+  width:100%;
+
+  margin-top:.7rem;
+
+  border:none;
+
+  background:transparent;
+
+  color:var(--ink-soft);
+
+  text-decoration:underline;
+
+  cursor:pointer;
+
+  font-family:'Alexandria',sans-serif;
+}
+
+/* =========================================================
+   GENERATED AI EVIDENCE INFO
+========================================================= */
+
+.ai-evidence{
+  display:none;
+
+  margin-bottom:1rem;
+
+  padding:.85rem 1rem;
+
+  background:#fff;
+
+  border:1px solid var(--line);
+
+  border-radius:5px;
+
+  font-size:.82rem;
+
+  color:var(--ink-soft);
+}
+
+.ai-evidence.visible{
+  display:block;
+}
+
+.ai-evidence strong{
+  color:var(--ink);
+}
+
+/* =========================================================
+   DECISION TRACE
+========================================================= */
+
+.decision-trace{
+  margin-top:3rem;
+
+  padding-top:1.8rem;
+
+  border-top:1px solid var(--line);
+}
+
+.trace-title{
+  font-size:.72rem;
+
+  color:var(--gold-deep);
+
+  margin-bottom:1rem;
+}
+
+.trace-chain{
+  display:flex;
+
+  flex-direction:column;
+
+  gap:.7rem;
+}
+
+.trace-step{
+  display:flex;
+
+  align-items:center;
+
+  gap:.7rem;
+
+  color:#B7AA96;
+
+  font-size:.88rem;
+}
+
+.trace-step .dot{
+  width:19px;
+  height:19px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid var(--line);
+}
+
+.trace-step.done{
+  color:var(--gold-deep);
+}
+
+.trace-step.done .dot{
+  background:var(--gold-deep);
+  color:#fff;
+}
+
+.trace-step.current{
+  color:var(--ink);
+  font-weight:700;
+}
+
+.trace-step.current .dot{
+  background:var(--gold);
+  color:#fff;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:960px){
 
   .cards{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:1.4rem;
-    align-items:start;
-  }
-  .card{
-    background:var(--paper-raised);
-    border:1px solid var(--line);
-    border-radius:5px;
-    display:flex; flex-direction:column;
-    overflow:hidden;
-    transition:border-color .2s ease, box-shadow .2s ease, transform .3s ease, opacity .3s ease, filter .3s ease;
-  }
-  .card:hover:not(.approved):not(.dimmed){
-    border-color:var(--gold);
-    box-shadow:0 10px 26px rgba(201,162,75,.16);
-    transform:translateY(-4px);
-  }
-  .card-kicker{
-    font-family:'Alexandria',sans-serif;
-    font-size:.66rem;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    color:var(--gold-deep);
-    background:var(--amber-bg);
-    border:1px solid var(--amber-line);
-    display:inline-flex;
-    padding:.28rem .65rem;
-    border-radius:999px;
-    margin-bottom:.8rem;
-  }
-  .card-head{
-    padding:1.4rem 1.4rem 1.1rem;
-    border-bottom:1px solid var(--line);
-  }
-  .symbol{
-    display:inline-flex; margin-bottom:.6rem; color:var(--gold-deep);
-  }
-  .symbol svg{width:22px; height:22px; display:block;}
-  .card-head h2{font-size:1.15rem; line-height:1.4; color:var(--ink);}
-
-  .card-body{padding:1.2rem 1.4rem 1.4rem; flex:1; display:flex; flex-direction:column; gap:1rem;}
-  .field .label{
-    font-family:'Alexandria',sans-serif; font-size:.68rem;
-    letter-spacing:.05em; color:var(--ink-soft); text-transform:uppercase;
-    margin-bottom:.3rem; display:block;
-  }
-  .field .value{font-size:.95rem; color:var(--ink);}
-  .field .value.strong{font-weight:600;}
-
-  .constraint-box{
-    background:var(--paper-raised);
-    border:1px solid var(--line);
-    border-inline-start:2px solid var(--amber-line);
-    border-radius:4px;
-    padding:.85rem 1rem;
-  }
-  .constraint-box .label{
-    font-family:'Alexandria',sans-serif; font-size:.68rem;
-    letter-spacing:.03em; color:var(--ink-soft); margin-bottom:.35rem; display:block;
-  }
-  .constraint-box .value{font-size:.9rem; color:var(--ink-soft);}
-
-  .expand-toggle{
-    margin-top:.2rem;
-    width:100%;
-    background:transparent;
-    border:1px solid var(--ink-soft);
-    color:var(--ink);
-    padding:.7rem 1rem;
-    border-radius:3px;
-    font-family:'Alexandria',sans-serif;
-    font-size:.9rem; font-weight:500;
-    cursor:pointer;
-    display:flex; align-items:center; justify-content:center; gap:.5rem;
-    transition:all .15s ease;
-  }
-  .expand-toggle:hover{border-color:var(--gold-deep); color:var(--gold-deep);}
-  .expand-toggle .chev{transition:transform .2s ease; font-size:.75rem;}
-  .card.open .expand-toggle .chev{transform:rotate(180deg);}
-
-  .details{
-    max-height:0;
-    opacity:0;
-    transform:translateY(-6px);
-    overflow:hidden;
-    padding:0 1.4rem;
-    border-top:1px dashed transparent;
-    margin-top:0;
-    transition:max-height .4s ease, opacity .3s ease, transform .3s ease, padding-top .3s ease, border-color .3s ease;
-  }
-  .card.open .details{
-    max-height:1600px;
-    opacity:1;
-    transform:translateY(0);
-    padding:1.2rem 1.4rem 1.4rem;
-    border-top-color:var(--line);
+    grid-template-columns:1fr;
   }
 
-  .details .field{margin-bottom:1rem;}
-  .details .field:last-of-type{margin-bottom:1.3rem;}
-
-  .approve-btn{
-    display:none;
-    width:100%;
-    background:var(--ink); color:var(--white);
-    border:none; border-radius:3px;
-    padding:.9rem 1rem;
-    font-family:'Alexandria',sans-serif;
-    font-size:.96rem; font-weight:600;
-    cursor:pointer;
-    transition:all .15s ease;
-  }
-  .approve-btn:hover{box-shadow:0 8px 18px rgba(90,62,43,.25); transform:translateY(-1px);}
-  .card.open .approve-btn{display:block;}
-
-  .approved-badge{
-    display:none;
-    text-align:center;
-    font-family:'Alexandria',sans-serif;
-    font-size:.8rem; color:var(--gold-deep);
-    padding:.9rem 1rem; border:1px solid var(--gold);
-    border-radius:3px; background:var(--amber-bg);
-  }
-  .card.approved .approve-btn,
-  .card.approved .expand-toggle{display:none;}
-  @keyframes approvalFade{
-    from{opacity:0; transform:translateY(6px);}
-    to{opacity:1; transform:translateY(0);}
-  }
-  .card.approved .approved-badge{
-    display:block;
-    animation:approvalFade .3s ease both;
-  }
-  .card.approved{outline:2px solid var(--gold); outline-offset:-1px; transform:scale(1.015);}
-  .card.dimmed{opacity:.35; transform:scale(.97); filter:grayscale(.4); pointer-events:none;}
-
-  .approved-badge .go-next{
-    display:block; width:100%; margin-top:.8rem;
-    background:var(--ink); color:var(--white);
-    border:none; border-radius:3px; padding:.85rem 1rem;
-    font-family:'Alexandria',sans-serif; font-size:.94rem; font-weight:600;
-    cursor:pointer;
-  }
-  .approved-badge .go-next:disabled{
-    opacity:.75; cursor:progress;
-  }
-  .approved-badge .next-note{
-    font-size:.76rem;
-    color:var(--ink-soft);
-    margin-top:.6rem;
-    text-align:center;
-    font-family:'Alexandria',sans-serif;
-  }
-  .approved-badge .change-decision{
-    display:block; text-align:center; margin-top:.6rem;
-    font-size:.78rem; color:var(--ink-soft); text-decoration:underline;
-    background:none; border:none; cursor:pointer; width:100%;
-  }
-  .approved-badge .change-decision:hover{color:var(--gold-deep);}
-
-
-  .eval-note{
-    display:flex; gap:.7rem; align-items:flex-start;
-    margin:0 0 1rem;
-    padding:.85rem 1rem;
-    border:1px solid var(--amber-line);
-    border-inline-start:3px solid var(--gold);
-    background:var(--amber-bg);
-    color:var(--ink-soft);
-    border-radius:4px;
-    direction:ltr;
-    text-align:left;
-    font-size:.86rem;
-    line-height:1.55;
-  }
-  .eval-note .icon{color:var(--gold-deep); flex-shrink:0; margin-top:.1rem; display:flex;}
-  .eval-note .icon svg{width:17px; height:17px; display:block;}
-  .eval-note .label{
-    font-family:'Alexandria',sans-serif;
-    font-size:.68rem; font-weight:700; letter-spacing:.08em;
-    text-transform:uppercase; color:var(--gold-deep);
-    display:block; margin-bottom:.3rem;
-  }
-  .eval-note p{margin:0;}
-  .en-label{
-    display:block;
-    direction:ltr;
-    text-align:left;
-    font-family:'Alexandria',sans-serif;
-    font-size:.62rem;
-    letter-spacing:.03em;
-    color:var(--gold-deep);
-    margin-top:.18rem;
-    text-transform:uppercase;
-  }
-  .bilingual-btn{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:.1rem;
-    line-height:1.3;
-  }
-  .bilingual-btn small{
-    direction:ltr;
-    font-size:.68rem;
-    font-weight:400;
-    opacity:.78;
-  }
-  .card-title-en{
-    display:block;
-    direction:ltr;
-    text-align:left;
-    font-family:'Alexandria',sans-serif;
-    font-size:.72rem;
-    font-weight:500;
-    color:var(--ink-soft);
-    margin-top:.25rem;
-  }
-
-  .context-why{
-    display:flex; gap:.9rem; align-items:flex-start;
-    background:var(--paper-raised);
-    border:1px solid var(--line);
-    border-radius:5px;
-    padding:.9rem 1.2rem;
-    margin-bottom:1rem;
-    font-size:.86rem;
-    color:var(--ink-soft);
-  }
-  .context-why .icon{
-    color:var(--gold-deep); flex-shrink:0; display:flex; align-items:center; margin-top:.15rem;
-  }
-  .context-why .icon svg{width:20px; height:20px; display:block;}
-  .context-why strong{
-    display:block; color:var(--ink); font-weight:600; margin-bottom:.3rem;
-  }
-
-  .workshop-card{
-    display:flex; flex-wrap:wrap; align-items:center; gap:.6rem 1rem;
-    background:var(--paper-raised);
-    border:1px solid var(--amber-line);
-    border-radius:5px;
-    padding:.7rem 1.1rem;
-    margin-bottom:1.2rem;
-  }
-  .workshop-title{
-    display:flex; align-items:baseline; gap:.5rem;
-    flex-shrink:0;
-  }
-  .workshop-title .ar{font-weight:700; font-size:.85rem; color:var(--ink);}
-  .workshop-title .en{
-    font-family:'Alexandria',sans-serif;
-    font-size:.62rem; letter-spacing:.05em; text-transform:uppercase;
-    color:var(--gold-deep); direction:ltr;
-  }
-  .workshop-steps{
-    display:flex; flex-wrap:wrap; gap:.5rem;
-  }
-  .wstep{
-    display:flex; align-items:center; gap:.35rem;
-    font-size:.76rem; color:var(--ink);
-    background:var(--white);
-    border:1px solid var(--line);
-    border-radius:999px;
-    padding:.22rem .65rem .22rem .3rem;
-  }
-  .wstep .en{
-    font-family:'Alexandria',sans-serif;
-    font-size:.6rem; color:var(--gold-deep); direction:ltr; margin-inline-start:.15rem;
-  }
-  .wdot{
-    width:15px; height:15px; border-radius:50%;
-    background:var(--gold); color:#fff;
-    font-size:.58rem; font-weight:700;
-    display:flex; align-items:center; justify-content:center;
-    flex-shrink:0;
-  }
-
-  .decision-trace{
-    margin-top:3rem;
-    padding-top:1.8rem;
-    border-top:1px solid var(--line);
-  }
-  .decision-trace .trace-title{
-    font-family:'Alexandria',sans-serif;
-    font-size:.72rem;
-    letter-spacing:.06em;
-    text-transform:uppercase;
-    color:var(--gold-deep);
-    margin-bottom:1rem;
-  }
-  .decision-trace .trace-title .en{
-    color:var(--ink-soft);
-    text-transform:none;
-    letter-spacing:0;
-  }
-  .decision-trace .trace-chain{
-    position:relative;
-    display:flex; flex-direction:column; gap:.7rem;
-  }
-  .decision-trace .trace-chain::before{
-    content:"";
-    position:absolute;
-    inset-inline-start:9px;
-    top:10px; bottom:10px;
-    width:1px;
-    background:var(--line);
-  }
-  .decision-trace .trace-step{
-    display:flex; align-items:center; gap:.7rem;
-    font-size:.88rem; color:#B7AA96;
-    position:relative; z-index:1;
-  }
-  .decision-trace .trace-step .dot{
-    width:19px; height:19px; min-width:19px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    font-size:.64rem;
-    background:var(--paper-raised); border:1.5px solid var(--line); color:#B7AA96;
-  }
-  .decision-trace .trace-step.done{color:var(--gold-deep);}
-  .decision-trace .trace-step.done .dot{background:var(--gold-deep); border-color:var(--gold-deep); color:#fff;}
-  .decision-trace .trace-step.current{color:var(--ink); font-weight:700;}
-  .decision-trace .trace-step.current .dot{background:var(--gold); border-color:var(--gold); color:#fff;}
-
-  @media (max-width:960px){
-    .cards{grid-template-columns:1fr;}
-  }
-  @media (prefers-reduced-motion:reduce){*{transition:none !important;}}
-
-/* Smart workflow navigation — final recording pass */
-.smart-nav-shell{
-  position:fixed; inset-inline:0; bottom:18px; z-index:9999;
-  display:flex; justify-content:center; pointer-events:none;
-  padding:0 16px;
 }
-.smart-nav{
-  pointer-events:auto; width:min(920px, calc(100vw - 32px));
-  display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:14px;
-  padding:12px 14px; border:1px solid rgba(100,72,44,.18);
-  background:rgba(255,253,248,.92); backdrop-filter:blur(14px);
-  -webkit-backdrop-filter:blur(14px); border-radius:18px;
-  box-shadow:0 16px 45px rgba(52,38,24,.18);
-  direction:rtl;
+
+@media(max-width:720px){
+
+  .workflow-nav{
+    justify-content:flex-start;
+    overflow-x:auto;
+    flex-wrap:nowrap;
+  }
+
+  .workflow-link{
+    white-space:nowrap;
+  }
+
 }
-.smart-nav__status{display:flex;align-items:center;gap:10px;min-width:0}
-.smart-nav__pulse{width:10px;height:10px;border-radius:50%;background:#B88A32;box-shadow:0 0 0 0 rgba(184,138,50,.45);animation:smartPulse 2s infinite}
-@keyframes smartPulse{0%{box-shadow:0 0 0 0 rgba(184,138,50,.4)}70%{box-shadow:0 0 0 9px rgba(184,138,50,0)}100%{box-shadow:0 0 0 0 rgba(184,138,50,0)}}
-.smart-nav__eyebrow{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8A765F;font-weight:700}
-.smart-nav__title{font-size:14px;font-weight:800;color:#2C241D;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.smart-nav__hint{text-align:center;color:#6F6254;font-size:12px;line-height:1.45}
-.smart-nav__actions{display:flex;gap:8px;align-items:center}
-.smart-nav a{display:inline-flex;align-items:center;justify-content:center;gap:7px;text-decoration:none;border-radius:11px;padding:10px 14px;font-size:12px;font-weight:800;transition:.2s ease;white-space:nowrap}
-.smart-nav__back{color:#4B4036;border:1px solid rgba(75,64,54,.18);background:#fff}
-.smart-nav__back:hover{transform:translateY(-2px);border-color:#B88A32}
-.smart-nav__next{color:#fff;background:linear-gradient(135deg,#4B2F23,#7A4E37);box-shadow:0 8px 18px rgba(75,47,35,.22)}
-.smart-nav__next:hover{transform:translateY(-2px);box-shadow:0 11px 24px rgba(75,47,35,.3)}
-.smart-nav__home{width:38px;height:38px;padding:0!important;color:#5B4C3F;background:#F4ECDE;border:1px solid rgba(91,76,63,.13)}
-.smart-nav__home:hover{transform:rotate(-4deg) scale(1.04)}
-.smart-progress-mini{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,#B88A32,#6C4431);z-index:10000;transition:width .35s ease}
-.smart-toast{position:fixed;left:22px;bottom:102px;z-index:9998;background:#2F261F;color:#fff;padding:11px 14px;border-radius:12px;font-size:12px;box-shadow:0 12px 30px rgba(0,0,0,.2);opacity:0;transform:translateY(8px);transition:.25s;pointer-events:none}
-.smart-toast.show{opacity:1;transform:translateY(0)}
-body{padding-bottom:96px!important}
-@media(max-width:720px){.smart-nav{grid-template-columns:1fr auto}.smart-nav__hint{display:none}.smart-nav__title{max-width:150px}.smart-nav a{padding:9px 11px}.smart-nav-shell{bottom:10px}}
 
 </style>
 </head>
+
 <body>
 
-<div class="topbar">
+<!-- ======================================================
+     TOP BAR
+====================================================== -->
+
+<header class="topbar">
+
   <div class="mark">
-    <span class="name">ZAHRAA<span class="tm">™</span></span>
-  </div>
-  <button class="btn back-btn" type="button" onclick="window.location.href='scenario.html'">← تعديل بيانات الموقف</button>
-</div>
-
-<div class="progress">
-  <span class="step done">✓ تحليل</span><span class="sep">/</span>
-  <span class="step done">✓ سؤال تكيفي</span><span class="sep">/</span>
-  <span class="step done">✓ ملخص</span><span class="sep">/</span>
-  <span class="step current">● بدائل</span><span class="sep">/</span>
-  <span class="step">○ مراجعة القرار واعتماده</span><span class="sep">/</span>
-  <span class="step">○ خطة التنفيذ</span>
-</div>
-
-<div class="frame">
-  <div class="question-head">
-    <span class="eyebrow">البدائل التربوية</span>
-    <h1>قارن بين البدائل قبل اعتماد القرار</h1>
-    <div class="context-line" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:.8rem 1.4rem;">
-      <div><strong>الصف:</strong> <span id="ctxGrade">الرابع الابتدائي</span></div>
-      <div><strong>المادة:</strong> <span id="ctxSubject">الرياضيات</span></div>
-      <div><strong>عنوان الدرس:</strong> <span id="ctxLesson">التكافؤ في المعادلات</span></div>
-      <div><strong>التحدي:</strong> <span id="ctxChallenge">الطلاب يستطيعون تنفيذ خطوات الحل، لكنهم لا يفهمون لماذا تبقى المعادلة متكافئة.</span></div>
-      <div><strong>ناتج التعلم:</strong> <span id="ctxOutcome">تفسير معنى التكافؤ بين طرفي المعادلة.</span></div>
-      <div><strong>مستوى التحدي:</strong> <span id="ctxLevel">متوسط</span></div>
-    </div>
+    <span class="name">
+      ZAHRAA<span class="tm">™</span>
+    </span>
   </div>
 
-  <div class="eval-note" lang="en">
-    <span class="icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3.5" y="3.5" width="17" height="17" rx="2.5" stroke="currentColor" stroke-width="1.5"/><path d="M7.5 8.5h9M7.5 12h9M7.5 15.5h5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+  <a
+    class="back-btn"
+    href="scenario.html"
+  >
+    ← تعديل بيانات الموقف
+  </a>
+
+</header>
+
+<!-- ======================================================
+     TRUE HTML NAVIGATION
+====================================================== -->
+
+<nav
+  class="workflow-nav"
+  aria-label="مسار القرار التربوي"
+>
+
+  <a
+    class="workflow-link done"
+    href="scenario.html"
+  >
+    ✓ تحليل
+  </a>
+
+  <span class="workflow-sep">/</span>
+
+  <a
+    class="workflow-link done"
+    href="scenario.html"
+  >
+    ✓ سؤال تكيفي
+  </a>
+
+  <span class="workflow-sep">/</span>
+
+  <a
+    class="workflow-link done"
+    href="scenario.html"
+  >
+    ✓ ملخص
+  </a>
+
+  <span class="workflow-sep">/</span>
+
+  <a
+    class="workflow-link current"
+    href="alternatives.html"
+    aria-current="page"
+  >
+    ● بدائل
+  </a>
+
+  <span class="workflow-sep">/</span>
+
+  <a
+    class="workflow-link"
+    href="teacher-approval.html"
+  >
+    ○ مراجعة القرار واعتماده
+  </a>
+
+  <span class="workflow-sep">/</span>
+
+  <a
+    class="workflow-link"
+    href="implementation-plan.html"
+  >
+    ○ خطة التنفيذ
+  </a>
+
+</nav>
+
+<main class="frame">
+
+<!-- ======================================================
+     CONTEXT
+====================================================== -->
+
+<section class="question-head">
+
+  <span class="eyebrow">
+    البدائل التربوية
+  </span>
+
+  <h1>
+    قارن بين البدائل قبل اعتماد القرار
+  </h1>
+
+  <div class="context-line">
+
     <div>
-      <span class="label">For Evaluation</span>
-      <p>The system deliberately presents three pedagogically distinct alternatives before the teacher reviews and approves the final decision.</p>
+      <strong>الصف:</strong>
+      <span id="ctxGrade">غير محدد</span>
     </div>
-  </div>
 
-  <div class="context-why">
-    <span class="icon"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6"/><path d="M9.5 9.2a2.5 2.5 0 1 1 3.5 2.3c-.7.35-1 .8-1 1.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="16.3" r="0.9" fill="currentColor"/></svg></span>
     <div>
-      <strong>لماذا يعرض النظام ثلاثة بدائل؟<span class="en-label" style="margin-top:.2rem;">Why three alternatives?</span></strong>
-      لأن كل بديل يمثل فلسفة تربوية مختلفة، وليس ترتيبًا من الأفضل إلى الأسوأ.
-    </div>
-  </div>
-
-  <div class="workshop-card">
-    <div class="workshop-title">
-      <span class="ar">ورشة القرار</span>
-      <span class="en">Decision Workshop</span>
-    </div>
-    <div class="workshop-steps">
-      <span class="wstep"><span class="wdot">1</span>قارن<span class="en">Compare</span></span>
-      <span class="wstep"><span class="wdot">2</span>راجع<span class="en">Review</span></span>
-      <span class="wstep"><span class="wdot">3</span>قرّر<span class="en">Decide</span></span>
-      <span class="wstep"><span class="wdot">4</span>اعتمد<span class="en">Approve</span></span>
-    </div>
-  </div>
-
-  <div class="cards">
-
-    <!-- Card 1 -->
-    <div class="card" id="card1">
-      <div class="card-head">
-        <span class="card-kicker">البديل A · Conceptual</span>
-        <span class="symbol"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 12C4.5 7 8 4.5 12 4.5C16 4.5 19.5 7 22 12C19.5 17 16 19.5 12 19.5C8 19.5 4.5 17 2 12Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/></svg></span>
-        <h2>المدخل المفاهيمي البصري<span class="card-title-en">Visual Conceptual Approach</span></h2>
-      </div>
-      <div class="card-body">
-        <div class="field">
-          <span class="label">يركز على<span class="en-label">Focus</span></span>
-          <span class="value strong">الفهم قبل الإجراء</span>
-        </div>
-        <div class="field">
-          <span class="label">مناسب عندما<span class="en-label">Best used when</span></span>
-          <span class="value">الطلاب يستطيعون تنفيذ خطوات التكافؤ لكن لا يفسّرون معناها.</span>
-        </div>
-        <div class="constraint-box">
-          <span class="label">ما الذي قد لا يتحقق؟<span class="en-label">What may not be achieved</span></span>
-          <span class="value">قد يستغرق وقتًا أطول من الحصة، وقد لا يناسب من ينهي المهام بسرعة.</span>
-        </div>
-        <button class="expand-toggle" onclick="toggleCard('card1')">
-          <span class="txt bilingual-btn">عرض التحليل الكامل<small>View full analysis</small></span> <span class="chev">▾</span>
-        </button>
-      </div>
-      <div class="details">
-        <div class="field"><span class="label">الفجوة التي يعالجها<span class="en-label">Gap addressed</span></span><span class="value">الانتقال المبكر إلى الرمز قبل ترسيخ المعنى.</span></div>
-        <div class="field"><span class="label">المنطق التربوي<span class="en-label">Pedagogical rationale</span></span><span class="value">بناء تمثيل بصري (مساحات/أشرطة كسور) قبل أي عملية رمزية، بحيث يُبنى الرمز على معنى مرئي لا العكس.</span></div>
-        <div class="field"><span class="label">نقطة البداية</span><span class="value">مقارنة نموذجين بصريين متكافئين دون كتابة أي رمز.</span></div>
-        <div class="field"><span class="label">تسلسل بناء المفهوم</span><span class="value">تمثيل بصري ← مقارنة يدوية ← ربط بالرمز ← تدريب رمزي.</span></div>
-        <div class="field"><span class="label">دور المعلم</span><span class="value">يطرح أسئلة مقارنة، لا يشرح الخطوات مباشرة.</span></div>
-        <div class="field"><span class="label">دور الطالب</span><span class="value">يبني التمثيل بنفسه قبل تسميته رياضيًا.</span></div>
-        <div class="field"><span class="label">نوع التقويم</span><span class="value">شفهي أثناء البناء البصري، لا اختبار كتابي فوري.</span></div>
-        <div class="field"><span class="label">نوع التمايز</span><span class="value">نماذج بصرية أبسط أو أعقد حسب الطالب.</span></div>
-        <div class="field"><span class="label">أقوى مخرج متوقع<span class="en-label">Expected strongest outcome</span></span><span class="value">قدرة الطالب على تبرير التكافؤ بلغته لا بحفظ الخطوة.</span></div>
-        <div class="field"><span class="label">القيد المحتمل<span class="en-label">Potential constraint</span></span><span class="value">يحتاج تحضير مواد بصرية مسبقًا.</span></div>
-        <button class="approve-btn" onclick="approveCard('card1')"><span class="bilingual-btn">اعتماد هذا البديل<small>Approve this alternative</small></span></button>
-      </div>
-      <div class="approved-badge">
-        ✓ تم اعتماد هذا البديل للمراجعة النهائية
-        <p style="font-size:.78rem; color:var(--ink-soft); margin-top:.5rem; font-family:'Alexandria',sans-serif;">هذا اعتماد مبدئي؛ يمكنك تغييره قبل المراجعة النهائية في شاشة اعتماد القرار.</p>
-        <button class="go-next" onclick="goToApproval(this)"><span class="bilingual-btn">الانتقال إلى اعتماد القرار ←<small>Continue to decision approval</small></span></button>
-        <p class="next-note">سيتم الآن الانتقال إلى مراجعة هذا الاختيار واعتماده رسميًا.</p>
-        <button class="change-decision" onclick="changeDecision(this)"><span class="bilingual-btn">تغيير القرار<small>Change decision</small></span></button>
-      </div>
+      <strong>المادة:</strong>
+      <span id="ctxSubject">غير محدد</span>
     </div>
 
-    <!-- Card 2 -->
-    <div class="card" id="card2">
-      <div class="card-head">
-        <span class="card-kicker">البديل B · Diagnostic</span>
-        <span class="symbol"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.6"/><path d="M15.5 15.5L21 21" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M8 10.5L10 12.5L13.5 8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <h2>تحليل الأخطاء الشائعة<span class="card-title-en">Common-Error Analysis</span></h2>
-      </div>
-      <div class="card-body">
-        <div class="field">
-          <span class="label">يركز على<span class="en-label">Focus</span></span>
-          <span class="value strong">التفكير النقدي</span>
-        </div>
-        <div class="field">
-          <span class="label">مناسب عندما<span class="en-label">Best used when</span></span>
-          <span class="value">يكرر عدد من الطلاب نفس الخطأ المفاهيمي دون وعي به.</span>
-        </div>
-        <div class="constraint-box">
-          <span class="label">ما الذي قد لا يتحقق؟<span class="en-label">What may not be achieved</span></span>
-          <span class="value">قد يشعر بعض الطلاب بالتردد عند مناقشة أخطاء أمام الصف علنًا.</span>
-        </div>
-        <button class="expand-toggle" onclick="toggleCard('card2')">
-          <span class="txt bilingual-btn">عرض التحليل الكامل<small>View full analysis</small></span> <span class="chev">▾</span>
-        </button>
-      </div>
-      <div class="details">
-        <div class="field"><span class="label">الفجوة التي يعالجها<span class="en-label">Gap addressed</span></span><span class="value">تكرار الخطأ نفسه دون أن يلاحظه الطالب بنفسه.</span></div>
-        <div class="field"><span class="label">المنطق التربوي<span class="en-label">Pedagogical rationale</span></span><span class="value">عرض حل خاطئ نموذجي ومطالبة الطلاب باكتشاف الخطأ وتبرير تصحيحه، لا تلقّي التصحيح جاهزًا.</span></div>
-        <div class="field"><span class="label">نقطة البداية</span><span class="value">عرض حل يبدو صحيحًا ظاهريًا لكنه يحتوي خطأ مفاهيميًا شائعًا.</span></div>
-        <div class="field"><span class="label">تسلسل بناء المفهوم</span><span class="value">عرض الخطأ ← نقاش جماعي ← تحديد سببه ← تصحيح موجّه.</span></div>
-        <div class="field"><span class="label">دور المعلم</span><span class="value">ميسّر نقاش، لا يكشف الخطأ مباشرة.</span></div>
-        <div class="field"><span class="label">دور الطالب</span><span class="value">يحلل، يجادل، ويبرر رأيه أمام زملائه.</span></div>
-        <div class="field"><span class="label">نوع التقويم</span><span class="value">ملاحظة جودة التبرير أثناء النقاش.</span></div>
-        <div class="field"><span class="label">نوع التمايز</span><span class="value">تدرّج في تعقيد الخطأ المعروض حسب المجموعة.</span></div>
-        <div class="field"><span class="label">أقوى مخرج متوقع<span class="en-label">Expected strongest outcome</span></span><span class="value">قدرة الطالب على تمييز سبب الخطأ لا مجرد تجنبه.</span></div>
-        <div class="field"><span class="label">القيد المحتمل<span class="en-label">Potential constraint</span></span><span class="value">يحتاج إدارة صفية دقيقة لتفادي إحراج طالب بعينه.</span></div>
-        <button class="approve-btn" onclick="approveCard('card2')"><span class="bilingual-btn">اعتماد هذا البديل<small>Approve this alternative</small></span></button>
-      </div>
-      <div class="approved-badge">
-        ✓ تم اعتماد هذا البديل للمراجعة النهائية
-        <p style="font-size:.78rem; color:var(--ink-soft); margin-top:.5rem; font-family:'Alexandria',sans-serif;">هذا اعتماد مبدئي؛ يمكنك تغييره قبل المراجعة النهائية في شاشة اعتماد القرار.</p>
-        <button class="go-next" onclick="goToApproval(this)"><span class="bilingual-btn">الانتقال إلى اعتماد القرار ←<small>Continue to decision approval</small></span></button>
-        <p class="next-note">سيتم الآن الانتقال إلى مراجعة هذا الاختيار واعتماده رسميًا.</p>
-        <button class="change-decision" onclick="changeDecision(this)"><span class="bilingual-btn">تغيير القرار<small>Change decision</small></span></button>
-      </div>
+    <div>
+      <strong>عنوان الدرس:</strong>
+      <span id="ctxLesson">غير محدد</span>
     </div>
 
-    <!-- Card 3 -->
-    <div class="card" id="card3">
-      <div class="card-head">
-        <span class="card-kicker">البديل C · Structured</span>
-        <span class="symbol"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6"/><rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="1.6"/></svg></span>
-        <h2>إعادة التجزئة المنتظمة<span class="card-title-en">Structured Repartitioning</span></h2>
-      </div>
-      <div class="card-body">
-        <div class="field">
-          <span class="label">يركز على<span class="en-label">Focus</span></span>
-          <span class="value strong">الانتقال من البصري إلى الرمزي</span>
-        </div>
-        <div class="field">
-          <span class="label">مناسب عندما<span class="en-label">Best used when</span></span>
-          <span class="value">الطلاب يفهمون الفكرة جزئيًا لكن يخطئون في تعميمها رمزيًا.</span>
-        </div>
-        <div class="constraint-box">
-          <span class="label">ما الذي قد لا يتحقق؟<span class="en-label">What may not be achieved</span></span>
-          <span class="value">قد لا يكفي لطلاب لم يكوّنوا أي تصور بصري بعد.</span>
-        </div>
-        <button class="expand-toggle" onclick="toggleCard('card3')">
-          <span class="txt bilingual-btn">عرض التحليل الكامل<small>View full analysis</small></span> <span class="chev">▾</span>
-        </button>
-      </div>
-      <div class="details">
-        <div class="field"><span class="label">الفجوة التي يعالجها<span class="en-label">Gap addressed</span></span><span class="value">صعوبة تعميم فهم جزئي إلى قاعدة رمزية ثابتة.</span></div>
-        <div class="field"><span class="label">المنطق التربوي<span class="en-label">Pedagogical rationale</span></span><span class="value">تدريب منظم على تجزئة الوحدة نفسها بطرق متعددة، ثم استخلاص القاعدة الرمزية من التكرار المنظم لا من الشرح المباشر.</span></div>
-        <div class="field"><span class="label">نقطة البداية</span><span class="value">تجزئة نفس الشكل الهندسي بثلاث طرق مختلفة.</span></div>
-        <div class="field"><span class="label">تسلسل بناء المفهوم</span><span class="value">تجزئة متكررة ← ملاحظة النمط ← صياغة قاعدة ← تطبيق رمزي.</span></div>
-        <div class="field"><span class="label">دور المعلم</span><span class="value">يوجّه ملاحظة النمط بأسئلة متتابعة.</span></div>
-        <div class="field"><span class="label">دور الطالب</span><span class="value">يكرر التجزئة عمليًا قبل صياغة أي قاعدة.</span></div>
-        <div class="field"><span class="label">نوع التقويم</span><span class="value">مراجعة عمل مكتوب قصير في نهاية الحصة.</span></div>
-        <div class="field"><span class="label">نوع التمايز</span><span class="value">عدد مرات التجزئة يختلف حسب سرعة كل طالب.</span></div>
-        <div class="field"><span class="label">أقوى مخرج متوقع<span class="en-label">Expected strongest outcome</span></span><span class="value">قدرة الطالب على صياغة القاعدة بنفسه بدل حفظها.</span></div>
-        <div class="field"><span class="label">القيد المحتمل<span class="en-label">Potential constraint</span></span><span class="value">يحتاج تكرارًا كافيًا، وقد يبدو بطيئًا لطالب متقدم.</span></div>
-        <button class="approve-btn" onclick="approveCard('card3')"><span class="bilingual-btn">اعتماد هذا البديل<small>Approve this alternative</small></span></button>
-      </div>
-      <div class="approved-badge">
-        ✓ تم اعتماد هذا البديل للمراجعة النهائية
-        <p style="font-size:.78rem; color:var(--ink-soft); margin-top:.5rem; font-family:'Alexandria',sans-serif;">هذا اعتماد مبدئي؛ يمكنك تغييره قبل المراجعة النهائية في شاشة اعتماد القرار.</p>
-        <button class="go-next" onclick="goToApproval(this)"><span class="bilingual-btn">الانتقال إلى اعتماد القرار ←<small>Continue to decision approval</small></span></button>
-        <p class="next-note">سيتم الآن الانتقال إلى مراجعة هذا الاختيار واعتماده رسميًا.</p>
-        <button class="change-decision" onclick="changeDecision(this)"><span class="bilingual-btn">تغيير القرار<small>Change decision</small></span></button>
-      </div>
+    <div>
+      <strong>التحدي:</strong>
+      <span id="ctxChallenge">غير محدد</span>
+    </div>
+
+    <div>
+      <strong>ناتج التعلم:</strong>
+      <span id="ctxOutcome">غير محدد</span>
+    </div>
+
+    <div>
+      <strong>مستوى الطلاب:</strong>
+      <span id="ctxLevel">غير محدد</span>
     </div>
 
   </div>
 
-  <div class="decision-trace">
-    <div class="trace-title">مسار القرار <span class="en">— Decision Trace</span></div>
-    <div class="trace-chain">
-      <div class="trace-step done"><span class="dot">✓</span>تحليل</div>
-      <div class="trace-step done"><span class="dot">✓</span>ملخص</div>
-      <div class="trace-step current"><span class="dot">●</span>بدائل</div>
-      <div class="trace-step"><span class="dot">○</span>مراجعة القرار واعتماده</div>
-      <div class="trace-step"><span class="dot">○</span>خطة التنفيذ</div>
-    </div>
-  </div>
+</section>
+
+<div
+  id="aiEvidenceInfo"
+  class="ai-evidence"
+>
 </div>
+
+<!-- ======================================================
+     EVALUATION NOTE
+====================================================== -->
+
+<div class="eval-note" lang="en">
+
+  <div>
+
+    <span class="label">
+      For Evaluation
+    </span>
+
+    <p>
+      The system deliberately presents three
+      pedagogically distinct alternatives before
+      the teacher reviews and approves the final
+      decision.
+    </p>
+
+  </div>
+
+</div>
+
+<div class="context-why">
+
+  <div>
+
+    <strong>
+      لماذا يعرض النظام ثلاثة بدائل؟
+
+      <span class="en-label">
+        Why three alternatives?
+      </span>
+
+    </strong>
+
+    لأن كل بديل يمثل توجهًا تربويًا مختلفًا،
+    وليس ترتيبًا من الأفضل إلى الأسوأ.
+
+  </div>
+
+</div>
+
+<!-- ======================================================
+     WORKSHOP
+====================================================== -->
+
+<div class="workshop-card">
+
+  <div class="workshop-title">
+
+    <span class="ar">
+      ورشة القرار
+    </span>
+
+    <span class="en">
+      Decision Workshop
+    </span>
+
+  </div>
+
+  <div class="workshop-steps">
+
+    <span class="wstep">
+      <span class="wdot">1</span>
+      قارن
+    </span>
+
+    <span class="wstep">
+      <span class="wdot">2</span>
+      راجع
+    </span>
+
+    <span class="wstep">
+      <span class="wdot">3</span>
+      قرّر
+    </span>
+
+    <span class="wstep">
+      <span class="wdot">4</span>
+      اعتمد
+    </span>
+
+  </div>
+
+</div>
+
+<!-- ======================================================
+     ALTERNATIVES
+====================================================== -->
+
+<section class="cards">
+
+<!-- CARD A -->
+
+<article class="card" id="card1">
+
+  <div class="card-head">
+
+    <span class="card-kicker">
+      البديل A · Conceptual
+    </span>
+
+    <h2>
+      المدخل المفاهيمي البصري
+
+      <span class="card-title-en">
+        Visual Conceptual Approach
+      </span>
+    </h2>
+
+  </div>
+
+  <div class="card-body">
+
+    <div class="field">
+
+      <span class="label">
+        يركز على
+      </span>
+
+      <span class="value strong">
+        الفهم قبل الإجراء
+      </span>
+
+    </div>
+
+    <div class="field">
+
+      <span class="label">
+        مناسب عندما
+      </span>
+
+      <span class="value">
+        يستطيع الطلاب تنفيذ الخطوات،
+        لكنهم لا يستطيعون تفسير معناها.
+      </span>
+
+    </div>
+
+    <div class="constraint-box">
+
+      <span class="label">
+        ما الذي قد لا يتحقق؟
+      </span>
+
+      <span class="value">
+        قد يحتاج وقتًا أطول إذا كان
+        التصور المفاهيمي ضعيفًا.
+      </span>
+
+    </div>
+
+    <button
+      class="expand-toggle"
+      type="button"
+      onclick="toggleCard('card1')"
+    >
+      عرض التحليل الكامل ▾
+    </button>
+
+  </div>
+
+  <div class="details">
+
+    <div class="field">
+
+      <span class="label">
+        الفجوة التي يعالجها
+      </span>
+
+      <span class="value">
+        تنفيذ الإجراء دون فهم العلاقة
+        أو المعنى الذي يقوم عليه.
+      </span>
+
+    </div>
+
+    <div class="field">
+
+      <span class="label">
+        المنطق التربوي
+      </span>
+
+      <span class="value">
+        الانتقال من تمثيل بصري واضح
+        إلى التعبير الرمزي تدريجيًا.
+      </span>
+
+    </div>
+
+    <div class="field">
+
+      <span class="label">
+        دور المعلم
+      </span>
+
+      <span class="value">
+        يطرح أسئلة تفسيرية ويكشف
+        العلاقات بدل إعطاء الخطوات مباشرة.
+      </span>
+
+    </div>
+
+    <div class="field">
+
+      <span class="label">
+        دور الطالب
+      </span>
+
+      <span class="value">
+        يمثل ويقارن ويشرح العلاقة
+        بلغته قبل استخدام الرموز.
+      </span>
+
+    </div>
+
+    <button
+      class="approve-btn"
+      type="button"
+      onclick="approveCard(
+        'card1',
+        'المدخل المفاهيمي البصري'
+      )"
+    >
+      اعتماد هذا البديل
+    </button>
+
+  </div>
+
+  <div class="approved-badge">
+
+    ✓ تم اختيار هذا البديل للمراجعة النهائية.
+
+    <button
+      class="go-next"
+      type="button"
+      onclick="goToApproval()"
+    >
+      الانتقال إلى مراجعة القرار ←
+    </button>
+
+    <button
+      class="change-decision"
+      type="button"
+      onclick="changeDecision()"
+    >
+      تغيير القرار
+    </button>
+
+  </div>
+
+</article>
+
+<!-- CARD B -->
+
+<article class="card" id="card2">
+
+  <div class="card-head">
+
+    <span class="card-kicker">
+      البديل B · Diagnostic
+    </span>
+
+    <h2>
+
+      تحليل الأخطاء الشائعة
+
+      <span class="card-title-en">
+        Common-Error Analysis
+      </span>
+
+    </h2>
+
+  </div>
+
+  <div class="card-body">
+
+    <div class="field">
+
+      <span class="label">
+        يركز على
+      </span>
+
+      <span class="value strong">
+        تشخيص سبب الخطأ
+      </span>
+
+    </div>
+
+    <div class="field">
+
+      <span class="label">
+        مناسب عندما
+      </span>
+
+      <span class="value">
+        يتكرر خطأ مفاهيمي واحد لدى
+        عدد من الطلاب.
+      </span>
+
+    </div>
+
+    <div class="constraint-box">
+
+      <span class="label">
+        ما الذي قد لا يتحقق؟
+      </span>
+
+      <span class="value">
+        يحتاج إدارة صفية آمنة حتى لا
+        تتحول مناقشة الخطأ إلى إحراج.
+      </span>
+
+    </div>
+
+    <button
+      class="expand-toggle"
+      type="button"
+      onclick="toggleCard('card2')"
+    >
+      عرض التحليل الكامل ▾
+    </button>
+
+  </div>
+
+  <div class="details">
+
+    <div class="field">
+
+      <span class="label">
+        الفجوة التي يعالجها
+      </span>
+
+      <span class="value">
+        تكرار الخطأ دون إدراك سببه.
+      </span>
+
+    </div>
+
+    <div class="field">
+
+      <span class="label">
+        المنطق التربوي
+      </span>
+
+      <span class="value">
+        عرض مثال يحتوي خطأ مقصودًا
+        وتحليل سبب الخطأ قبل تصحيحه.
+      </span>
+
+    </div>
+
+    <div class="field">
+
+      <span class="label">
+        دور المعلم
+      </span>
+
+      <span class="value">
+        ميسّر للنقاش والتحليل.
+      </span>
+
+    </div>
+
+    <div class="field">
+
+      <span class="label">
+        دور الطالب
+      </span>
+
+      <span class="value">
+        يكتشف الخطأ ويشرح سبب
+        عدم صحة الحل.
+      </span>
+
+    </div>
+
+    <button
+      class="approve-btn"
+      type="button"
+      onclick="approveCard(
+        'card2',
+        'تحليل الأخطاء الشائعة'
+      )"
+    >
+      اعتماد هذا البديل
+    </button>
+
+  </div>
+
+  <div class="approved-badge">
+
+    ✓ تم اختيار هذا البديل للمراجعة النهائية.
+
+    <button
+      class="go-next"
+      type="button"
+      onclick="goToApproval()"
+    >
+      الانتقال إلى مراجعة القرار ←
+    </button>
+
+    <button
+      class="change-decision"
+      type="button"
+      onclick="changeDecision()"
+    >
+      تغيير القرار
+    </button>
+
+  </div>
+
+</article>
+
+<!-- CARD C -->
+
+<article class="card" id="card3">
+
+  <div class="card-head">
+
+    <span class="card-kicker">
+      البديل C · Structured
+    </span>
+
+    <h2>
+
+      إعادة التجزئة المنتظمة
+
+      <span class="card-title-en">
+        Structured Repartitioning
+      </span>
+
+    </h2>
+
+  </div>
+
+  <div class="card-body">
+
+    <div class="field">
+
+      <span class="label">
+        يركز على
+      </span>
+
+      <span class="value strong">
+        الانتقال المنظم من التمثيل
+        إلى القاعدة
+      </span>
+
+    </div>
+
+    <div class="field">
+
+      <span class="label">
+        مناسب عندما
+      </span>
+
+      <span class="value">
+        يمتلك الطلاب فهمًا جزئيًا،
+        لكنهم يواجهون صعوبة في التعميم.
+      </span>
+
+    </div>
+
+    <div class="constraint-box">
+
+      <span class="label">
+        ما الذي قد لا يتحقق؟
+      </span>
+
+      <span class="value">
+        قد يبدو التكرار بطيئًا لبعض
+        الطلاب المتقدمين.
+      </span>
+
+    </div>
+
+    <button
+      class="expand-toggle"
+      type="button"
+      onclick="toggleCard('card3')"
+    >
+      عرض التحليل الكامل ▾
+    </button>
+
+  </div>
+
+  <div class="details">
+
+    <div class="field">
+
+      <span class="label">
+        الفجوة التي يعالجها
+      </span>
+
+      <span class="value">
+        صعوبة الانتقال من المثال
+        إلى القاعدة العامة.
+      </span>
+
+    </div>
+
+    <div class="field">
+
+      <span class="label">
+        المنطق التربوي
+      </span>
+
+      <span class="value">
+        تقديم أمثلة منظمة ومتدرجة
+        ثم استخراج النمط المشترك منها.
+      </span>
+
+    </div>
+
+    <div class="field">
+
+      <span class="label">
+        دور المعلم
+      </span>
+
+      <span class="value">
+        ينظم التسلسل ويطرح أسئلة
+        لاستخلاص النمط.
+      </span>
+
+    </div>
+
+    <div class="field">
+
+      <span class="label">
+        دور الطالب
+      </span>
+
+      <span class="value">
+        يقارن الأمثلة ويستنتج
+        القاعدة بنفسه.
+      </span>
+
+    </div>
+
+    <button
+      class="approve-btn"
+      type="button"
+      onclick="approveCard(
+        'card3',
+        'إعادة التجزئة المنتظمة'
+      )"
+    >
+      اعتماد هذا البديل
+    </button>
+
+  </div>
+
+  <div class="approved-badge">
+
+    ✓ تم اختيار هذا البديل للمراجعة النهائية.
+
+    <button
+      class="go-next"
+      type="button"
+      onclick="goToApproval()"
+    >
+      الانتقال إلى مراجعة القرار ←
+    </button>
+
+    <button
+      class="change-decision"
+      type="button"
+      onclick="changeDecision()"
+    >
+      تغيير القرار
+    </button>
+
+  </div>
+
+</article>
+
+</section>
+
+<!-- ======================================================
+     TRACE
+====================================================== -->
+
+<section class="decision-trace">
+
+  <div class="trace-title">
+    مسار القرار — Decision Trace
+  </div>
+
+  <div class="trace-chain">
+
+    <div class="trace-step done">
+
+      <span class="dot">
+        ✓
+      </span>
+
+      تحليل الموقف
+
+    </div>
+
+    <div class="trace-step done">
+
+      <span class="dot">
+        ✓
+      </span>
+
+      أدلة المنهج
+
+    </div>
+
+    <div class="trace-step current">
+
+      <span class="dot">
+        ●
+      </span>
+
+      البدائل
+
+    </div>
+
+    <div class="trace-step">
+
+      <span class="dot">
+        ○
+      </span>
+
+      اعتماد المعلم
+
+    </div>
+
+    <div class="trace-step">
+
+      <span class="dot">
+        ○
+      </span>
+
+      خطة التنفيذ
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
 
 <script>
-const allCardIds = ['card1','card2','card3'];
 
-// Reflect the teacher's actual input from scenario.html instead of a
-// hardcoded scenario. Falls back to the defaults already shown in the
-// markup above if the teacher landed here directly (no prior context).
-(function renderScenarioContext(){
+/* =========================================================
+   ZAHRAA™ Alternatives Page Controller
+========================================================= */
+
+const SESSION_KEY =
+  "zahraaDecisionSession";
+
+const HISTORY_KEY =
+  "zahraaDecisionSessionsHistory";
+
+const CARD_IDS = [
+  "card1",
+  "card2",
+  "card3"
+];
+
+/* =========================================================
+   READ SESSION
+========================================================= */
+
+function getSession(){
+
   try{
-    const stored = JSON.parse(localStorage.getItem('zahraaDecisionContext') || '{}');
-    if (stored.grade) document.getElementById('ctxGrade').textContent = stored.grade;
-    if (stored.subject) document.getElementById('ctxSubject').textContent = stored.subject;
-    if (stored.lesson) document.getElementById('ctxLesson').textContent = stored.lesson;
-    if (stored.challenge) document.getElementById('ctxChallenge').textContent = stored.challenge;
-    if (stored.outcome) document.getElementById('ctxOutcome').textContent = stored.outcome;
-    if (stored.level) document.getElementById('ctxLevel').textContent = stored.level;
-  }catch(e){}
-})();
+
+    return JSON.parse(
+      localStorage.getItem(
+        SESSION_KEY
+      ) || "{}"
+    );
+
+  }catch(error){
+
+    console.error(
+      "Unable to read session:",
+      error
+    );
+
+    return {};
+
+  }
+
+}
+
+function saveSession(session){
+
+  localStorage.setItem(
+    SESSION_KEY,
+    JSON.stringify(session)
+  );
+
+  if(!session.sessionId){
+    return;
+  }
+
+  let history = [];
+
+  try{
+
+    history = JSON.parse(
+      localStorage.getItem(
+        HISTORY_KEY
+      ) || "[]"
+    );
+
+  }catch{
+    history = [];
+  }
+
+  const updated = {
+    ...session,
+    updatedAt:
+      new Date().toISOString()
+  };
+
+  const index =
+    history.findIndex(
+      item =>
+        item.sessionId ===
+        session.sessionId
+    );
+
+  if(index >= 0){
+
+    history[index] =
+      updated;
+
+  }else{
+
+    history.unshift(
+      updated
+    );
+
+  }
+
+  localStorage.setItem(
+    HISTORY_KEY,
+    JSON.stringify(
+      history.slice(0,20)
+    )
+  );
+
+}
+
+/* =========================================================
+   RENDER CONTEXT FROM THE SAME SESSION USED BY app.js
+========================================================= */
+
+function renderContext(){
+
+  const session =
+    getSession();
+
+  const values = {
+
+    ctxGrade:
+      session.gradeLevel,
+
+    ctxSubject:
+      session.subject,
+
+    ctxLesson:
+      session.lessonTopic,
+
+    ctxChallenge:
+      session.classChallenge,
+
+    ctxOutcome:
+      session.learningGoal,
+
+    ctxLevel:
+      session.studentLevel
+
+  };
+
+  Object.entries(
+    values
+  ).forEach(
+    ([id,value]) => {
+
+      const element =
+        document.getElementById(id);
+
+      if(
+        element &&
+        value
+      ){
+
+        element.textContent =
+          value;
+
+      }
+
+    }
+  );
+
+  const evidenceBox =
+    document.getElementById(
+      "aiEvidenceInfo"
+    );
+
+  if(
+    session.datahubConnected === true
+  ){
+
+    evidenceBox.classList.add(
+      "visible"
+    );
+
+    evidenceBox.innerHTML = `
+      <strong>
+        DataHub Evidence Connected
+      </strong>
+      —
+      تم ربط أدلة المنهج بهذه الجلسة.
+
+      عدد الأدلة:
+      ${
+        session.datahubEvidenceCount
+        ?? 0
+      }
+    `;
+
+  }
+
+}
+
+renderContext();
+
+/* =========================================================
+   EXPAND CARD
+========================================================= */
 
 function toggleCard(id){
-  const card = document.getElementById(id);
-  if(card.classList.contains('approved')) return;
-  const willOpen = !card.classList.contains('open');
-  card.classList.toggle('open');
-  card.querySelector('.expand-toggle .txt').innerHTML = willOpen
-    ? 'إخفاء التحليل<small>Hide full analysis</small>'
-    : 'عرض التحليل الكامل<small>View full analysis</small>';
+
+  const card =
+    document.getElementById(id);
+
+  if(!card){
+    return;
+  }
+
+  card.classList.toggle(
+    "open"
+  );
+
+  const button =
+    card.querySelector(
+      ".expand-toggle"
+    );
+
+  if(button){
+
+    button.textContent =
+      card.classList.contains(
+        "open"
+      )
+        ? "إخفاء التحليل ▴"
+        : "عرض التحليل الكامل ▾";
+
+  }
+
 }
 
-function approveCard(id){
-  document.getElementById(id).classList.add('approved');
-  allCardIds.forEach(otherId => {
-    if(otherId !== id){
-      document.getElementById(otherId).classList.add('dimmed');
+/* =========================================================
+   APPROVE PRELIMINARY ALTERNATIVE
+========================================================= */
+
+function approveCard(
+  id,
+  decisionName
+){
+
+  const session =
+    getSession();
+
+  CARD_IDS.forEach(
+    cardId => {
+
+      const card =
+        document.getElementById(
+          cardId
+        );
+
+      if(!card){
+        return;
+      }
+
+      if(
+        cardId === id
+      ){
+
+        card.classList.add(
+          "approved"
+        );
+
+        card.classList.remove(
+          "dimmed"
+        );
+
+      }else{
+
+        card.classList.add(
+          "dimmed"
+        );
+
+        card.classList.remove(
+          "approved"
+        );
+
+      }
+
     }
-  });
-  // Persist which alternative was chosen so teacher-approval.html and
-  // implementation-plan.html can render the matching decision instead of
-  // a hardcoded default. Uses localStorage to match the storage mechanism
-  // already established by scenario.html (zahraaDecisionContext).
-  try{ localStorage.setItem('zahraaApprovedAlternative', id); }catch(e){}
-}
+  );
 
-function goToApproval(btn){
-  if(btn.disabled) return;
-  btn.disabled = true;
-  btn.innerHTML = '<span class="bilingual-btn">جارٍ تجهيز مراجعة القرار...<small>Preparing Decision Review...</small></span>';
-  setTimeout(() => {
-    window.location.href = "teacher-approval.html";
-  }, 600);
-}
+  session.selectedAlternative =
+    id;
 
-function changeDecision(btn){
-  const approvedCard = btn.closest('.card');
-  approvedCard.classList.remove('approved', 'open');
-  approvedCard.querySelector('.expand-toggle .txt').innerHTML = 'عرض التحليل الكامل<small>View full analysis</small>';
-  allCardIds.forEach(id => document.getElementById(id).classList.remove('dimmed'));
-  try{ localStorage.removeItem('zahraaApprovedAlternative'); }catch(e){}
-}
-</script>
+  session.approvedDecision =
+    decisionName;
 
-</body>
-</html>
+  /*
+    هنا لا نعتبرها موافقة المعلم النهائية.
+    الاعتماد النهائي يحدث في
+    teacher-approval.html
+  */
+
+  session.teacherApproval =
+    false;
+
+  session.sessionStatus =
+    "ALTERNATIVE_SELECTED";
+
+  session.selectedAt =
+    new Date().toISOString
