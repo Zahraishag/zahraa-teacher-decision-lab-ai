@@ -1,1518 +1,2221 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>البدائل التربوية — ZAHRAA™ Teacher Decision Lab</title>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap"
-    rel="stylesheet"
-  >
-
-  <style>
-    :root{
-      --ink:#5A3E2B;
-      --ink-soft:#8B7F72;
-      --paper:#FAF7F0;
-      --white:#FFFFFF;
-      --gold:#C9A24B;
-      --gold-deep:#B08A3A;
-      --amber:#FAF1DC;
-      --amber-line:#EBD9A8;
-      --line:#EAE2D3;
-      --green:#3F6B50;
-      --green-bg:#EDF6F0;
-      --red:#914B3D;
-      --red-bg:#FFF3EF;
-    }
-
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-    }
-
-    html,
-    body{
-      min-height:100%;
-    }
-
-    body{
-      font-family:"Alexandria",sans-serif;
-      background:var(--paper);
-      color:var(--ink);
-      line-height:1.75;
-    }
-
-    button,
-    a{
-      font-family:inherit;
-    }
-
-    a{
-      color:inherit;
-      text-decoration:none;
-    }
-
-    .topbar{
-      background:var(--white);
-      border-bottom:1px solid var(--line);
-      padding:1rem clamp(1rem,4vw,3rem);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:1rem;
-    }
-
-    .brand{
-      font-size:1.1rem;
-      font-weight:800;
-      letter-spacing:.02em;
-    }
-
-    .brand small{
-      font-size:.52rem;
-      color:var(--gold-deep);
-      vertical-align:super;
-    }
-
-    .back-link{
-      font-size:.78rem;
-      color:var(--ink-soft);
-    }
-
-    .workflow{
-      background:var(--white);
-      border-bottom:1px solid var(--line);
-      padding:.8rem 1rem;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      flex-wrap:wrap;
-      gap:.45rem;
-      font-size:.72rem;
-    }
-
-    .workflow span{
-      color:var(--ink-soft);
-    }
-
-    .workflow .done{
-      color:var(--green);
-    }
-
-    .workflow .current{
-      background:var(--amber);
-      border:1px solid var(--amber-line);
-      color:var(--ink);
-      font-weight:700;
-      padding:.25rem .55rem;
-      border-radius:999px;
-    }
-
-    .frame{
-      max-width:1240px;
-      margin:0 auto;
-      padding:2rem clamp(1rem,4vw,3rem) 5rem;
-    }
-
-    .eyebrow{
-      font-size:.72rem;
-      color:var(--gold-deep);
-      margin-bottom:.4rem;
-    }
-
-    h1{
-      font-size:clamp(1.7rem,3vw,2.35rem);
-      line-height:1.4;
-      margin-bottom:1.25rem;
-    }
-
-    .context-grid{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:.8rem;
-      margin-bottom:1rem;
-    }
-
-    .context-item{
-      background:var(--white);
-      border:1px solid var(--line);
-      border-radius:8px;
-      padding:.9rem 1rem;
-      min-height:85px;
-    }
-
-    .context-label{
-      display:block;
-      color:var(--ink-soft);
-      font-size:.64rem;
-      margin-bottom:.25rem;
-    }
-
-    .context-value{
-      font-size:.85rem;
-      font-weight:500;
-      overflow-wrap:anywhere;
-    }
-
-    .evaluation{
-      direction:ltr;
-      text-align:left;
-      background:var(--amber);
-      border:1px solid var(--amber-line);
-      border-left:4px solid var(--gold);
-      border-radius:8px;
-      padding:.9rem 1rem;
-      font-size:.78rem;
-      color:var(--ink-soft);
-      margin-bottom:1rem;
-    }
-
-    .evaluation strong{
-      display:block;
-      font-size:.64rem;
-      color:var(--gold-deep);
-      margin-bottom:.2rem;
-      text-transform:uppercase;
-    }
-
-    .why{
-      background:var(--white);
-      border:1px solid var(--line);
-      border-radius:8px;
-      padding:.9rem 1rem;
-      margin-bottom:1rem;
-      font-size:.82rem;
-      color:var(--ink-soft);
-    }
-
-    .why strong{
-      display:block;
-      color:var(--ink);
-      margin-bottom:.2rem;
-    }
-
-    .status{
-      background:var(--white);
-      border:1px solid var(--line);
-      border-radius:8px;
-      padding:.9rem 1rem;
-      margin-bottom:1rem;
-      font-size:.8rem;
-      color:var(--ink-soft);
-    }
-
-    .status.success{
-      background:var(--green-bg);
-      color:var(--green);
-      border-color:#C8DDCF;
-    }
-
-    .loading{
-      background:var(--white);
-      border:1px solid var(--line);
-      border-radius:10px;
-      padding:2rem;
-      text-align:center;
-      margin-top:1rem;
-    }
-
-    .spinner{
-      width:34px;
-      height:34px;
-      border:3px solid var(--line);
-      border-top-color:var(--gold);
-      border-radius:50%;
-      margin:0 auto 1rem;
-      animation:spin .8s linear infinite;
-    }
-
-    @keyframes spin{
-      to{
-        transform:rotate(360deg);
-      }
-    }
-
-    .loading p{
-      margin-top:.45rem;
-      font-size:.72rem;
-      color:var(--ink-soft);
-    }
-
-    .error-box{
-      background:var(--red-bg);
-      color:var(--red);
-      border:1px solid #E7C5BA;
-      border-radius:9px;
-      padding:1rem;
-      margin-top:1rem;
-    }
-
-    .error-box strong{
-      display:block;
-      margin-bottom:.3rem;
-    }
-
-    .retry-btn{
-      margin-top:.8rem;
-      background:var(--ink);
-      color:white;
-      border:0;
-      border-radius:6px;
-      padding:.65rem 1rem;
-      cursor:pointer;
-      font-weight:600;
-    }
-
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:1.2rem;
-      margin-top:1rem;
-      align-items:start;
-    }
-
-    .card{
-      background:var(--white);
-      border:1px solid var(--line);
-      border-radius:10px;
-      overflow:hidden;
-      transition:.2s ease;
-    }
-
-    .card:hover:not(.selected):not(.dimmed){
-      transform:translateY(-3px);
-      border-color:var(--gold);
-      box-shadow:0 12px 25px rgba(90,62,43,.08);
-    }
-
-    .card.selected{
-      border:2px solid var(--gold);
-    }
-
-    .card.dimmed{
-      opacity:.42;
-    }
-
-    .card-header{
-      padding:1.15rem 1.2rem;
-      border-bottom:1px solid var(--line);
-    }
-
-    .badge{
-      display:inline-block;
-      background:var(--amber);
-      border:1px solid var(--amber-line);
-      color:var(--gold-deep);
-      border-radius:999px;
-      padding:.2rem .55rem;
-      font-size:.62rem;
-      margin-bottom:.7rem;
-    }
-
-    .card-title{
-      font-size:1.04rem;
-      line-height:1.5;
-      font-weight:700;
-    }
-
-    .card-body{
-      padding:1.1rem 1.2rem;
-    }
-
-    .field{
-      margin-bottom:.9rem;
-    }
-
-    .field-label{
-      display:block;
-      font-size:.64rem;
-      color:var(--ink-soft);
-      margin-bottom:.18rem;
-    }
-
-    .field-value{
-      font-size:.82rem;
-      white-space:pre-line;
-      overflow-wrap:anywhere;
-    }
-
-    .more{
-      display:none;
-      border-top:1px dashed var(--line);
-      margin-top:.85rem;
-      padding-top:.9rem;
-    }
-
-    .card.open .more{
-      display:block;
-    }
-
-    .actions{
-      padding:0 1.2rem 1.2rem;
-    }
-
-    .details-btn,
-    .select-btn{
-      width:100%;
-      border-radius:6px;
-      padding:.72rem;
-      cursor:pointer;
-      font-size:.8rem;
-    }
-
-    .details-btn{
-      background:white;
-      color:var(--ink);
-      border:1px solid var(--ink-soft);
-      margin-bottom:.55rem;
-    }
-
-    .select-btn{
-      background:var(--ink);
-      color:white;
-      border:0;
-      font-weight:700;
-    }
-
-    .selected-panel{
-      display:none;
-      background:var(--amber);
-      border-top:1px solid var(--amber-line);
-      padding:1rem;
-      text-align:center;
-      color:var(--gold-deep);
-      font-size:.78rem;
-    }
-
-    .card.selected .selected-panel{
-      display:block;
-    }
-
-    .continue-btn{
-      width:100%;
-      border:0;
-      border-radius:6px;
-      background:var(--ink);
-      color:white;
-      padding:.75rem;
-      margin-top:.7rem;
-      cursor:pointer;
-      font-weight:700;
-    }
-
-    .change-btn{
-      border:0;
-      background:transparent;
-      color:var(--ink-soft);
-      text-decoration:underline;
-      margin-top:.55rem;
-      cursor:pointer;
-      font-size:.72rem;
-    }
-
-    .raw{
-      margin-top:2rem;
-      background:white;
-      border:1px solid var(--line);
-      border-radius:8px;
-      padding:.8rem 1rem;
-    }
-
-    .raw summary{
-      cursor:pointer;
-      color:var(--ink-soft);
-      font-size:.72rem;
-    }
-
-    .raw pre{
-      white-space:pre-wrap;
-      font-family:inherit;
-      font-size:.68rem;
-      color:var(--ink-soft);
-      margin-top:.8rem;
-    }
-
-    .hidden{
-      display:none !important;
-    }
-
-    @media(max-width:900px){
-      .context-grid{
-        grid-template-columns:1fr 1fr;
-      }
-
-      .cards{
-        grid-template-columns:1fr;
-      }
-    }
-
-    @media(max-width:600px){
-      .context-grid{
-        grid-template-columns:1fr;
-      }
-
-      .topbar{
-        align-items:flex-start;
-        flex-direction:column;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>البدائل التربوية — ZAHRAA™ Teacher Decision Lab</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --ink:#5A3E2B;
+  --ink2:#3E2C20;
+  --soft:#8B7F72;
+  --paper:#FAF7F0;
+  --white:#FFFFFF;
+  --gold:#C9A24B;
+  --gold2:#B08A3A;
+  --amber:#FAF1DC;
+  --amberLine:#EBD9A8;
+  --line:#EAE2D3;
+  --green:#3F6B50;
+  --greenBg:#EDF6F0;
+  --red:#914B3D;
+  --redBg:#FFF3EF;
+}
+
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  min-height:100vh;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Alexandria",sans-serif;
+  line-height:1.75;
+}
+
+button,a{
+  font-family:inherit;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* HEADER */
+
+.topbar{
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:1rem;
+  padding:1rem clamp(1rem,4vw,3rem);
+}
+
+.brand{
+  font-weight:800;
+  font-size:1.08rem;
+}
+
+.brand small{
+  color:var(--gold2);
+  font-size:.52rem;
+  vertical-align:super;
+}
+
+.brand-sub{
+  display:block;
+  color:var(--soft);
+  font-size:.55rem;
+  font-weight:400;
+}
+
+.top-actions{
+  display:flex;
+  gap:.5rem;
+}
+
+.small-btn{
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--soft);
+  border-radius:7px;
+  padding:.5rem .75rem;
+  cursor:pointer;
+  font-size:.72rem;
+}
+
+.small-btn:hover{
+  border-color:var(--gold);
+  color:var(--gold2);
+}
+
+/* WORKFLOW */
+
+.workflow-wrap{
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  overflow-x:auto;
+}
+
+.workflow{
+  min-width:max-content;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.4rem;
+  padding:.8rem 1rem;
+}
+
+.workflow-btn{
+  border:0;
+  background:transparent;
+  color:var(--soft);
+  border-radius:999px;
+  padding:.38rem .6rem;
+  font-size:.7rem;
+  cursor:pointer;
+  white-space:nowrap;
+}
+
+.workflow-btn:hover{
+  background:#F7F1E6;
+  color:var(--ink);
+}
+
+.workflow-btn.done{
+  color:var(--green);
+}
+
+.workflow-btn.current{
+  background:var(--amber);
+  border:1px solid var(--amberLine);
+  color:var(--ink);
+  font-weight:700;
+}
+
+.workflow-btn.locked{
+  opacity:.55;
+}
+
+.sep{
+  color:#D7CCBB;
+}
+
+/* MAIN */
+
+.frame{
+  width:min(1240px,94%);
+  margin:auto;
+  padding:2rem 0 5rem;
+}
+
+.eyebrow{
+  color:var(--gold2);
+  font-size:.7rem;
+  margin-bottom:.4rem;
+}
+
+h1{
+  font-size:clamp(1.7rem,3vw,2.4rem);
+  line-height:1.4;
+  margin-bottom:1.2rem;
+}
+
+.context-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:.8rem;
+}
+
+.context-item{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:9px;
+  min-height:85px;
+  padding:.85rem 1rem;
+}
+
+.context-label{
+  display:block;
+  color:var(--soft);
+  font-size:.62rem;
+  margin-bottom:.2rem;
+}
+
+.context-value{
+  font-size:.82rem;
+  font-weight:500;
+  overflow-wrap:anywhere;
+}
+
+.evaluation{
+  margin-top:1rem;
+  direction:ltr;
+  text-align:left;
+  background:var(--amber);
+  border:1px solid var(--amberLine);
+  border-left:4px solid var(--gold);
+  border-radius:8px;
+  padding:.85rem 1rem;
+  color:#756B5E;
+  font-size:.75rem;
+}
+
+.evaluation strong{
+  display:block;
+  color:var(--gold2);
+  font-size:.6rem;
+  margin-bottom:.2rem;
+}
+
+.why{
+  margin-top:1rem;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:.85rem 1rem;
+  color:var(--soft);
+  font-size:.8rem;
+}
+
+.why strong{
+  display:block;
+  color:var(--ink);
+  margin-bottom:.2rem;
+}
+
+/* STATUS */
+
+.status{
+  margin-top:1rem;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:.8rem 1rem;
+  color:var(--soft);
+  font-size:.78rem;
+}
+
+.status.success{
+  background:var(--greenBg);
+  border-color:#C9DECF;
+  color:var(--green);
+}
+
+.status.demo{
+  background:#FFF8E9;
+  border-color:#E9D39A;
+  color:#84621F;
+}
+
+/* LOADING */
+
+.loading{
+  margin-top:1rem;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:2rem;
+  text-align:center;
+}
+
+.spinner{
+  width:34px;
+  height:34px;
+  margin:0 auto 1rem;
+  border:3px solid var(--line);
+  border-top-color:var(--gold);
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+  to{transform:rotate(360deg);}
+}
+
+.loading p{
+  color:var(--soft);
+  font-size:.7rem;
+  margin-top:.4rem;
+}
+
+/* ERROR */
+
+.error-box{
+  margin-top:1rem;
+  background:var(--redBg);
+  border:1px solid #E7C5BA;
+  color:var(--red);
+  border-radius:9px;
+  padding:1rem;
+}
+
+.retry-btn{
+  margin-top:.7rem;
+  border:0;
+  background:var(--ink);
+  color:#fff;
+  padding:.65rem 1rem;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+/* CARDS */
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1.1rem;
+  margin-top:1.2rem;
+  align-items:start;
+}
+
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:10px;
+  overflow:hidden;
+  transition:.18s ease;
+}
+
+.card:hover:not(.selected):not(.dimmed){
+  transform:translateY(-3px);
+  border-color:var(--gold);
+  box-shadow:0 12px 28px rgba(90,62,43,.08);
+}
+
+.card.selected{
+  border:2px solid var(--gold);
+}
+
+.card.dimmed{
+  opacity:.4;
+}
+
+.card-head{
+  padding:1.15rem;
+  border-bottom:1px solid var(--line);
+}
+
+.card-badge{
+  display:inline-block;
+  background:var(--amber);
+  border:1px solid var(--amberLine);
+  color:var(--gold2);
+  border-radius:999px;
+  padding:.18rem .55rem;
+  font-size:.6rem;
+  margin-bottom:.65rem;
+}
+
+.card-title{
+  font-weight:700;
+  font-size:1.03rem;
+}
+
+.card-body{
+  padding:1rem 1.15rem;
+}
+
+.field{
+  margin-bottom:.82rem;
+}
+
+.field-label{
+  display:block;
+  color:var(--soft);
+  font-size:.62rem;
+  margin-bottom:.18rem;
+}
+
+.field-value{
+  font-size:.8rem;
+  white-space:pre-line;
+}
+
+.more{
+  display:none;
+  border-top:1px dashed var(--line);
+  margin-top:.8rem;
+  padding-top:.8rem;
+}
+
+.card.open .more{
+  display:block;
+}
+
+.card-actions{
+  padding:0 1.15rem 1.15rem;
+}
+
+.details-btn,
+.select-btn{
+  width:100%;
+  border-radius:6px;
+  padding:.7rem;
+  cursor:pointer;
+  font-size:.78rem;
+}
+
+.details-btn{
+  background:#fff;
+  border:1px solid var(--soft);
+  color:var(--ink);
+  margin-bottom:.5rem;
+}
+
+.select-btn{
+  border:0;
+  background:var(--ink);
+  color:#fff;
+  font-weight:700;
+}
+
+.selected-panel{
+  display:none;
+  background:var(--amber);
+  border-top:1px solid var(--amberLine);
+  padding:1rem;
+  text-align:center;
+  color:var(--gold2);
+  font-size:.76rem;
+}
+
+.card.selected .selected-panel{
+  display:block;
+}
+
+.continue-btn{
+  width:100%;
+  margin-top:.7rem;
+  border:0;
+  background:var(--ink);
+  color:#fff;
+  border-radius:6px;
+  padding:.72rem;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.change-btn{
+  border:0;
+  background:transparent;
+  color:var(--soft);
+  text-decoration:underline;
+  cursor:pointer;
+  margin-top:.5rem;
+  font-size:.7rem;
+}
+
+.bottom-actions{
+  margin-top:1.5rem;
+  display:flex;
+  justify-content:space-between;
+  gap:.8rem;
+  flex-wrap:wrap;
+}
+
+.nav-large{
+  border-radius:7px;
+  padding:.7rem 1rem;
+  cursor:pointer;
+  font-size:.78rem;
+}
+
+.nav-large.secondary{
+  background:#fff;
+  color:var(--ink);
+  border:1px solid var(--line);
+}
+
+.nav-large.primary{
+  border:0;
+  background:var(--ink);
+  color:#fff;
+  font-weight:700;
+}
+
+.raw{
+  margin-top:1.5rem;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:.8rem 1rem;
+}
+
+.raw summary{
+  cursor:pointer;
+  color:var(--soft);
+  font-size:.7rem;
+}
+
+.raw pre{
+  margin-top:.7rem;
+  white-space:pre-wrap;
+  font-family:inherit;
+  color:var(--soft);
+  font-size:.66rem;
+}
+
+.hidden{
+  display:none !important;
+}
+
+@media(max-width:900px){
+  .context-grid{grid-template-columns:1fr 1fr;}
+  .cards{grid-template-columns:1fr;}
+}
+
+@media(max-width:600px){
+  .context-grid{grid-template-columns:1fr;}
+  .topbar{flex-direction:column;align-items:flex-start;}
+}
+</style>
 </head>
 
 <body>
 
-  <header class="topbar">
+<header class="topbar">
+
+  <div>
     <div class="brand">
       ZAHRAA<small>™</small>
     </div>
 
-    <a href="scenario.html" class="back-link">
-      ← تعديل بيانات الموقف
-    </a>
-  </header>
+    <span class="brand-sub">
+      Teacher Decision Lab · Decision Before Generation
+    </span>
+  </div>
 
-  <nav class="workflow">
-    <span class="done">✓ تحليل</span>
-    <span>/</span>
+  <div class="top-actions">
 
-    <span class="done">✓ سؤال تكيفي</span>
-    <span>/</span>
+    <button
+      type="button"
+      class="small-btn"
+      onclick="goHome()"
+    >
+      الرئيسية
+    </button>
 
-    <span class="done">✓ ملخص</span>
-    <span>/</span>
+    <button
+      type="button"
+      class="small-btn"
+      onclick="goScenario()"
+    >
+      تعديل الموقف
+    </button>
 
-    <span class="current">● بدائل</span>
-    <span>/</span>
+  </div>
 
-    <span>○ مراجعة القرار واعتماده</span>
-    <span>/</span>
+</header>
 
-    <span>○ خطة التنفيذ</span>
-  </nav>
 
-  <main class="frame">
+<div class="workflow-wrap">
 
-    <div class="eyebrow">
-      البدائل التربوية
+<nav class="workflow">
+
+  <button
+    type="button"
+    class="workflow-btn done"
+    onclick="goAnalysis()"
+  >
+    ✓ تحليل
+  </button>
+
+  <span class="sep">/</span>
+
+  <button
+    type="button"
+    class="workflow-btn done"
+    onclick="goAdaptive()"
+  >
+    ✓ سؤال تكيفي
+  </button>
+
+  <span class="sep">/</span>
+
+  <button
+    type="button"
+    class="workflow-btn done"
+    onclick="goSummary()"
+  >
+    ✓ ملخص
+  </button>
+
+  <span class="sep">/</span>
+
+  <button
+    type="button"
+    class="workflow-btn current"
+    onclick="goAlternatives()"
+  >
+    ● بدائل
+  </button>
+
+  <span class="sep">/</span>
+
+  <button
+    type="button"
+    class="workflow-btn"
+    onclick="openApproval()"
+  >
+    ○ مراجعة القرار واعتماده
+  </button>
+
+  <span class="sep">/</span>
+
+  <button
+    type="button"
+    class="workflow-btn locked"
+    onclick="openPlan()"
+  >
+    ○ خطة التنفيذ
+  </button>
+
+</nav>
+
+</div>
+
+
+<main class="frame">
+
+  <div class="eyebrow">
+    البدائل التربوية
+  </div>
+
+  <h1>
+    قارن بين البدائل قبل اعتماد القرار
+  </h1>
+
+
+  <section class="context-grid">
+
+    <div class="context-item">
+      <span class="context-label">الصف / المرحلة</span>
+      <div id="ctxGrade" class="context-value">—</div>
     </div>
 
-    <h1>
-      قارن بين البدائل قبل اعتماد القرار
-    </h1>
-
-    <section class="context-grid">
-
-      <div class="context-item">
-        <span class="context-label">الصف / المرحلة</span>
-        <div id="ctxGrade" class="context-value">—</div>
-      </div>
-
-      <div class="context-item">
-        <span class="context-label">المادة</span>
-        <div id="ctxSubject" class="context-value">—</div>
-      </div>
-
-      <div class="context-item">
-        <span class="context-label">عنوان الدرس</span>
-        <div id="ctxLesson" class="context-value">—</div>
-      </div>
-
-      <div class="context-item">
-        <span class="context-label">ناتج التعلم</span>
-        <div id="ctxGoal" class="context-value">—</div>
-      </div>
-
-      <div class="context-item">
-        <span class="context-label">التحدي التربوي</span>
-        <div id="ctxChallenge" class="context-value">—</div>
-      </div>
-
-      <div class="context-item">
-        <span class="context-label">مستوى الطلاب</span>
-        <div id="ctxLevel" class="context-value">—</div>
-      </div>
-
-    </section>
-
-    <div class="evaluation">
-      <strong>For Evaluation</strong>
-      The system generates pedagogically distinct alternatives from the current teacher context.
-      DataHub evidence is retrieved internally when available.
-      The teacher—not the AI—makes the final pedagogical decision.
+    <div class="context-item">
+      <span class="context-label">المادة</span>
+      <div id="ctxSubject" class="context-value">—</div>
     </div>
 
-    <div class="why">
-      <strong>لماذا يعرض النظام ثلاثة بدائل؟</strong>
-      لأن كل بديل يمثل مسارًا تربويًا مختلفًا، وليس ترتيبًا من الأفضل إلى الأسوأ.
-      القرار النهائي للمعلم بعد المقارنة.
+    <div class="context-item">
+      <span class="context-label">عنوان الدرس</span>
+      <div id="ctxLesson" class="context-value">—</div>
     </div>
 
-    <div id="sourceStatus" class="status">
-      جارٍ قراءة بيانات الجلسة الحالية...
+    <div class="context-item">
+      <span class="context-label">ناتج التعلم</span>
+      <div id="ctxGoal" class="context-value">—</div>
     </div>
 
-    <section id="loadingBox" class="loading">
-      <div class="spinner"></div>
+    <div class="context-item">
+      <span class="context-label">التحدي التربوي</span>
+      <div id="ctxChallenge" class="context-value">—</div>
+    </div>
 
-      <strong>
-        جارٍ إنشاء البدائل من الموقف الحالي...
-      </strong>
+    <div class="context-item">
+      <span class="context-label">مستوى الطلاب</span>
+      <div id="ctxLevel" class="context-value">—</div>
+    </div>
 
-      <p id="loadingDetail">
-        يتم تجهيز بيانات الجلسة.
-      </p>
-    </section>
+  </section>
 
-    <section id="errorBox" class="error-box hidden">
-      <strong>تعذر إنشاء البدائل</strong>
 
-      <div id="errorText"></div>
+  <div class="evaluation">
 
-      <button
-        type="button"
-        class="retry-btn"
-        onclick="generateAlternatives(true)"
-      >
-        إعادة المحاولة
-      </button>
-    </section>
+    <strong>For Evaluation</strong>
 
-    <section id="cards" class="cards hidden"></section>
+    The system presents pedagogically distinct alternatives from the
+    teacher context. If Gemini is temporarily unavailable, a clearly
+    labelled demonstration fallback keeps the evaluation workflow
+    operational. The teacher—not the AI—makes the final pedagogical decision.
 
-    <details id="rawOutput" class="raw hidden">
-      <summary>
-        عرض الاستجابة الأصلية لمحرك Gemini
-      </summary>
+  </div>
 
-      <pre id="rawText"></pre>
-    </details>
 
-  </main>
+  <div class="why">
+
+    <strong>
+      لماذا يعرض النظام ثلاثة بدائل؟
+    </strong>
+
+    لأن كل بديل يمثل مسارًا تربويًا مختلفًا، وليس ترتيبًا من الأفضل
+    إلى الأسوأ. القرار النهائي للمعلم بعد المقارنة.
+
+  </div>
+
+
+  <div
+    id="sourceStatus"
+    class="status"
+  >
+    جارٍ قراءة بيانات الجلسة...
+  </div>
+
+
+  <section
+    id="loadingBox"
+    class="loading"
+  >
+
+    <div class="spinner"></div>
+
+    <strong>
+      جارٍ إنشاء البدائل...
+    </strong>
+
+    <p id="loadingText">
+      يتم تجهيز بيانات الموقف.
+    </p>
+
+  </section>
+
+
+  <section
+    id="errorBox"
+    class="error-box hidden"
+  >
+
+    <strong>
+      تعذر إنشاء البدائل
+    </strong>
+
+    <div id="errorText"></div>
+
+    <button
+      type="button"
+      class="retry-btn"
+      onclick="generateAlternatives(true)"
+    >
+      إعادة المحاولة
+    </button>
+
+  </section>
+
+
+  <section
+    id="cards"
+    class="cards hidden"
+  ></section>
+
+
+  <div class="bottom-actions">
+
+    <button
+      type="button"
+      class="nav-large secondary"
+      onclick="goSummary()"
+    >
+      ← العودة إلى الملخص
+    </button>
+
+    <button
+      type="button"
+      class="nav-large primary"
+      onclick="openApproval()"
+    >
+      مراجعة القرار واعتماده ←
+    </button>
+
+  </div>
+
+
+  <details
+    id="rawOutput"
+    class="raw hidden"
+  >
+
+    <summary>
+      عرض الاستجابة الخام لمحرك الاستدلال
+    </summary>
+
+    <pre id="rawText"></pre>
+
+  </details>
+
+</main>
+
 
 <script>
-  const SESSION_KEY = "zahraaDecisionSession";
-  const CONTEXT_KEY = "zahraaDecisionContext";
-  const GENERATED_KEY = "zahraaGeneratedAlternatives";
-  const HISTORY_KEY = "zahraaDecisionSessionsHistory";
 
-  let currentAlternatives = [];
-  let generating = false;
+/* ========================================================
+   STORAGE
+======================================================== */
 
-  function $(id){
-    return document.getElementById(id);
+const SESSION_KEY = "zahraaDecisionSession";
+const CONTEXT_KEY = "zahraaDecisionContext";
+const HISTORY_KEY = "zahraaDecisionSessionsHistory";
+const CACHE_KEY = "zahraaGeneratedAlternatives";
+
+let currentAlternatives = [];
+let generating = false;
+
+
+/* ========================================================
+   HELPERS
+======================================================== */
+
+function $(id){
+  return document.getElementById(id);
+}
+
+function safeParse(value,fallback={}){
+  try{
+    return JSON.parse(value);
+  }catch{
+    return fallback;
+  }
+}
+
+function esc(value=""){
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+
+/* ========================================================
+   NAVIGATION
+======================================================== */
+
+function goHome(){
+  window.location.href = "index.html";
+}
+
+function goScenario(){
+  window.location.href = "scenario.html";
+}
+
+function goAnalysis(){
+  localStorage.setItem(
+    "zahraaResumeTarget",
+    "analysis"
+  );
+
+  window.location.href =
+    "scenario.html#analysis";
+}
+
+function goAdaptive(){
+  localStorage.setItem(
+    "zahraaResumeTarget",
+    "adaptive"
+  );
+
+  window.location.href =
+    "scenario.html#adaptive";
+}
+
+function goSummary(){
+  localStorage.setItem(
+    "zahraaResumeTarget",
+    "summary"
+  );
+
+  window.location.href =
+    "scenario.html#summary";
+}
+
+function goAlternatives(){
+  window.location.href =
+    "alternatives.html";
+}
+
+function openApproval(){
+
+  const session =
+    getSession();
+
+  if(
+    !session.selectedAlternative &&
+    !session.approvedDecision
+  ){
+    alert(
+      "اختاري أحد البدائل أولًا قبل الانتقال إلى مراجعة القرار."
+    );
+
+    return;
   }
 
-  function safeParse(value, fallback = {}){
-    try{
-      return JSON.parse(value);
-    }catch{
-      return fallback;
-    }
+  window.location.href =
+    "teacher-approval.html";
+}
+
+function openPlan(){
+
+  const session =
+    getSession();
+
+  if(
+    session.teacherApproval !== true
+  ){
+    alert(
+      "لا يمكن فتح خطة التنفيذ قبل اعتماد القرار من المعلم."
+    );
+
+    return;
   }
 
-  function esc(value = ""){
-    return String(value)
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
-  }
+  window.location.href =
+    "implementation-plan.html";
+}
 
-  function getSession(){
-    const modern = safeParse(
+
+/* ========================================================
+   SESSION
+======================================================== */
+
+function getSession(){
+
+  const modern =
+    safeParse(
       localStorage.getItem(SESSION_KEY) || "{}",
       {}
     );
 
-    const legacy = safeParse(
+  const legacy =
+    safeParse(
       localStorage.getItem(CONTEXT_KEY) || "{}",
       {}
     );
 
-    const session = {
-      ...legacy,
-      ...modern
-    };
+  const session = {
+    ...legacy,
+    ...modern
+  };
 
-    session.gradeLevel =
-      modern.gradeLevel ||
-      legacy.gradeLevel ||
-      legacy.grade ||
-      legacy.stage ||
-      legacy.educationLevel ||
-      "";
 
-    session.subject =
-      modern.subject ||
-      legacy.subject ||
-      legacy.course ||
-      legacy.material ||
-      "";
+  session.gradeLevel =
+    modern.gradeLevel ||
+    legacy.gradeLevel ||
+    legacy.grade ||
+    legacy.stage ||
+    legacy.educationLevel ||
+    "";
 
-    session.lessonTopic =
-      modern.lessonTopic ||
-      legacy.lessonTopic ||
-      legacy.lesson ||
-      legacy.topic ||
-      legacy.title ||
-      "";
 
-    session.lessonDuration =
-      modern.lessonDuration ||
-      legacy.lessonDuration ||
-      legacy.duration ||
-      legacy.classDuration ||
-      "";
+  session.subject =
+    modern.subject ||
+    legacy.subject ||
+    legacy.course ||
+    legacy.material ||
+    "";
 
-    session.studentCount =
-      modern.studentCount ||
-      legacy.studentCount ||
-      legacy.students ||
-      "";
 
-    session.studentLevel =
-      modern.studentLevel ||
-      legacy.studentLevel ||
-      legacy.level ||
-      legacy.challengeLevel ||
-      "";
+  session.lessonTopic =
+    modern.lessonTopic ||
+    legacy.lessonTopic ||
+    legacy.lesson ||
+    legacy.topic ||
+    legacy.title ||
+    "";
 
-    session.learningGoal =
-      modern.learningGoal ||
-      legacy.learningGoal ||
-      legacy.outcome ||
-      legacy.learningOutcome ||
-      legacy.goal ||
-      "";
 
-    session.classChallenge =
-      modern.classChallenge ||
-      legacy.classChallenge ||
-      legacy.challenge ||
-      legacy.educationalChallenge ||
-      "";
+  session.lessonDuration =
+    modern.lessonDuration ||
+    legacy.lessonDuration ||
+    legacy.duration ||
+    legacy.classDuration ||
+    "";
 
-    session.availableResources =
-      modern.availableResources ||
-      legacy.availableResources ||
-      legacy.resources ||
-      "";
 
-    session.additionalConstraints =
-      modern.additionalConstraints ||
-      legacy.additionalConstraints ||
-      legacy.notes ||
-      legacy.constraints ||
-      "";
+  session.studentCount =
+    modern.studentCount ||
+    legacy.studentCount ||
+    legacy.students ||
+    "";
 
-    session.adaptiveAnswer =
-      modern.adaptiveAnswer ||
-      legacy.adaptiveAnswer ||
-      "";
 
-    if(!session.sessionId){
-      session.sessionId =
-        (crypto.randomUUID && crypto.randomUUID()) ||
-        String(Date.now());
-    }
+  session.studentLevel =
+    modern.studentLevel ||
+    legacy.studentLevel ||
+    legacy.level ||
+    legacy.challengeLevel ||
+    "";
 
-    localStorage.setItem(
-      SESSION_KEY,
-      JSON.stringify(session)
-    );
 
-    return session;
+  session.learningGoal =
+    modern.learningGoal ||
+    legacy.learningGoal ||
+    legacy.outcome ||
+    legacy.learningOutcome ||
+    legacy.goal ||
+    "";
+
+
+  session.classChallenge =
+    modern.classChallenge ||
+    legacy.classChallenge ||
+    legacy.challenge ||
+    legacy.educationalChallenge ||
+    "";
+
+
+  session.availableResources =
+    modern.availableResources ||
+    legacy.availableResources ||
+    legacy.resources ||
+    "";
+
+
+  session.additionalConstraints =
+    modern.additionalConstraints ||
+    legacy.additionalConstraints ||
+    legacy.notes ||
+    legacy.constraints ||
+    "";
+
+
+  session.adaptiveAnswer =
+    modern.adaptiveAnswer ||
+    legacy.adaptiveAnswer ||
+    "";
+
+
+  if(!session.sessionId){
+
+    session.sessionId =
+      (
+        window.crypto &&
+        crypto.randomUUID
+      )
+        ? crypto.randomUUID()
+        : String(Date.now());
+
   }
 
-  function saveSession(session){
-    localStorage.setItem(
-      SESSION_KEY,
-      JSON.stringify(session)
-    );
 
-    const history = safeParse(
+  localStorage.setItem(
+    SESSION_KEY,
+    JSON.stringify(session)
+  );
+
+
+  return session;
+}
+
+
+/* ========================================================
+   SAVE SESSION
+======================================================== */
+
+function saveSession(session){
+
+  localStorage.setItem(
+    SESSION_KEY,
+    JSON.stringify(session)
+  );
+
+
+  const history =
+    safeParse(
       localStorage.getItem(HISTORY_KEY) || "[]",
       []
     );
 
-    const updated = {
-      ...session,
-      updatedAt:new Date().toISOString()
-    };
 
-    const index = history.findIndex(
-      item => item.sessionId === session.sessionId
+  const updated = {
+    ...session,
+    updatedAt:new Date().toISOString()
+  };
+
+
+  const index =
+    history.findIndex(
+      item =>
+        item.sessionId ===
+        session.sessionId
     );
 
-    if(index >= 0){
-      history[index] = updated;
-    }else{
-      history.unshift(updated);
-    }
 
-    localStorage.setItem(
-      HISTORY_KEY,
-      JSON.stringify(history.slice(0,20))
-    );
+  if(index >= 0){
+    history[index] = updated;
+  }else{
+    history.unshift(updated);
   }
 
-  function renderContext(){
-    const session = getSession();
 
-    $("ctxGrade").textContent =
-      session.gradeLevel || "غير محدد";
+  localStorage.setItem(
+    HISTORY_KEY,
+    JSON.stringify(
+      history.slice(0,20)
+    )
+  );
+}
 
-    $("ctxSubject").textContent =
-      session.subject || "غير محدد";
 
-    $("ctxLesson").textContent =
-      session.lessonTopic || "غير محدد";
+/* ========================================================
+   CONTEXT
+======================================================== */
 
-    $("ctxGoal").textContent =
-      session.learningGoal || "غير محدد";
+function renderContext(){
 
-    $("ctxChallenge").textContent =
-      session.classChallenge || "غير محدد";
+  const session = getSession();
 
-    $("ctxLevel").textContent =
-      session.studentLevel || "غير محدد";
+  $("ctxGrade").textContent =
+    session.gradeLevel ||
+    "غير محدد";
 
-    return session;
-  }
+  $("ctxSubject").textContent =
+    session.subject ||
+    "غير محدد";
 
-  function hasContext(session){
-    return Boolean(
-      session &&
-      session.subject &&
-      session.lessonTopic
+  $("ctxLesson").textContent =
+    session.lessonTopic ||
+    "غير محدد";
+
+  $("ctxGoal").textContent =
+    session.learningGoal ||
+    "غير محدد";
+
+  $("ctxChallenge").textContent =
+    session.classChallenge ||
+    "غير محدد";
+
+  $("ctxLevel").textContent =
+    session.studentLevel ||
+    "غير محدد";
+
+  return session;
+}
+
+
+/* ========================================================
+   GEMINI
+======================================================== */
+
+async function callGemini(task,session){
+
+  const controller =
+    new AbortController();
+
+  const timeout =
+    setTimeout(
+      ()=>controller.abort(),
+      65000
     );
-  }
 
-  async function callGemini(task, session){
-    const controller = new AbortController();
+  try{
 
-    const timeout = setTimeout(
-      () => controller.abort(),
-      70000
-    );
-
-    try{
-      const response = await fetch(
+    const response =
+      await fetch(
         "/api/gemini",
         {
           method:"POST",
+
           headers:{
-            "Content-Type":"application/json"
+            "Content-Type":
+              "application/json"
           },
+
           body:JSON.stringify({
             task,
             session
           }),
+
           signal:controller.signal
         }
       );
 
-      const raw = await response.text();
 
-      let data = {};
+    const raw =
+      await response.text();
 
-      if(raw){
-        try{
-          data = JSON.parse(raw);
-        }catch{
-          throw new Error(
-            "الخادم أعاد استجابة غير صالحة: " +
-            raw.slice(0,180)
-          );
-        }
+
+    let data = {};
+
+
+    if(raw){
+
+      try{
+        data = JSON.parse(raw);
+      }catch{
+        throw new Error(
+          "الخادم أعاد استجابة غير صالحة."
+        );
       }
 
-      if(!response.ok){
-        throw new Error(
+    }
+
+
+    if(!response.ok){
+
+      const error =
+        new Error(
           data?.error ||
-          "تعذر الاتصال بمحرك Gemini."
+          "تعذر الوصول إلى Gemini."
         );
-      }
 
-      if(!data?.text){
-        throw new Error(
-          "لم يُرجع Gemini نصًا."
-        );
-      }
-
-      return data.text;
-
-    }catch(error){
-      if(error?.name === "AbortError"){
-        throw new Error(
-          "استغرق إنشاء البدائل وقتًا أطول من المتوقع."
-        );
-      }
+      error.status =
+        response.status;
 
       throw error;
-
-    }finally{
-      clearTimeout(timeout);
     }
+
+
+    if(!data?.text){
+
+      throw new Error(
+        "لم يرجع محرك الاستدلال نصًا."
+      );
+    }
+
+
+    return {
+      text:data.text,
+      model:data.model || "Gemini",
+      fallback:
+        data.fallback === true
+    };
+
+
+  }catch(error){
+
+    if(
+      error?.name ===
+      "AbortError"
+    ){
+
+      const e =
+        new Error(
+          "استغرق Gemini وقتًا أطول من المتوقع."
+        );
+
+      e.status = 504;
+
+      throw e;
+    }
+
+
+    throw error;
+
+
+  }finally{
+
+    clearTimeout(timeout);
+
   }
+}
 
-  function normalizeText(text){
-    return String(text || "")
-      .replace(/\r/g,"")
-      .replace(/#{1,6}\s*/g,"")
-      .replace(/\*\*/g,"")
-      .replace(/^\s*[-•]\s*/gm,"")
-      .replace(/\n{3,}/g,"\n\n")
-      .trim();
-  }
 
-  const FIELD_ALIASES = {
-    name:[
-      "اسم القرار",
-      "اسم البديل"
-    ],
+/* ========================================================
+   DEMO FALLBACK
+======================================================== */
 
-    gap:[
-      "الفجوة التي يعالجها",
-      "الفجوة"
-    ],
+function localAlternatives(session){
 
-    rationale:[
-      "منطق التدريس",
-      "المنطق التربوي",
-      "منطق التعليم"
-    ],
+  const lesson =
+    session.lessonTopic ||
+    "موضوع الدرس";
 
-    start:[
-      "نقطة البداية"
-    ],
 
-    sequence:[
-      "تسلسل بناء المفهوم",
-      "تسلسل التعلم"
-    ],
+  const goal =
+    session.learningGoal ||
+    "ناتج التعلم";
 
-    teacher:[
-      "دور المعلم"
-    ],
 
-    student:[
-      "دور الطالب"
-    ],
+  const challenge =
+    session.classChallenge ||
+    "تفاوت مستوى الطلاب";
 
-    assessment:[
-      "نوع التقويم",
-      "التقويم"
-    ],
 
-    differentiation:[
-      "نوع التمايز",
-      "التمايز"
-    ],
+  return `
+اسم القرار: المدخل المفاهيمي البصري
+الفجوة التي يعالجها: ضعف الربط بين المفهوم والإجراء في ${lesson}.
+منطق التدريس: يبدأ التعلم بتمثيل بصري أو محسوس يوضح المعنى قبل الانتقال إلى الإجراء الرمزي.
+نقطة البداية: موقف بصري أو مثال ملموس مرتبط بالدرس.
+تسلسل بناء المفهوم: تمثيل بصري ثم تفسير شفهي ثم ربط بالرمز ثم تطبيق.
+دور المعلم: طرح أسئلة تكشف الفهم وتوجيه الملاحظة دون تقديم الحل مباشرة.
+دور الطالب: تفسير التمثيل ومناقشة العلاقة بينه وبين المفهوم.
+نوع التقويم: أسئلة تفسير قصيرة أثناء التعلم.
+نوع التمايز: تمثيلات بدرجات مختلفة من التعقيد.
+المخرج الأقوى: قدرة الطالب على تفسير المفهوم قبل تنفيذ الإجراء.
+ما قد لا يتحقق بصورة كافية: قد يقل الوقت المتاح للتدريب الإجرائي.
+القيد الذي قد يمنع اختياره: محدودية الوقت أو الموارد البصرية.
 
-    strongest:[
-      "المخرج الأقوى",
-      "أقوى مخرج متوقع",
-      "المخرج الأساسي"
-    ],
+اسم القرار: تحليل الأخطاء الشائعة
+الفجوة التي يعالجها: استمرار الأخطاء دون معرفة الطالب لسببها.
+منطق التدريس: يعرض المعلم أخطاء نموذجية ويطلب من الطلاب اكتشاف موضع الخلل وتبرير التصحيح.
+نقطة البداية: حل يتضمن خطأ شائعًا مرتبطًا بـ ${lesson}.
+تسلسل بناء المفهوم: اكتشاف الخطأ ثم تفسيره ثم تصحيحه ثم تطبيق الفكرة في مثال جديد.
+دور المعلم: إدارة الحوار وطلب الأدلة والتبريرات.
+دور الطالب: تحليل الحل ومناقشة سبب الخطأ وتقديم التصحيح.
+نوع التقويم: ملاحظة جودة التفسير أثناء النقاش.
+نوع التمايز: اختلاف مستوى تعقيد الأخطاء حسب المجموعة.
+المخرج الأقوى: قدرة الطالب على تشخيص الخطأ وتصحيحه بوعي.
+ما قد لا يتحقق بصورة كافية: قد يحتاج بعض الطلاب إلى بناء مفاهيمي إضافي.
+القيد الذي قد يمنع اختياره: الحاجة إلى إدارة صفية دقيقة.
 
-    limitation:[
-      "ما قد لا يتحقق بصورة كافية",
-      "ما قد لا يتحقق",
-      "ما الذي قد لا يتحقق"
-    ],
+اسم القرار: التدرج المنظم نحو الاستقلال
+الفجوة التي يعالجها: ${challenge}.
+منطق التدريس: يبدأ المعلم بنموذج موجه ثم يقلل الدعم تدريجيًا حتى يؤدي الطالب المهمة باستقلال.
+نقطة البداية: نموذج قصير مشترك يوضح طريقة التفكير.
+تسلسل بناء المفهوم: نمذجة ثم ممارسة موجهة ثم ممارسة تعاونية ثم تطبيق مستقل.
+دور المعلم: تقديم الدعم ومراقبة أدلة الفهم ثم تقليله تدريجيًا.
+دور الطالب: المشاركة في الحل ثم تحمل مسؤولية أكبر تدريجيًا.
+نوع التقويم: نقاط فحص قصيرة أثناء الانتقال بين المراحل.
+نوع التمايز: اختلاف مقدار الدعم وفق حاجة الطالب.
+المخرج الأقوى: انتقال الطالب إلى أداء مستقل مرتبط بـ ${goal}.
+ما قد لا يتحقق بصورة كافية: قد يحتاج بعض الطلاب وقتًا أطول لبناء الفهم العميق.
+القيد الذي قد يمنع اختياره: التفاوت الكبير بين الطلاب وضيق الوقت.
+`.trim();
+}
 
-    constraint:[
-      "القيد الذي قد يمنع اختياره",
-      "القيد المحتمل",
-      "القيد"
-    ]
-  };
 
-  function extractField(block, aliases){
-    const lines = String(block || "")
+/* ========================================================
+   TEXT
+======================================================== */
+
+function normalizeText(text){
+
+  return String(text || "")
+    .replace(/\r/g,"")
+    .replace(/#{1,6}\s*/g,"")
+    .replace(/\*\*/g,"")
+    .replace(/^\s*[-•]\s*/gm,"")
+    .replace(/\n{3,}/g,"\n\n")
+    .trim();
+}
+
+
+/* ========================================================
+   PARSER
+======================================================== */
+
+const FIELD_ALIASES = {
+
+  name:[
+    "اسم القرار",
+    "اسم البديل"
+  ],
+
+  gap:[
+    "الفجوة التي يعالجها",
+    "الفجوة"
+  ],
+
+  rationale:[
+    "منطق التدريس",
+    "المنطق التربوي"
+  ],
+
+  start:[
+    "نقطة البداية"
+  ],
+
+  sequence:[
+    "تسلسل بناء المفهوم",
+    "تسلسل التعلم"
+  ],
+
+  teacher:[
+    "دور المعلم"
+  ],
+
+  student:[
+    "دور الطالب"
+  ],
+
+  assessment:[
+    "نوع التقويم",
+    "التقويم"
+  ],
+
+  differentiation:[
+    "نوع التمايز",
+    "التمايز"
+  ],
+
+  strongest:[
+    "المخرج الأقوى",
+    "أقوى مخرج متوقع"
+  ],
+
+  limitation:[
+    "ما قد لا يتحقق بصورة كافية",
+    "ما قد لا يتحقق"
+  ],
+
+  constraint:[
+    "القيد الذي قد يمنع اختياره",
+    "القيد المحتمل"
+  ]
+};
+
+
+function extractField(block,aliases){
+
+  const lines =
+    String(block || "")
       .split("\n")
-      .map(line => line.trim())
+      .map(
+        line=>line.trim()
+      )
       .filter(Boolean);
 
-    for(let i = 0; i < lines.length; i++){
-      for(const alias of aliases){
-        const escaped = alias.replace(
-          /[.*+?^${}()|[\]\\]/g,
-          "\\$&"
-        );
 
-        const regex = new RegExp(
-          "^\\s*" +
-          escaped +
-          "\\s*[:：]\\s*(.*)$",
-          "i"
-        );
+  for(
+    let i=0;
+    i<lines.length;
+    i++
+  ){
 
-        const match = lines[i].match(regex);
+    for(
+      const alias
+      of aliases
+    ){
 
-        if(match){
-          let value = (match[1] || "").trim();
+      if(
+        lines[i].startsWith(alias + ":") ||
+        lines[i].startsWith(alias + "：")
+      ){
 
-          if(!value && lines[i + 1]){
-            value = lines[i + 1].trim();
-          }
+        const value =
+          lines[i]
+            .replace(alias,"")
+            .replace(/^[:：]\s*/,"")
+            .trim();
 
+
+        if(value){
           return value;
+        }
+
+
+        if(lines[i+1]){
+          return lines[i+1];
         }
       }
     }
-
-    return "";
   }
 
-  function splitAlternativeBlocks(text){
-    const normalized = normalizeText(text);
 
-    let blocks = normalized
-      .split(
-        /(?=اسم\s+(?:القرار|البديل)\s*[:：])/g
-      )
-      .map(item => item.trim())
-      .filter(
-        item =>
-          /اسم\s+(?:القرار|البديل)\s*[:：]/.test(item)
-      );
+  return "";
+}
 
-    if(blocks.length < 3){
-      blocks = normalized
-        .split(
-          /(?=(?:البديل|بديل)\s+(?:الأول|الثاني|الثالث|1|2|3|A|B|C|أ|ب|ج)\s*[:：\-–]?)/g
-        )
-        .map(item => item.trim())
-        .filter(item => item.length > 40);
-    }
 
-    return blocks.slice(0,3);
-  }
+function splitAlternativeBlocks(text){
 
-  function parseAlternative(block,index){
-    const get = key =>
+  return normalizeText(text)
+    .split(
+      /(?=اسم\s+(?:القرار|البديل)\s*[:：])/g
+    )
+    .map(
+      item=>item.trim()
+    )
+    .filter(
+      item=>
+        /اسم\s+(?:القرار|البديل)\s*[:：]/
+          .test(item)
+    )
+    .slice(0,3);
+}
+
+
+function parseAlternative(block,index){
+
+  const get =
+    key=>
       extractField(
         block,
         FIELD_ALIASES[key]
       );
 
-    return {
-      id:`alternative-${index + 1}`,
-      name:get("name") || `البديل التربوي ${index + 1}`,
-      gap:get("gap"),
-      rationale:get("rationale"),
-      start:get("start"),
-      sequence:get("sequence"),
-      teacher:get("teacher"),
-      student:get("student"),
-      assessment:get("assessment"),
-      differentiation:get("differentiation"),
-      strongest:get("strongest"),
-      limitation:get("limitation"),
-      constraint:get("constraint"),
-      raw:block
-    };
+
+  return {
+
+    id:
+      `alternative-${index+1}`,
+
+    name:
+      get("name") ||
+      `البديل التربوي ${index+1}`,
+
+    gap:
+      get("gap"),
+
+    rationale:
+      get("rationale"),
+
+    start:
+      get("start"),
+
+    sequence:
+      get("sequence"),
+
+    teacher:
+      get("teacher"),
+
+    student:
+      get("student"),
+
+    assessment:
+      get("assessment"),
+
+    differentiation:
+      get("differentiation"),
+
+    strongest:
+      get("strongest"),
+
+    limitation:
+      get("limitation"),
+
+    constraint:
+      get("constraint")
+  };
+}
+
+
+/* ========================================================
+   RENDERING
+======================================================== */
+
+function fieldHTML(label,value){
+
+  if(!value){
+    return "";
   }
 
-  function fallbackAlternatives(text){
-    const paragraphs = normalizeText(text)
-      .split(/\n{2,}/)
-      .map(p => p.trim())
-      .filter(p => p.length > 20);
 
-    const groups = [[],[],[]];
+  return `
+    <div class="field">
 
-    paragraphs.forEach((paragraph,index)=>{
-      groups[index % 3].push(paragraph);
-    });
+      <span class="field-label">
+        ${esc(label)}
+      </span>
 
-    return groups.map((group,index)=>({
-      id:`alternative-${index + 1}`,
-      name:`البديل التربوي ${index + 1}`,
-      gap:"",
-      rationale:group.join("\n\n"),
-      start:"",
-      sequence:"",
-      teacher:"",
-      student:"",
-      assessment:"",
-      differentiation:"",
-      strongest:"",
-      limitation:"",
-      constraint:"",
-      raw:group.join("\n\n")
-    }));
-  }
-
-  function fieldHTML(label,value){
-    if(!value){
-      return "";
-    }
-
-    return `
-      <div class="field">
-        <span class="field-label">
-          ${esc(label)}
-        </span>
-
-        <div class="field-value">
-          ${esc(value)}
-        </div>
+      <div class="field-value">
+        ${esc(value)}
       </div>
-    `;
+
+    </div>
+  `;
+}
+
+
+function renderAlternatives(alternatives){
+
+  const letters =
+    ["A","B","C"];
+
+
+  $("cards").innerHTML =
+    alternatives.map(
+      (alt,index)=>`
+
+<article
+  class="card"
+  id="${alt.id}"
+>
+
+  <div class="card-head">
+
+    <span class="card-badge">
+      البديل ${letters[index]}
+    </span>
+
+    <div class="card-title">
+      ${esc(alt.name)}
+    </div>
+
+  </div>
+
+
+  <div class="card-body">
+
+    ${fieldHTML(
+      "الفجوة التي يعالجها",
+      alt.gap
+    )}
+
+    ${fieldHTML(
+      "منطق التدريس",
+      alt.rationale
+    )}
+
+    ${fieldHTML(
+      "المخرج الأقوى",
+      alt.strongest
+    )}
+
+    ${fieldHTML(
+      "ما قد لا يتحقق بصورة كافية",
+      alt.limitation
+    )}
+
+
+    <div class="more">
+
+      ${fieldHTML(
+        "نقطة البداية",
+        alt.start
+      )}
+
+      ${fieldHTML(
+        "تسلسل بناء المفهوم",
+        alt.sequence
+      )}
+
+      ${fieldHTML(
+        "دور المعلم",
+        alt.teacher
+      )}
+
+      ${fieldHTML(
+        "دور الطالب",
+        alt.student
+      )}
+
+      ${fieldHTML(
+        "نوع التقويم",
+        alt.assessment
+      )}
+
+      ${fieldHTML(
+        "نوع التمايز",
+        alt.differentiation
+      )}
+
+      ${fieldHTML(
+        "القيد المحتمل",
+        alt.constraint
+      )}
+
+    </div>
+
+  </div>
+
+
+  <div class="card-actions">
+
+    <button
+      type="button"
+      class="details-btn"
+      onclick="toggleDetails('${alt.id}',this)"
+    >
+      عرض التحليل الكامل
+    </button>
+
+
+    <button
+      type="button"
+      class="select-btn"
+      onclick="selectAlternative(${index})"
+    >
+      اختيار هذا البديل
+    </button>
+
+  </div>
+
+
+  <div class="selected-panel">
+
+    ✓ تم اختيار هذا البديل للمراجعة النهائية
+
+    <button
+      type="button"
+      class="continue-btn"
+      onclick="openApproval()"
+    >
+      الانتقال إلى مراجعة القرار ←
+    </button>
+
+    <button
+      type="button"
+      class="change-btn"
+      onclick="clearSelection()"
+    >
+      تغيير القرار
+    </button>
+
+  </div>
+
+</article>
+      `
+    ).join("");
+
+
+  $("cards")
+    .classList
+    .remove("hidden");
+}
+
+
+function toggleDetails(id,button){
+
+  const card =
+    document.getElementById(id);
+
+
+  if(!card){
+    return;
   }
 
-  function renderAlternatives(alternatives){
-    const letters = ["A","B","C"];
 
-    $("cards").innerHTML =
-      alternatives.map((alt,index)=>`
-        <article
-          class="card"
-          id="${alt.id}"
-        >
+  card.classList.toggle("open");
 
-          <div class="card-header">
-            <span class="badge">
-              البديل ${letters[index]} · Generated
-            </span>
 
-            <div class="card-title">
-              ${esc(alt.name)}
-            </div>
-          </div>
+  button.textContent =
+    card.classList.contains("open")
+      ? "إخفاء التحليل"
+      : "عرض التحليل الكامل";
+}
 
-          <div class="card-body">
 
-            ${fieldHTML(
-              "الفجوة التي يعالجها",
-              alt.gap
-            )}
+/* ========================================================
+   SELECTION
+======================================================== */
 
-            ${fieldHTML(
-              "منطق التدريس",
-              alt.rationale
-            )}
+function selectAlternative(index){
 
-            ${fieldHTML(
-              "المخرج الأقوى",
-              alt.strongest
-            )}
+  const alt =
+    currentAlternatives[index];
 
-            ${fieldHTML(
-              "ما قد لا يتحقق بصورة كافية",
-              alt.limitation
-            )}
 
-            <div class="more">
-
-              ${fieldHTML(
-                "نقطة البداية",
-                alt.start
-              )}
-
-              ${fieldHTML(
-                "تسلسل بناء المفهوم",
-                alt.sequence
-              )}
-
-              ${fieldHTML(
-                "دور المعلم",
-                alt.teacher
-              )}
-
-              ${fieldHTML(
-                "دور الطالب",
-                alt.student
-              )}
-
-              ${fieldHTML(
-                "نوع التقويم",
-                alt.assessment
-              )}
-
-              ${fieldHTML(
-                "نوع التمايز",
-                alt.differentiation
-              )}
-
-              ${fieldHTML(
-                "القيد المحتمل",
-                alt.constraint
-              )}
-
-            </div>
-
-          </div>
-
-          <div class="actions">
-
-            <button
-              type="button"
-              class="details-btn"
-              onclick="toggleDetails('${alt.id}',this)"
-            >
-              عرض التحليل الكامل
-            </button>
-
-            <button
-              type="button"
-              class="select-btn"
-              onclick="selectAlternative(${index})"
-            >
-              اختيار هذا البديل
-            </button>
-
-          </div>
-
-          <div class="selected-panel">
-            ✓ تم اختيار هذا البديل للمراجعة النهائية
-
-            <button
-              type="button"
-              class="continue-btn"
-              onclick="goToApproval()"
-            >
-              الانتقال إلى مراجعة القرار ←
-            </button>
-
-            <button
-              type="button"
-              class="change-btn"
-              onclick="clearSelection()"
-            >
-              تغيير القرار
-            </button>
-          </div>
-
-        </article>
-      `).join("");
-
-    $("cards").classList.remove("hidden");
+  if(!alt){
+    return;
   }
 
-  function toggleDetails(id,button){
-    const card = document.getElementById(id);
 
-    if(!card){
-      return;
-    }
+  document
+    .querySelectorAll(".card")
+    .forEach(
+      (card,cardIndex)=>{
 
-    card.classList.toggle("open");
-
-    button.textContent =
-      card.classList.contains("open")
-        ? "إخفاء التحليل"
-        : "عرض التحليل الكامل";
-  }
-
-  function selectAlternative(index){
-    const alt = currentAlternatives[index];
-
-    if(!alt){
-      return;
-    }
-
-    document
-      .querySelectorAll(".card")
-      .forEach((card,cardIndex)=>{
         if(cardIndex === index){
-          card.classList.add("selected");
-          card.classList.remove("dimmed");
+
+          card.classList.add(
+            "selected"
+          );
+
+          card.classList.remove(
+            "dimmed"
+          );
+
         }else{
-          card.classList.remove("selected");
-          card.classList.add("dimmed");
+
+          card.classList.remove(
+            "selected"
+          );
+
+          card.classList.add(
+            "dimmed"
+          );
+
         }
-      });
 
-    const session = getSession();
+      }
+    );
 
-    session.selectedAlternative = alt.id;
-    session.selectedAlternativeData = alt;
-    session.approvedDecision = alt.name;
-    session.teacherApproval = false;
-    session.sessionStatus = "ALTERNATIVE_SELECTED";
 
-    saveSession(session);
-  }
+  const session =
+    getSession();
 
-  function clearSelection(){
-    document
-      .querySelectorAll(".card")
-      .forEach(card=>{
+
+  session.selectedAlternative =
+    alt.id;
+
+  session.selectedAlternativeData =
+    alt;
+
+  session.approvedDecision =
+    alt.name;
+
+  session.teacherApproval =
+    false;
+
+  session.sessionStatus =
+    "ALTERNATIVE_SELECTED";
+
+
+  saveSession(session);
+}
+
+
+function clearSelection(){
+
+  document
+    .querySelectorAll(".card")
+    .forEach(
+      card=>
         card.classList.remove(
           "selected",
           "dimmed"
-        );
-      });
+        )
+    );
 
-    const session = getSession();
 
-    delete session.selectedAlternative;
-    delete session.selectedAlternativeData;
-    delete session.approvedDecision;
+  const session =
+    getSession();
 
-    session.teacherApproval = false;
-    session.sessionStatus = "ALTERNATIVES_GENERATED";
 
-    saveSession(session);
-  }
+  delete session.selectedAlternative;
+  delete session.selectedAlternativeData;
+  delete session.approvedDecision;
 
-  function goToApproval(){
-    const session = getSession();
 
-    if(!session.selectedAlternative){
-      alert("اختاري أحد البدائل أولًا.");
-      return;
-    }
+  session.teacherApproval =
+    false;
 
-    window.location.href =
-      "teacher-approval.html";
-  }
+  session.sessionStatus =
+    "ALTERNATIVES_GENERATED";
 
-  function readCache(session){
-    const raw =
-      localStorage.getItem(GENERATED_KEY);
 
-    if(!raw){
-      return null;
-    }
+  saveSession(session);
+}
 
-    const cached = safeParse(raw,null);
 
-    if(!cached){
-      return null;
-    }
+/* ========================================================
+   CACHE
+======================================================== */
 
-    const same =
-      String(cached.subject || "") ===
-        String(session.subject || "") &&
-      String(cached.lessonTopic || "") ===
-        String(session.lessonTopic || "") &&
-      String(cached.learningGoal || "") ===
-        String(session.learningGoal || "");
+function readCache(session){
 
-    if(same && cached.text){
-      return cached.text;
-    }
+  const raw =
+    localStorage.getItem(
+      CACHE_KEY
+    );
 
+
+  if(!raw){
     return null;
   }
 
-  function saveCache(session,text){
-    localStorage.setItem(
-      GENERATED_KEY,
-      JSON.stringify({
-        subject:session.subject || "",
-        lessonTopic:session.lessonTopic || "",
-        learningGoal:session.learningGoal || "",
-        text,
-        generatedAt:new Date().toISOString()
-      })
-    );
+
+  const cached =
+    safeParse(raw,null);
+
+
+  if(!cached){
+    return null;
   }
 
-  function processOutput(session,text){
-    const normalized = normalizeText(text);
 
-    $("rawText").textContent = normalized;
-    $("rawOutput").classList.remove("hidden");
+  const same =
+    cached.subject === session.subject &&
+    cached.lessonTopic === session.lessonTopic &&
+    cached.learningGoal === session.learningGoal;
 
-    const blocks =
-      splitAlternativeBlocks(normalized);
 
-    let alternatives;
+  if(
+    same &&
+    cached.text
+  ){
+    return cached.text;
+  }
 
-    if(blocks.length >= 3){
-      alternatives =
-        blocks.map((block,index)=>
-          parseAlternative(block,index)
-        );
-    }else{
-      alternatives =
-        fallbackAlternatives(normalized);
-    }
 
-    currentAlternatives =
-      alternatives;
+  return null;
+}
 
-    session.generatedAlternatives =
-      alternatives;
 
-    session.alternativesRaw =
+function saveCache(session,text){
+
+  localStorage.setItem(
+    CACHE_KEY,
+    JSON.stringify({
+
+      subject:
+        session.subject,
+
+      lessonTopic:
+        session.lessonTopic,
+
+      learningGoal:
+        session.learningGoal,
+
+      text,
+
+      generatedAt:
+        new Date().toISOString()
+
+    })
+  );
+}
+
+
+/* ========================================================
+   PROCESS
+======================================================== */
+
+function processOutput(session,text){
+
+  let normalized =
+    normalizeText(text);
+
+
+  let blocks =
+    splitAlternativeBlocks(
+      normalized
+    );
+
+
+  if(
+    blocks.length < 3
+  ){
+
+    normalized =
+      localAlternatives(
+        session
+      );
+
+
+    blocks =
+      splitAlternativeBlocks(
+        normalized
+      );
+
+
+    $("sourceStatus")
+      .className =
+        "status demo";
+
+
+    $("sourceStatus")
+      .textContent =
+        "Demo Fallback نشط — تم استخدام بدائل احتياطية لضمان استمرار مسار التقييم.";
+  }
+
+
+  const alternatives =
+    blocks.map(
+      (block,index)=>
+        parseAlternative(
+          block,
+          index
+        )
+    );
+
+
+  currentAlternatives =
+    alternatives;
+
+
+  session.generatedAlternatives =
+    alternatives;
+
+  session.alternativesRaw =
+    normalized;
+
+  session.sessionStatus =
+    "ALTERNATIVES_GENERATED";
+
+  session.teacherApproval =
+    false;
+
+
+  saveSession(
+    session
+  );
+
+
+  $("rawText")
+    .textContent =
       normalized;
 
-    session.sessionStatus =
-      "ALTERNATIVES_GENERATED";
 
-    session.teacherApproval =
-      false;
+  $("rawOutput")
+    .classList
+    .remove("hidden");
 
-    delete session.selectedAlternative;
-    delete session.selectedAlternativeData;
-    delete session.approvedDecision;
 
-    saveSession(session);
+  renderAlternatives(
+    alternatives
+  );
+}
 
-    renderAlternatives(alternatives);
+
+/* ========================================================
+   GENERATE
+======================================================== */
+
+async function generateAlternatives(force=false){
+
+  if(generating){
+    return;
   }
 
-  async function generateAlternatives(force = false){
-    if(generating){
-      return;
+
+  generating = true;
+
+
+  $("loadingBox")
+    .classList
+    .remove("hidden");
+
+
+  $("errorBox")
+    .classList
+    .add("hidden");
+
+
+  $("cards")
+    .classList
+    .add("hidden");
+
+
+  try{
+
+    const session =
+      renderContext();
+
+
+    if(
+      !session.subject ||
+      !session.lessonTopic
+    ){
+
+      throw new Error(
+        "لم أجد بيانات الموقف. عودي إلى صفحة تحليل الموقف وابدئي الجلسة."
+      );
     }
 
-    generating = true;
 
-    $("loadingBox").classList.remove("hidden");
-    $("errorBox").classList.add("hidden");
-    $("cards").classList.add("hidden");
-    $("rawOutput").classList.add("hidden");
+    $("sourceStatus")
+      .className =
+        "status success";
 
-    try{
-      const session = renderContext();
 
-      if(!hasContext(session)){
-        throw new Error(
-          "لم أجد المادة أو عنوان الدرس في الجلسة الحالية. عودي إلى صفحة تحليل الموقف وابدئي المسار من هناك."
-        );
-      }
-
-      $("sourceStatus").textContent =
+    $("sourceStatus")
+      .textContent =
         "✓ تم العثور على بيانات الجلسة الحالية.";
 
-      $("sourceStatus").classList.add("success");
 
-      if(!force){
-        const cached = readCache(session);
+    if(!force){
 
-        if(cached){
-          $("loadingDetail").textContent =
-            "تم العثور على بدائل محفوظة لنفس الموقف.";
+      const cached =
+        readCache(session);
 
-          processOutput(
-            session,
-            cached
-          );
 
-          return;
-        }
+      if(cached){
+
+        $("loadingText")
+          .textContent =
+            "تم العثور على بدائل محفوظة لهذه الجلسة.";
+
+
+        processOutput(
+          session,
+          cached
+        );
+
+
+        return;
       }
 
-      $("loadingDetail").textContent =
-        "يتم الآن إرسال بيانات الموقف إلى محرك Gemini.";
+    }
 
-      const text =
+
+    $("loadingText")
+      .textContent =
+        "جارٍ استدعاء محرك الاستدلال...";
+
+
+    try{
+
+      const result =
         await callGemini(
           "alternatives",
           session
         );
 
-      $("loadingDetail").textContent =
-        "تم استلام البدائل، جارٍ عرضها...";
+
+      if(result.fallback){
+
+        $("sourceStatus")
+          .className =
+            "status demo";
+
+
+        $("sourceStatus")
+          .textContent =
+            "Demo Fallback نشط — Gemini غير متاح مؤقتًا.";
+
+      }
+
 
       saveCache(
         session,
-        text
+        result.text
       );
+
 
       processOutput(
         session,
-        text
+        result.text
       );
 
-    }catch(error){
-      console.error(
-        "Alternatives page error:",
-        error
+
+    }catch(apiError){
+
+      console.warn(
+        "Gemini unavailable:",
+        apiError
       );
 
-      $("errorText").textContent =
+
+      const fallbackText =
+        localAlternatives(
+          session
+        );
+
+
+      $("sourceStatus")
+        .className =
+          "status demo";
+
+
+      $("sourceStatus")
+        .textContent =
+          "Demo Fallback نشط — تعذر الوصول إلى Gemini، لكن مسار القرار مستمر.";
+
+
+      processOutput(
+        session,
+        fallbackText
+      );
+
+    }
+
+
+  }catch(error){
+
+    console.error(error);
+
+
+    $("errorText")
+      .textContent =
         error?.message ||
-        "حدث خطأ أثناء إنشاء البدائل.";
+        "تعذر تشغيل صفحة البدائل.";
 
-      $("errorBox").classList.remove("hidden");
 
-    }finally{
-      $("loadingBox").classList.add("hidden");
-      generating = false;
-    }
+    $("errorBox")
+      .classList
+      .remove("hidden");
+
+
+  }finally{
+
+    $("loadingBox")
+      .classList
+      .add("hidden");
+
+
+    generating =
+      false;
+
   }
+}
 
-  window.addEventListener(
-    "error",
-    function(event){
-      console.error(
-        "Global page error:",
-        event.error || event.message
-      );
 
-      if($("loadingBox")){
-        $("loadingBox").classList.add("hidden");
-      }
+/* ========================================================
+   ERROR PROTECTION
+======================================================== */
 
-      if($("errorBox") && $("errorText")){
-        $("errorText").textContent =
-          "حدث خطأ داخل الصفحة: " +
-          (event.message || "خطأ غير معروف.");
+window.addEventListener(
+  "error",
+  function(event){
 
-        $("errorBox").classList.remove("hidden");
-      }
-    }
-  );
+    console.error(
+      "Page error:",
+      event.error ||
+      event.message
+    );
 
-  window.addEventListener(
-    "unhandledrejection",
-    function(event){
-      console.error(
-        "Unhandled promise rejection:",
-        event.reason
-      );
+  }
+);
 
-      if($("loadingBox")){
-        $("loadingBox").classList.add("hidden");
-      }
 
-      if($("errorBox") && $("errorText")){
-        $("errorText").textContent =
-          "تعذر إكمال الطلب: " +
-          (
-            event.reason?.message ||
-            String(event.reason || "")
-          );
+window.addEventListener(
+  "unhandledrejection",
+  function(event){
 
-        $("errorBox").classList.remove("hidden");
-      }
-    }
-  );
+    console.error(
+      "Unhandled rejection:",
+      event.reason
+    );
 
-  document.addEventListener(
-    "DOMContentLoaded",
-    function(){
-      try{
-        renderContext();
-        generateAlternatives();
-      }catch(error){
-        console.error(error);
+  }
+);
 
-        $("loadingBox").classList.add("hidden");
-        $("errorText").textContent =
-          error?.message ||
-          "تعذر تشغيل صفحة البدائل.";
 
-        $("errorBox").classList.remove("hidden");
-      }
-    }
-  );
+/* ========================================================
+   START
+======================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    renderContext();
+
+    generateAlternatives();
+
+  }
+);
+
 </script>
 
 </body>
